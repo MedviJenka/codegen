@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/paths.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/jira.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codegen.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/logic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event_listener.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/event_listener.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/executor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/codegen.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_codegen.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/run_codegen.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +54,7 @@
     "PowerShell.run_codegen.ps1 (3).executor": "Run",
     "PowerShell.run_codegen.ps1.executor": "Run",
     "Python.codegen (1).executor": "Run",
+    "Python.jira.executor": "Debug",
     "Python.main (1).executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -79,11 +74,7 @@
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\core" />
     </key>
   </component>
-  <component name="RunManager" selected="PowerShell.run_codegen.ps1 (3)">
-    <configuration name="run_codegen.ps1 (1)" type="PowerShellRunType" factoryName="PowerShell" temporary="true" scriptUrl="$PROJECT_DIR$/run_codegen.ps1" executablePath="$PROJECT_DIR$/../../../../WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe">
-      <envs />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.jira">
     <configuration name="run_codegen.ps1 (2)" type="PowerShellRunType" factoryName="PowerShell" temporary="true" scriptUrl="$PROJECT_DIR$/run_codegen.ps1" executablePath="$PROJECT_DIR$/../../../../WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe">
       <envs />
       <method v="2" />
@@ -118,13 +109,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="jira" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="codegen" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/jira.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.jira" />
+        <item itemvalue="PowerShell.run_codegen.ps1" />
         <item itemvalue="PowerShell.run_codegen.ps1 (3)" />
         <item itemvalue="PowerShell.run_codegen.ps1 (2)" />
         <item itemvalue="Python.codegen (1)" />
-        <item itemvalue="PowerShell.run_codegen.ps1 (1)" />
-        <item itemvalue="PowerShell.run_codegen.ps1" />
       </list>
     </recent_temporary>
   </component>
@@ -156,5 +169,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/jira.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

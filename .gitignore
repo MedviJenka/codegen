@@ -1,3 +1,4 @@
 /output/code_gen.log
 /output/page_base.csv
 /venv/
+/.env
