@@ -1,14 +1,10 @@
 import logging
+from __core.paths import LOG
 from dataclasses import dataclass
-
-
-LOGS = 'code_gen.log'
 
 
 @dataclass
 class Logger:
-
-    path: str = LOGS
 
     def __post_init__(self):
         self.format = '%(levelname)s | %(asctime)s | %(name)s | %(message)s | Function: %(funcName)s | Line: %(lineno)d'
@@ -18,7 +14,7 @@ class Logger:
     def _configure_logger(self):
         """Configures the root logger."""
         logging.basicConfig(
-            filename=self.path,
+            filename=LOG,
             filemode='w',
             format=self.format,
             datefmt=self.date,

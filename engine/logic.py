@@ -1,8 +1,9 @@
 import csv
 from typing import Optional
+from core.paths import PAGE_BASE
 from event_listener import init_code, JS_SCRIPT
-from executor import Executor
-from logger import Logger
+from core.executor import Executor
+from core.logger import Logger
 from playwright.sync_api import sync_playwright
 
 
@@ -11,17 +12,20 @@ log = Logger()
 
 class BrowserRecorder(Executor):
 
-    """
-    TODO: 1. generate .exe
-
-    """
-
-    def __init__(self, device: str,
-                 output_csv: str = "page_base.csv",
+    def __init__(self,
+                 device: str,
+                 output_csv: str = PAGE_BASE,
                  screen: Optional[str] = None,
-                 generate_code: Optional[bool] = False) -> None:
+                 generate_code: Optional[bool] = False,
+                 prompt: Optional[str] = '') -> None:
+
         self.device = device
         self.generate_code = generate_code
+        self.prompt = prompt
+        self.interactions = []
+        self.recorded_elements = set()
+        self.output_csv = output_csv
+
         # Check if a custom screen is provided, and override defaults if so
         if screen:
             self.screen = screen
@@ -31,10 +35,6 @@ class BrowserRecorder(Executor):
             self.screen = 'https://devngming.ai-logix.net'
         else:
             raise ValueError("A valid screen URL must be provided for custom devices.")
-
-        self.interactions = []
-        self.recorded_elements = set()
-        self.output_csv = output_csv
 
     def run(self) -> None:
         """Run the browser and automate interactions."""
@@ -165,4 +165,3 @@ class BrowserRecorder(Executor):
 
         except Exception as e:
             log.log_error(f'error: {e}')
-
