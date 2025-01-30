@@ -1,12 +1,10 @@
-# PowerShell script to set up and run the Python application in a virtual environment
-
-# Ensure PowerShell allows execution of this script for the current session
+# Set PowerShell execution policy for this session
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
-# Get the script directory dynamically (so it works for any user)
+# Get the script directory dynamically
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $venvPath = Join-Path $scriptDir "venv"
-$pythonScript = Join-Path $scriptDir "main.py"
+$pythonScript = Join-Path $scriptDir "engine/codegen.py"
 $requirementsFile = Join-Path $scriptDir "requirements.txt"
 
 # Check if Python is installed
@@ -16,7 +14,7 @@ if (-not $python) {
     exit 1
 }
 
-# Create and activate virtual environment only if it doesn't exist
+# Create virtual environment if it doesn't exist
 if (-Not (Test-Path $venvPath)) {
     Write-Host "Creating virtual environment..." -ForegroundColor Yellow
     py -m venv $venvPath
@@ -27,7 +25,7 @@ Write-Host "Activating virtual environment..." -ForegroundColor Cyan
 $activateScript = Join-Path $venvPath "Scripts\Activate.ps1"
 & $activateScript
 
-# Install dependencies from requirements.txt if it exists
+# Install dependencies if requirements.txt exists
 if (Test-Path $requirementsFile) {
     Write-Host "Installing dependencies from requirements.txt..." -ForegroundColor Green
     pip install -r $requirementsFile
@@ -35,7 +33,7 @@ if (Test-Path $requirementsFile) {
     Write-Host "No requirements.txt found. Skipping dependency installation." -ForegroundColor Yellow
 }
 
-# Check if Playwright is installed, install it if necessary
+# Check and install Playwright if necessary
 $playwrightInstalled = pip show playwright -q
 if (-not $playwrightInstalled) {
     Write-Host "Playwright not found. Installing Playwright..." -ForegroundColor Yellow
@@ -45,6 +43,9 @@ if (-not $playwrightInstalled) {
 } else {
     Write-Host "Playwright is already installed." -ForegroundColor Green
 }
+
+# 🔥 Fix Module Import Error by Setting PYTHONPATH
+$env:PYTHONPATH = $scriptDir
 
 # Run the Python script
 Write-Host "Running the Python script: $pythonScript" -ForegroundColor Magenta

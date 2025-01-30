@@ -1,5 +1,5 @@
 import logging
-from __core.paths import LOG
+from core.paths import LOG
 from dataclasses import dataclass
 
 
