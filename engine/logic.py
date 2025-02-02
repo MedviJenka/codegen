@@ -1,6 +1,6 @@
 import csv
 from typing import Optional
-from core.paths import PAGE_BASE
+from core.paths import PAGE_BASE, PYTHON_CODE
 from event_listener import init_code, JS_SCRIPT
 from core.executor import Executor
 from core.logger import Logger
@@ -141,10 +141,9 @@ class BrowserRecorder(Executor):
 
     @staticmethod
     def __create_python_file(output: str) -> None:
-        file_path = "test_code.py"
-        with open(file_path, "w") as file:
+        with open(PYTHON_CODE, "w") as file:
             file.write(output)
-        log.log_info(f'python file: {file_path}')
+        log.log_info(f'python file: {PYTHON_CODE}')
 
     def execute(self, **kwargs: any) -> None:
 

@@ -1,4 +1,4 @@
-JS_SCRIPT = """
+JS_SCRIPT ="""
 window.recordedInteractions = [];
 
 // Debounce utility to delay logging until typing is finished
@@ -19,12 +19,10 @@ document.addEventListener('click', (event) => {
         return;
     }
 
-
     const tag_name = target.tagName.toLowerCase();
     const element_text = target.textContent.trim();
     const element_id = target.id.toLowerCase();
     const element_name = target.name.toLowerCase();
-
 
     const interaction = {
         action: 'click',
@@ -36,68 +34,59 @@ document.addEventListener('click', (event) => {
         value: null // No value for clicks
     };
     
-    
     window.recordedInteractions.push(interaction);
+
+    // Detect calendar dropdown after clicking date field
+    if (target.matches('input[type="text"], input.datepicker, .date-picker-field')) {
+        setTimeout(() => {
+            let calendar = document.querySelector('.calendar-dropdown, .datepicker-popup, [role="dialog"]');
+            if (calendar) {
+                console.log("Calendar dropdown detected:", calendar);
+            } else {
+                console.warn("Calendar dropdown not found.");
+            }
+        }, 500); // Small delay to allow rendering
+    }
 });
 
 // Capture input events with debouncing
 document.addEventListener('input', debounce((event) => {
-
     const target = event.target;
     const tag_name = target.tagName.toLowerCase();
     const element_id = target.id ? target.id.toLowerCase() : 'undetected';
     const element_name = target.name ? target.name.toLowerCase() : 'undetected';
 
-    // Only handle inputs or textareas
     if (target.tagName.toLowerCase() === 'input' || target.tagName.toLowerCase() === 'textarea') {
         const interaction = {
             action: 'input',
-            tag_name: `${element_id|| tag_name}_input`,
+            tag_name: `${element_id || tag_name}_input`,
             id: target.id || null,
             name: target.name || null,
             xpath: generateXPath(target),
             action_description: `Typed in ${target.tagName.toLowerCase()}`,
-            value: target.value || '' // Explicitly capture the full typed value
+            value: target.value || ''
         };
         window.recordedInteractions.push(interaction);
     }
-}, 2000)); // Adjust debounce delay as needed (300ms is typical)
+}, 100));
 
-// Capture checkbox events
-
-
-let checkboxCounter = 1; 
-
-// checkbox handler
+// Checkbox handler
 document.addEventListener('change', (event) => {
-    
     const target = event.target;
     const tag = target.tagName.toLowerCase();
     const id = target.id ? target.id.toLowerCase() : null;
     const name = target.name ? target.name.toLowerCase() : null;
 
-    // Only handle checkboxes
     if (tag === 'input' && target.type === 'checkbox') {
-        let tag_name;
-        
-        if (id) {
-            tag_name = `${id}_checkbox`;
-        } else if (name) {
-            tag_name = `${name}_checkbox`;
-        } else {
-            tag_name = `checkbox_${checkboxCounter++}`; // Assign sequential unique names
-        }
-
         const interaction = {
             action: 'change',
-            tag_name: tag_name,
+            tag_name: id || name || `checkbox_${Date.now()}`,
             id: id || null,
             name: name || null,
             xpath: generateXPath(target),
-            action_description: `Checkbox ${target.checked ? 'unchecked' : 'checked'}`,
+            action_description: `Checkbox ${target.checked ? 'checked' : 'unchecked'}`,
             value: target.checked ? 'on' : 'off'
         };
-
         window.recordedInteractions.push(interaction);
     }
 });
@@ -111,47 +100,39 @@ function generateXPath(element) {
     for (let i = 0; i < siblings.length; i++) {
         const sibling = siblings[i];
         if (sibling === element) {
-            const path = generateXPath(element.parentNode);
-            return `${path}/${element.tagName.toLowerCase()}[${ix + 1}]`;
+            return `${generateXPath(element.parentNode)}/${element.tagName.toLowerCase()}[${ix + 1}]`;
         }
         if (sibling.nodeType === 1 && sibling.tagName === element.tagName) ix++;
     }
     return '';
 }
 
-// Toggle button handler
-
-document.addEventListener('change', (event) => {
-    const target = event.target;
-    const tag = target.tagName.toLowerCase();
-    const id = target.id ? target.id.toLowerCase() : null;
-    const name = target.name ? target.name.toLowerCase() : null;
-    
-    // Only handle toggle buttons (assuming they are checkboxes styled as toggles)
-    if (tag === 'input' && target.type === 'checkbox' && target.classList.contains('toggle-button')) {
-        let tag_name;
-        
-        if (id) {
-            tag_name = `${id}_toggle`;
-        } else if (name) {
-            tag_name = `${name}_toggle`;
-        } else {
-            tag_name = `toggle_${toggleCounter++}`; // Assign sequential unique names
-        }
-
-        const interaction = {
-            action: 'change',
-            tag_name: tag_name,
-            id: id || null,
-            name: name || null,
-            xpath: generateXPath(target),
-            action_description: `Toggle button ${target.checked ? 'enabled' : 'disabled'}`,
-            value: target.checked ? 'on' : 'off'
-        };
-
-        window.recordedInteractions.push(interaction);
+// MutationObserver to detect dynamically added elements (like calendar dropdown)
+const observer = new MutationObserver((mutationsList) => {
+    for (const mutation of mutationsList) {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeType === 1 && node.matches('.calendar-dropdown, .datepicker-popup, [role="dialog"]')) {
+                console.log("Calendar dynamically detected:", node);
+            }
+        });
     }
 });
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Detect calendar dropdown inside iframes
+setInterval(() => {
+    document.querySelectorAll('iframe').forEach(frame => {
+        try {
+            const frameDoc = frame.contentDocument || frame.contentWindow.document;
+            const calendar = frameDoc.querySelector('.calendar-dropdown, .datepicker-popup, [role="dialog"]');
+            if (calendar) {
+                console.log("Calendar dropdown found inside iframe:", calendar);
+            }
+        } catch (error) {
+            console.warn("Cross-origin iframe detected, unable to access.");
+        }
+    });
+}, 100); // Runs periodically in case the calendar appears dynamically
 
 """
 
