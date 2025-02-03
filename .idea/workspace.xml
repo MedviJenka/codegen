@@ -6,20 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/agents.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/config/agents.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/config/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/config/llm_config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/config/tasks.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/engine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/prompts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/paths.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/codegen.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/codegen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/event_listener.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/event_listener.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/logic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

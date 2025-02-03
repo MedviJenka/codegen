@@ -1,4 +1,4 @@
-JS_SCRIPT ="""
+JS_SCRIPT = """
 window.recordedInteractions = [];
 
 // Debounce utility to delay logging until typing is finished
@@ -10,44 +10,50 @@ function debounce(func, delay) {
     };
 }
 
-// Capture click events
-document.addEventListener('click', (event) => {
-    const target = event.target;
+document.addEventListener(
+    "click",
+    (event) => {
+        const target = event.target;
+        console.log("Clicked on:", target);
 
-    // Skip logging click events for checkboxes
-    if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') {
-        return;
-    }
+        // Skip logging click events for checkboxes
+        if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") {
+            return;
+        }
 
-    const tag_name = target.tagName.toLowerCase();
-    const element_text = target.textContent.trim();
-    const element_id = target.id.toLowerCase();
-    const element_name = target.name.toLowerCase();
+        const tag_name = target.tagName.toLowerCase();
+        const element_text = target.textContent.trim();
+        const element_id = target.id ? target.id.toLowerCase() : "";
+        const element_name = target.name ? target.name.toLowerCase() : "";
 
-    const interaction = {
-        action: 'click',
-        tag_name: element_text || element_id || tag_name,
-        id: target.id || null,
-        name: target.name || null,
-        xpath: generateXPath(target),
-        action_description: `Clicked on ${element_text || tag_name}`,
-        value: null // No value for clicks
-    };
-    
-    window.recordedInteractions.push(interaction);
+        const interaction = {
+            action: "click",
+            tag_name: element_text || element_id || tag_name,
+            id: target.id || null,
+            name: target.name || null,
+            xpath: generateXPath(target),
+            action_description: `Clicked on ${element_text || tag_name}`,
+            value: null, // No value for clicks
+        };
 
-    // Detect calendar dropdown after clicking date field
-    if (target.matches('input[type="text"], input.datepicker, .date-picker-field')) {
-        setTimeout(() => {
-            let calendar = document.querySelector('.calendar-dropdown, .datepicker-popup, [role="dialog"]');
-            if (calendar) {
-                console.log("Calendar dropdown detected:", calendar);
-            } else {
-                console.warn("Calendar dropdown not found.");
-            }
-        }, 500); // Small delay to allow rendering
-    }
-});
+        window.recordedInteractions.push(interaction);
+
+        // Detect calendar dropdown after clicking date field
+        if (target.matches('input[type="text"], input.datepicker, .date-picker-field')) {
+            setTimeout(() => {
+                let calendar = document.querySelector(".calendar-dropdown, .datepicker-popup, [role='dialog']");
+                if (calendar) {
+                    console.log("Calendar dropdown detected:", calendar);
+                } else {
+                    console.warn("Calendar dropdown not found.");
+                }
+            }, 500); // Small delay to allow rendering
+            window.recordedInteractions.push(interaction);
+        }
+    },
+    true 
+);
+
 
 // Capture input events with debouncing
 document.addEventListener('input', debounce((event) => {
@@ -118,22 +124,6 @@ const observer = new MutationObserver((mutationsList) => {
     }
 });
 observer.observe(document.body, { childList: true, subtree: true });
-
-// Detect calendar dropdown inside iframes
-setInterval(() => {
-    document.querySelectorAll('iframe').forEach(frame => {
-        try {
-            const frameDoc = frame.contentDocument || frame.contentWindow.document;
-            const calendar = frameDoc.querySelector('.calendar-dropdown, .datepicker-popup, [role="dialog"]');
-            if (calendar) {
-                console.log("Calendar dropdown found inside iframe:", calendar);
-            }
-        } catch (error) {
-            console.warn("Cross-origin iframe detected, unable to access.");
-        }
-    });
-}, 100); // Runs periodically in case the calendar appears dynamically
-
 """
 
 IMPORT_ST_DEVICE = "from qasharedinfra.devices.audc.smarttap.smarttap import SmartTap"
