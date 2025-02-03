@@ -2,3 +2,4 @@
 /output/page_base.csv
 /venv/
 /.env
+/output/test_code.py
