@@ -1,11 +1,13 @@
+from typing import Optional
+
 import requests
 from crewai import Crew
+from bini_ai.codegen.agents import CustomAgents
+from bini_ai.codegen.tasks import AgentTasks
 from bini_ai.engine.base_model import BiniBaseModel
 from bini_ai.engine.request_handler import APIRequestHandler
-from bini_ai.infrastructure.constants import IMAGE_1
+from bini_ai.infrastructure.constants import IMAGE_2
 from bini_ai.infrastructure.enums import Prompts
-from bini_code.agents import CustomAgents
-from bini_code.tasks import AgentTasks
 
 
 class BiniCode(BiniBaseModel, APIRequestHandler):
@@ -40,7 +42,7 @@ class BiniCode(BiniBaseModel, APIRequestHandler):
         response = self.make_request_with_retry(payload=payload)
         return response
 
-    def execute_crew(self, device: str, based_on: str):
+    def execute_crew(self, event_list: list[str], based_on: Optional[str] = IMAGE_2):
 
         # Step 1:
         ui_elements = self.run_image_processing(image_path=based_on)  # Provide your image path
@@ -48,11 +50,14 @@ class BiniCode(BiniBaseModel, APIRequestHandler):
         # Step 2: Generate a test plan based on UI elements
         test_plan_task = self.__set_tasks.create_test_plan(ui_elements=ui_elements)
 
-        # Step 3: Generate Pytest Code from the test plan
-        pytest_task = self.__set_tasks.generate_pytest_code(device=device, test_plan="Test plan details here")
+        # Step 3: Get Elements from list
+        get_event_list = self.__set_tasks.map_elements_task(event_list=event_list)
+
+        # Step 4: Generate Pytest Code from the test plan
+        pytest_task = self.__set_tasks.generate_pytest_code(test_plan="Test plan details here")
 
         # Execute CrewAI workflow
-        crew = Crew(agents=[self.__set_agent.memory_agent()], tasks=[test_plan_task, pytest_task])
+        crew = Crew(agents=[self.__set_agent.memory_agent()], tasks=[ui_elements, test_plan_task, get_event_list, pytest_task])
 
         result = crew.kickoff()
         return result

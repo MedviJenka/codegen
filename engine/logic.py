@@ -1,12 +1,17 @@
 import csv
 from typing import Optional
+from dotenv import load_dotenv
+from bini_ai.codegen.main import BiniCodeUtils
 from core.paths import PAGE_BASE, PYTHON_CODE
 from event_listener import init_code, JS_SCRIPT
 from core.executor import Executor
 from core.logger import Logger
 from playwright.sync_api import sync_playwright
+import urllib3
 
 
+urllib3.disable_warnings()
+load_dotenv()
 log = Logger()
 
 
@@ -25,6 +30,7 @@ class BrowserRecorder(Executor):
         self.interactions = []
         self.recorded_elements = set()
         self.output_csv = output_csv
+        self.bini = BiniCodeUtils()
 
         # Check if a custom screen is provided, and override defaults if so
         if screen:
@@ -153,10 +159,12 @@ class BrowserRecorder(Executor):
 
             self.run()
             self.save_to_csv()
+            self.bini.execute_crew(event_list=self.get_interactions())
 
             log.log_info("\nRecorded Interactions:")
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
+
             code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
 
             if self.generate_code:
