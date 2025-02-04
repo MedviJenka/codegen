@@ -7,4 +7,4 @@ class BiniBaseModel(ABC):
         self.model = model
         self.api_key = api_key
         self.version = version
-        self.endpoint = endpoint
+        self.endpoint = f"{endpoint}/openai/deployments/{self.model}/chat/completions?api-version={self.version}"
