@@ -5,11 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codegen.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codegen.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/event_listener.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/event_listener.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ai/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/agents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/codegen/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/agents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/config/agents.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/config/tasks.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/prompt_agent.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/modules/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/modules/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/executor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/modules/image_compression.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/image_compression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/modules/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/azure_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/azure_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/base_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/engine.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/images/image1.png" beforeDir="false" afterPath="$PROJECT_DIR$/ai/images/image1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/images/img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/images/img33.png" beforeDir="false" afterPath="$PROJECT_DIR$/ai/images/img33.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/images/img_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/colors.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/colors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/project_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/project_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/prompts.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/prompts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/plan.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ai/plan.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/codegen.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/codegen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,54 +102,33 @@
     "Python.main (1).executor": "Run",
     "Python.main (2).executor": "Run",
     "Python.main.executor": "Run",
+    "Python.utils.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/medvi/PycharmProjects/codegen"
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "C:/Users/medvi/PycharmProjects/codegen/ai/codegen"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\medvi\PycharmProjects\codegen\ai\codegen" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\codegen" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_code" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\medvi\PycharmProjects\codegen\ai" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images33" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\engine" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\output" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.codegen">
+  <component name="RunManager" selected="Python.utils">
     <configuration name="run_codegen.ps1" type="PowerShellRunType" factoryName="PowerShell" temporary="true" scriptUrl="$PROJECT_DIR$/run_codegen.ps1" executablePath="$PROJECT_DIR$/../../../../windows/System32/WindowsPowerShell/v1.0/powershell.exe">
       <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="agents" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="codegen" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bini_code" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bini_code/agents.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="codegen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -184,13 +197,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="codegen" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai/infrastructure" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/infrastructure/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.utils" />
         <item itemvalue="Python.codegen" />
         <item itemvalue="PowerShell.run_codegen.ps1" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.main (2)" />
-        <item itemvalue="Python.agents" />
       </list>
     </recent_temporary>
   </component>

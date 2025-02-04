@@ -12,13 +12,9 @@ def main() -> None:
         output_csv = input("Enter output CSV file name (default: 'page_base.csv'): ").strip()
         screen = input("Enter custom screen URL (leave blank to use default for the device): ").strip()
         generate_code = input("Generate code? (y/n): ").strip().lower() == 'y'
-        # prompt = input("Add prompt for AI generation (optional):").strip()
 
         if not output_csv:
             output_csv = PAGE_BASE
-
-        # if not prompt:
-        #     pass
 
         app = BrowserRecorder(device=device, output_csv=output_csv, screen=screen, generate_code=generate_code)
         app.execute()
