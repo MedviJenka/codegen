@@ -8,6 +8,15 @@ class CustomAgents:
     def __init__(self) -> None:
         self.config = AzureOpenAIConfig()
 
+    def selenium_agent(self) -> Agent:
+        return Agent(
+            role="Selenium Scrapper",
+            goal="Get Element Attributes",
+            backstory=dedent("""you are a pro web scrapper"""),
+            verbose=True,
+            llm=self.config.set_azure_llm,
+        )
+
     def memory_agent(self) -> Agent:
         return Agent(
             role="Research Specialist",
@@ -20,12 +29,12 @@ class CustomAgents:
             llm=self.config.set_azure_llm,
         )
 
-    def create_test_plan(self) -> Agent: ...
+    def test_plan_agent(self) -> Agent: ...
 
-    def map_elements_task(self) -> Agent: ...
+    def map_elements_agent(self) -> Agent: ...
 
-    def generate_pytest_code(self) -> Agent: ...
+    def code_agent(self) -> Agent: ...
 
-    def code_review_task(self) -> Agent: ...
+    def code_review_agent(self) -> Agent: ...
 
-    def jira_agent_task(self) -> Agent: ...
+    def jira_agent(self) -> Agent: ...
