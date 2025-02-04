@@ -40,16 +40,16 @@ class BiniCode(BiniBaseModel, APIRequestHandler):
         response = self.make_request_with_retry(payload=payload)
         return response
 
-    def execute_crew(self):
+    def execute_crew(self, device: str, based_on: str):
 
         # Step 1:
-        ui_elements = self.run_image_processing(image_path=IMAGE_1)  # Provide your image path
+        ui_elements = self.run_image_processing(image_path=based_on)  # Provide your image path
 
         # Step 2: Generate a test plan based on UI elements
         test_plan_task = self.__set_tasks.create_test_plan(ui_elements=ui_elements)
 
         # Step 3: Generate Pytest Code from the test plan
-        pytest_task = self.__set_tasks.generate_pytest_code(test_plan="Test plan details here")
+        pytest_task = self.__set_tasks.generate_pytest_code(device=device, test_plan="Test plan details here")
 
         # Execute CrewAI workflow
         crew = Crew(agents=[self.__set_agent.memory_agent()], tasks=[test_plan_task, pytest_task])

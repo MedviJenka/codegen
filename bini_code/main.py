@@ -1,3 +1,4 @@
+from bini_ai.infrastructure.constants import IMAGE_2
 from bini_code.engine import BiniCode
 from bini_ai.core.modules.environment import get_dotenv_data
 
@@ -14,4 +15,4 @@ class BiniUtils(BiniCode):
 
 if __name__ == '__main__':
     bini = BiniUtils()
-    bini.execute_crew()
+    bini.execute_crew(device='mi', based_on=IMAGE_2)

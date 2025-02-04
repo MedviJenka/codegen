@@ -1,3 +1,14 @@
+TASK = """
+based on code format given bellow, if the device is set to smarttap or st: all the imports should be:
+from qasharedinfra.infra.<smarttap>.general_utils import get_file_size
+and
+st: SmartTap = env.devices['Device_1']
+if the device was set to 'mi' all the imports should include meetinginsights instead of smarttap
+from qasharedinfra.infra.meetinginsights.selenium.utils.custom_exceptions import ElementIsClickableException
+and replace st with:
+mi: MeetingInsightsSaaS = env.devices['Device_1']
+"""
+
 CODE_FORMAT = """
 import pytest
 import coreinfra.core.environment.environment_variables as env
