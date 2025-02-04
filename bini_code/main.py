@@ -1,27 +1,17 @@
-from dotenv import load_dotenv
-from crewai import Crew
-from bini_ai.infrastructure.constants import IMAGE_1
-from tasks import AgentTasks
-from agents import MeetingPreparationAgents
-
-load_dotenv()
-tasks = AgentTasks()
-agents = MeetingPreparationAgents()
+from bini_code.engine import BiniCode
+from bini_ai.core.modules.environment import get_dotenv_data
 
 
-researcher_agent = agents.research_agent()
+class BiniUtils(BiniCode):
+
+    def __init__(self) -> None:
+        self.model: str = get_dotenv_data("MODEL")
+        self.api_key: str = get_dotenv_data("OPENAI_API_KEY")
+        self.version: str = get_dotenv_data("OPENAI_API_VERSION")
+        self.endpoint: str = get_dotenv_data("AZURE_OPENAI_ENDPOINT")
+        super().__init__(endpoint=self.endpoint, model=self.model, version=self.version, api_key=self.api_key)
 
 
-# Create Tasks
-research = tasks.research_screen(image=IMAGE_1, agent=researcher_agent, task='')
-
-
-# Create Crew responsible for Copy
-crew = Crew(
-	agents=[researcher_agent],
-	tasks=[research]
-)
-
-
-result = crew.kickoff()
-print(result)
+if __name__ == '__main__':
+    bini = BiniUtils()
+    print(bini.execute_crew())
