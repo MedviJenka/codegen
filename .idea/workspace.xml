@@ -5,40 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ai/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ai/plan.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/agents.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/config/agents.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/config/tasks.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/agents/prompt_agent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/modules/environment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/modules/executor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/core/modules/image_compression.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/engine/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/engine/azure_config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/engine/base_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/engine/engine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/engine/request_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/images/image1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/images/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/images/img_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/colors.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/common.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/enums.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/project_path.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/prompts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bini_ai/infrastructure/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/lab.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/test_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/output/test_code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/core/agents/prompt_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_ai/core/agents/prompt_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/engine/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_ai/engine/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_ai/infrastructure/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bini_ai/infrastructure/prompts.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_ai/infrastructure/prompts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/lab.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/lab.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +67,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/evgenyp/PycharmProjects/codegen/bini_ai/images"
+    "last_opened_file_path": "C:/Users/evgenyp/OneDrive - AudioCodes Ltd/Desktop/crewAI-examples"
   }
 }]]></component>
   <component name="RecentsManager">

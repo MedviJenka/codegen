@@ -26,7 +26,7 @@ class SetAgent(AgentManager):
 
         return self.process_with_crew(crew, prompt)
 
-    def set_memory_agent(self, result: str) -> str:
+    def set_memory_agent(self, result) -> str:
 
         """
         Validates a given result using the validation agent and a supporting agent.

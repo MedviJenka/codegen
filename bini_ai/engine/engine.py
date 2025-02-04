@@ -31,7 +31,7 @@ class Bini(BiniBaseModel, APIRequestHandler):
         """Enhances given prompt in more professional manner"""
         return self.__set_agent.set_memory_agent(result)
 
-    def run_image_processing(self, image_path: str, prompt: str) -> str:
+    def run_image_processing(self, image_path: str) -> str:
 
         """
         Sends request to the image visualization engine.
@@ -42,7 +42,7 @@ class Bini(BiniBaseModel, APIRequestHandler):
 
         user_content = [
             {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.get_image(image_path)}"}},
-            {"type": "text", "text": self.memory_agent(result=prompt)}  # self.prompt for prompt without agent
+            {"type": "text", "text": self.memory_agent(result='')}  # self.prompt for prompt without agent
         ]
 
         payload = {

@@ -31,3 +31,5 @@ six~=1.17.0
 wrapt~=1.17.2
 crewai~=0.41.1
 colorama~=0.4.6
+langchain-exa==0.0.1
+exa_py==1.0.7
