@@ -10,11 +10,9 @@ function debounce(func, delay) {
     };
 }
 
-document.addEventListener(
-    "click",
-    (event) => {
+document.addEventListener("click",(event) => {
+
         const target = event.target;
-        console.log("Clicked on:", target);
 
         // Skip logging click events for checkboxes
         if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") {
@@ -57,6 +55,7 @@ document.addEventListener(
 
 // Capture input events with debouncing
 document.addEventListener('input', debounce((event) => {
+    if (target.type === 'checkbox') return; // Ignore checkboxes in input event
     const target = event.target;
     const tag_name = target.tagName.toLowerCase();
     const element_id = target.id ? target.id.toLowerCase() : 'undetected';
@@ -79,21 +78,21 @@ document.addEventListener('input', debounce((event) => {
 // Checkbox handler
 document.addEventListener('change', (event) => {
     const target = event.target;
-    const tag = target.tagName.toLowerCase();
-    const id = target.id ? target.id.toLowerCase() : null;
-    const name = target.name ? target.name.toLowerCase() : null;
-
-    if (tag === 'input' && target.type === 'checkbox') {
+    if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') {
         const interaction = {
             action: 'change',
-            tag_name: id || name || `checkbox_${Date.now()}`,
-            id: id || null,
-            name: name || null,
+            tag_name: target.id || target.name || `checkbox_${Date.now()}`,
+            id: target.id || null,
+            name: target.name || null,
             xpath: generateXPath(target),
             action_description: `Checkbox ${target.checked ? 'checked' : 'unchecked'}`,
             value: target.checked ? 'on' : 'off'
         };
-        window.recordedInteractions.push(interaction);
+
+        // Prevent duplicates by checking existing interactions
+        if (!window.recordedInteractions.some(i => i.xpath === interaction.xpath && i.value === interaction.value)) {
+            window.recordedInteractions.push(interaction);
+        }
     }
 });
 
