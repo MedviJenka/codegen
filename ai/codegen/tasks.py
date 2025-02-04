@@ -2,12 +2,16 @@ from textwrap import dedent
 from typing import Optional
 from crewai import Task, Agent
 from dataclasses import dataclass
+from ai.codegen.agents import CustomAgents
 from ai.codegen.common import TASK, CODE_FORMAT
 
 
 @dataclass
 class AgentTasks:
 
+    """TODO: test whats suits better, custom agent or built in agent"""
+
+    __agent: CustomAgents
     agent: Agent
 
     def research_screen(self) -> Task:
@@ -15,7 +19,7 @@ class AgentTasks:
             description=dedent("Analyze the provided image and identify all UI elements."),
             expected_output=dedent("A JSON report of all identified UI elements."),
             async_execution=False,
-            agent=self.agent,
+            agent=self.__agent.memory_agent(),
         )
 
     def create_test_plan(self, ui_elements: str) -> Task:
@@ -63,3 +67,7 @@ class AgentTasks:
             async_execution=False,
             agent=self.agent,
         )
+
+    def code_review_task(self) -> Task: ...
+
+    def jira_agent_task(self) -> Task: ...
