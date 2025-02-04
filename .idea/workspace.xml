@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bini_code/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_code/agents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bini_code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_code/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bini_code/common.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bini_code/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_code/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bini_code/tools/ExaSearchTool.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bini_code/tools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/bini_code/engine.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

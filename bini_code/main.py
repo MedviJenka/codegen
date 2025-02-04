@@ -14,4 +14,4 @@ class BiniUtils(BiniCode):
 
 if __name__ == '__main__':
     bini = BiniUtils()
-    print(bini.execute_crew())
+    bini.execute_crew()

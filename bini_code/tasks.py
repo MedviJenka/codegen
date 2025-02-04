@@ -2,6 +2,8 @@ from textwrap import dedent
 from crewai import Task, Agent
 from dataclasses import dataclass
 
+from bini_code.common import CODE_FORMAT
+
 
 @dataclass
 class AgentTasks:
@@ -31,9 +33,10 @@ class AgentTasks:
     def generate_pytest_code(self, test_plan) -> Task:
         return Task(
             description=dedent(
-                f"""Convert the test plan into a functional pytest script.
-                Test Plan:
-                {test_plan}"""
+                f"""Convert the test plan into a functional pytest script but use the code format logic.
+                Test Plan: {test_plan}
+                Code Format: {CODE_FORMAT}
+            """
             ),
             expected_output=dedent("A Python script with pytest tests for the UI elements."),
             async_execution=False,
