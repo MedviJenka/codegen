@@ -25,13 +25,14 @@ run the run_codegen.ps1
 ````
 
 ### If you encounter powershell installation problem which happened once
- 
-navigate to project directory
-create virtual env manually or py -m venv ./venv
-activate the venv
-pip install -r requirements.txt
-run the code manually in /engine/codegen.py 
 
+```
+1. navigate to project directory
+2. create virtual env manually or py -m venv ./venv
+3. activate the venv
+4. pip install -r requirements.txt
+5. run the code manually in /engine/codegen.py 
+```
 
 
 ## Usage
