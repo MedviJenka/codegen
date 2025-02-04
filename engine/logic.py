@@ -1,7 +1,6 @@
 import csv
 from typing import Optional
 from dotenv import load_dotenv
-from bini_ai.codegen.main import BiniCodeUtils
 from core.paths import PAGE_BASE, PYTHON_CODE
 from event_listener import init_code, JS_SCRIPT
 from core.executor import Executor
@@ -30,7 +29,6 @@ class BrowserRecorder(Executor):
         self.interactions = []
         self.recorded_elements = set()
         self.output_csv = output_csv
-        self.bini = BiniCodeUtils()
 
         # Check if a custom screen is provided, and override defaults if so
         if screen:
@@ -159,16 +157,15 @@ class BrowserRecorder(Executor):
 
             self.run()
             self.save_to_csv()
-            self.bini.execute_crew(event_list=self.get_interactions())
 
             log.log_info("\nRecorded Interactions:")
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
 
-            code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
+            # code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
 
-            if self.generate_code:
-                self.__create_python_file(output=code)
+            # if self.generate_code:
+            #     self.__create_python_file(output=code)
 
         except Exception as e:
             log.log_error(f'error: {e}')

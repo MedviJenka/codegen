@@ -39,10 +39,12 @@ if (-not $playwrightInstalled) {
     Write-Host "Playwright not found. Installing Playwright..." -ForegroundColor Yellow
     pip install playwright
     Write-Host "Installing Playwright browsers..." -ForegroundColor Green
-    playwright install
+
 } else {
     Write-Host "Playwright is already installed." -ForegroundColor Green
 }
+
+playwright install
 
 # 🔥 Fix Module Import Error by Setting PYTHONPATH
 $env:PYTHONPATH = $scriptDir

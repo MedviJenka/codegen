@@ -131,7 +131,7 @@ IMPORT_MI_DEVICE = "from qasharedinfra.devices.audc.meetinginsights.meetinginsig
 
 def init_code(device: str) -> str:
 
-    CODE = f"""
+    CODE = f"""\
 import pytest
 {IMPORT_ST_DEVICE if device == 'st' else IMPORT_MI_DEVICE}
 import coreinfra.core.environment.environment_variables as env
