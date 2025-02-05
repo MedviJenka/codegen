@@ -4,22 +4,21 @@ from crewai import Task
 from ai.codegen.agents import CustomAgents
 from ai.codegen.common import TASK, CODE_FORMAT
 from ai.codegen.tools import ToolKit
+from dataclasses import dataclass
 
 
-class AgentTasks:
+@dataclass
+class BiniTasks:
 
-    """TODO: test what suits better, custom agent or built-in agent"""
-
-    def __init__(self, agent: CustomAgents, toolkit: ToolKit):
-        self.agent = agent
-        self.toolkit = toolkit
+    agent: CustomAgents
+    toolkit: ToolKit
 
     def selenium_task(self) -> Task:
         return Task(
             description=dedent("""Analyze the provided image and identify all UI elements."""),
             expected_output=dedent("""A JSON report of all identified UI elements."""),
             async_execution=False,
-            agent=self.agent.memory_agent(),
+            agent=self.agent.memory_agent,
             tools=[self.toolkit.selenium_tool(url='https://www.google.com', css_element='.btnK')]
         )
 
@@ -28,7 +27,7 @@ class AgentTasks:
             description=dedent("""Analyze the provided image and identify all UI elements."""),
             expected_output=dedent("""A JSON report of all identified UI elements."""),
             async_execution=False,
-            agent=self.agent.memory_agent(),
+            agent=self.agent.memory_agent,
 
         )
 
@@ -41,14 +40,13 @@ class AgentTasks:
             ),
             expected_output=dedent("""A detailed test plan."""),
             async_execution=False,
-            agent=self.agent,
-            # tools=[Tool(name="test_generation", description="Generates a structured test plan from UI elements")]
+            agent=self.agent.test_plan_agent(),  # Fix: Pass an actual Agent instance
         )
 
     def map_elements_task(self, event_list: list[str]) -> Task:
         return Task(
-            description=dedent(
-                f"""This list is retrieved from an event listener script, which detects each click on the screen. Use this list to build logic.
+            description=dedent(f"""
+                This list is retrieved from an event listener script, which detects each click on the screen. Use this list to build logic.
                 The list contains five elements:
                 - element name: Retrieved from element ID, text, or XPath
                 - element type: ID, NAME, CSS, XPATH
@@ -57,11 +55,10 @@ class AgentTasks:
                 - value: Exact user input
 
                 Elements List: {event_list}
-                """
-            ),
+                """),
             expected_output=dedent("""A Python script with pytest tests for the UI elements."""),
             async_execution=False,
-            agent=self.agent,
+            agent=self.agent.map_elements_agent(),
             # tools=[Tool(name="script_generator", description="Creates automated test scripts based on UI events")]
         )
 
@@ -76,17 +73,34 @@ class AgentTasks:
             ),
             expected_output=dedent("""A Python script with pytest tests for the UI elements."""),
             async_execution=False,
-            agent=self.agent,
+            agent=self.agent.code_agent(),
             # tools=[Tool(name="pytest_builder", description="Converts test plans into pytest scripts")]
         )
 
+    @property
     def code_review_task(self) -> Task:
         return Task(
             description=dedent("""Perform a review of the generated pytest code to ensure quality and correctness."""),
             expected_output=dedent("""A report with suggested improvements and fixes for the pytest code."""),
             async_execution=False,
-            agent=self.agent,
+            agent=self.agent.code_review_agent(),
             # tools=[Tool(name="code_review", description="Analyzes test scripts for best practices and errors")]
+        )
+
+    @property
+    def security_check(self) -> Task:
+        """Creates a security validation task for automation test scripts."""
+        return Task(
+            description=dedent(
+                """Perform a security review of the test automation scripts, ensuring 
+                they follow best practices and do not contain security vulnerabilities."""
+            ),
+            expected_output=dedent(
+                """A report outlining potential security risks in the automation scripts 
+                and recommended fixes."""
+            ),
+            async_execution=False,
+            agent=self.agent.code_review_agent()
         )
 
     def jira_agent_task(self) -> Task:
@@ -94,6 +108,6 @@ class AgentTasks:
             description=dedent("""Automatically create Jira tickets for test automation coverage gaps or issues."""),
             expected_output=dedent("""A Jira ticket with relevant details about the missing test cases."""),
             async_execution=False,
-            agent=self.agent,
+            agent=self.agent.jira_agent(),
             # tools=[Tool(name="jira_integration", description="Creates Jira issues for tracking test automation work")]
         )

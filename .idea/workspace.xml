@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ai/codegen/lab.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ai/codegen/tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai/codegen/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/agents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ai/codegen/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,11 +106,7 @@
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lab">
-    <configuration name="run_codegen.ps1" type="PowerShellRunType" factoryName="PowerShell" temporary="true" scriptUrl="$PROJECT_DIR$/run_codegen.ps1" executablePath="$PROJECT_DIR$/../../../../windows/System32/WindowsPowerShell/v1.0/powershell.exe">
-      <envs />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration name="codegen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
@@ -146,6 +143,28 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/codegen/lab.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="codegen" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai/codegen" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/codegen/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -200,11 +219,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.lab" />
         <item itemvalue="Python.tools" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.codegen" />
-        <item itemvalue="PowerShell.run_codegen.ps1" />
       </list>
     </recent_temporary>
   </component>
