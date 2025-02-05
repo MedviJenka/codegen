@@ -62,7 +62,7 @@ class BiniTasks:
             # tools=[Tool(name="script_generator", description="Creates automated test scripts based on UI events")]
         )
 
-    def generate_pytest_code(self, test_plan, device: Optional[str] = '') -> Task:
+    def generate_pytest_code(self, test_plan: str, device: Optional[str] = '') -> Task:
         return Task(
             description=dedent(
                 f"""Convert the test plan into a functional pytest script but use the code format logic.
@@ -77,23 +77,25 @@ class BiniTasks:
             # tools=[Tool(name="pytest_builder", description="Converts test plans into pytest scripts")]
         )
 
-    @property
-    def code_review_task(self) -> Task:
+    def code_review_task(self, original_code: str) -> Task:
         return Task(
             description=dedent("""Perform a review of the generated pytest code to ensure quality and correctness."""),
-            expected_output=dedent("""A report with suggested improvements and fixes for the pytest code."""),
+            expected_output=dedent(f"""
+                A report with suggested improvements and fixes for the pytest code bellow \n{original_code}.
+            """),
             async_execution=False,
             agent=self.agent.code_review_agent(),
             # tools=[Tool(name="code_review", description="Analyzes test scripts for best practices and errors")]
         )
 
-    @property
-    def security_check(self) -> Task:
+    def security_check(self, updated_code: str) -> Task:
         """Creates a security validation task for automation test scripts."""
         return Task(
             description=dedent(
-                """Perform a security review of the test automation scripts, ensuring 
-                they follow best practices and do not contain security vulnerabilities."""
+                f"""
+                Perform a security review of the test automation scripts, ensuring 
+                they follow best practices and do not contain security vulnerabilities. for this code: \n{updated_code}
+                """
             ),
             expected_output=dedent(
                 """A report outlining potential security risks in the automation scripts 

@@ -162,7 +162,8 @@ class BrowserRecorder(Executor):
             log.log_info("\nRecorded Interactions:")
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
-            bini.execute(event_list=self.interactions)
+            bini.execute(event_list=self.get_interactions())
+
             # code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
 
             # if self.generate_code:

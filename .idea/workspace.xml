@@ -7,11 +7,9 @@
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ai_module/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai_module/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/browser_recorder/workflow.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/browser_recorder/workflow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/page_base.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
