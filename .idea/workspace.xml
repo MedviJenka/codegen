@@ -5,12 +5,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/base/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/browser_recorder/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/browser_recorder/automation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/browser_recorder/event_listener.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/browser_recorder/workflow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/executor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/jira.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/logger.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/paths.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/environment/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/infrastructure/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/infrastructure/prompts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/integration/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/output/code_gen.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/output/test_code.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/codegen/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/agents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/codegen/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/codegen/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/codegen/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/codegen/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ai/infrastructure/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/ai/infrastructure/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/agents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/azure_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/azure_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/lab.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/lab.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/base/request_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/codegen/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/images/image1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/image1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/images/img33.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/img33.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/colors.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/colors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/project_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/project_path.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/prompts.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/prompts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/infrastructure/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/crew_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/modules/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/modules/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/executor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/modules/image_compression.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/environment/image_compression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai/plan.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/plan.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/executor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/jira.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/logger.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/paths.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/codegen.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/event_listener.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/logic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/test_code.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,46 +122,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;PowerShell.run_codegen.ps1 (1).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1 (2).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1 (3).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.agents.executor&quot;: &quot;Run&quot;,
-    &quot;Python.codegen (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.codegen.executor&quot;: &quot;Run&quot;,
-    &quot;Python.jira.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.lab.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tools.executor&quot;: &quot;Run&quot;,
-    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/medvi/OneDrive/Desktop/crewai_linkedin_post&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "PowerShell.run_codegen.ps1 (1).executor": "Run",
+    "PowerShell.run_codegen.ps1 (2).executor": "Run",
+    "PowerShell.run_codegen.ps1 (3).executor": "Run",
+    "PowerShell.run_codegen.ps1.executor": "Run",
+    "Python.agents.executor": "Run",
+    "Python.codegen (1).executor": "Run",
+    "Python.codegen.executor": "Run",
+    "Python.jira.executor": "Debug",
+    "Python.lab.executor": "Run",
+    "Python.logic.executor": "Run",
+    "Python.main (1).executor": "Run",
+    "Python.main (2).executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.paths.executor": "Run",
+    "Python.tools.executor": "Run",
+    "Python.utils.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "C:/Users/evgenyp/PycharmProjects/codegen/src/base"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\medvi\PycharmProjects\codegen\ai\codegen" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\codegen" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_code" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\base" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\environment" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\ai_module" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\ai" />
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\browser_recorder" />
       <recent name="C:\Users\medvi\PycharmProjects\codegen\ai" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images33" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\engine" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main (1)">
     <configuration name="codegen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
@@ -129,7 +186,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lab" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="logic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -138,11 +195,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai/codegen" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/browser_recorder/engine" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/codegen/lab.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/browser_recorder/engine/logic.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="codegen" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,7 +252,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tools" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="paths" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -182,33 +261,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai/codegen" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/browser_recorder/core" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/codegen/tools.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="codegen" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ai/infrastructure" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ai/infrastructure/utils.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/browser_recorder/core/paths.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -219,11 +276,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.lab" />
-        <item itemvalue="Python.tools" />
-        <item itemvalue="Python.utils" />
+        <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.logic" />
+        <item itemvalue="Python.paths" />
         <item itemvalue="Python.codegen" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>

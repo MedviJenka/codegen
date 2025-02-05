@@ -1,5 +1,5 @@
-/output/code_gen.log
-/output/page_base.csv
+/browser_recorder/output/code_gen.log
+/browser_recorder/output/page_base.csv
 /venv/
 /.env
-/output/test_code.py
+/browser_recorder/output/test_code.py
