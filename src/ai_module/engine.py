@@ -2,11 +2,12 @@ import urllib3
 import requests
 from typing import Optional
 from crewai import Crew
+from crewai.crews import CrewOutput
 from src.ai_module.agents import CustomAgents
 from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
 from src.core.executor import Executor
-from src.infrastructure.constants import IMAGE_2
+from src.core.paths import IMAGE_2
 from src.infrastructure.enums import Prompts
 from src.utils.base import BiniBaseModel
 from src.utils.request_handler import APIRequestHandler
@@ -51,7 +52,7 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
         response = self.make_request_with_retry(payload=payload)
         return response
 
-    def execute(self, event_list: list[str], based_on: Optional[str] = IMAGE_2):
+    def execute(self, event_list: list[str], based_on: Optional[str] = IMAGE_2) -> CrewOutput:
         # Step 1: Extract UI elements
         elements = self.run_image_processing(image_path=based_on)
 
