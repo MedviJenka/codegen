@@ -13,10 +13,10 @@ class ToolKit:
         )
 
     @staticmethod
-    def update_page_base(data: str, page_base: str = r"C:\Users\evgenyp\PycharmProjects\codegen\src\output\page_base.csv") -> None:
+    def update_page_base(data: list[str], page_base: str) -> None:
         with open(page_base, mode="w", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow(["Name", "Age", "Role"])  # Header
+            writer.writerow(['Element Name', 'Element Type', 'Element Path', 'Action', 'Value'])
             writer.writerows(data)
 
     @staticmethod

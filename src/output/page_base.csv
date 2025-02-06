@@ -1,3 +1,2 @@
-Name,Age,Role
-Alice,30,Engineer
-Bob,25,Designer
+Element Name,Element Type,Element Path,Action,Value
+Sign in with Microsoft 365,ID,login_button,Clicked on Sign in with Microsoft 365,

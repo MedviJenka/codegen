@@ -26,17 +26,22 @@ class CustomAgents:
             llm=self.llm,
         )
 
-    def map_elements_agent(self) -> Agent:
-        """Creates an agent for mapping UI elements into testable components."""
+    @property
+    def page_base_agent(self) -> Agent:
+        """Creates an agent for mapping items in a CSV file."""
         return Agent(
-            role="UI Element Mapper",
-            goal="Identify and categorize UI elements for automated testing.",
+            role="CSV Item Mapper",
+            goal=dedent("""Identify and categorize items in a CSV file for structured processing.
+                        **IMPORTANT**
+                        1. change element name by your own logic based on the test plan the the elements your file
+                        """),
             backstory=dedent("""
-                You specialize in mapping UI elements into structured formats 
-                for automation test creation.
-                """),
+                You specialize in analyzing and mapping CSV file contents into structured formats 
+                for efficient data processing and automation.
+            """),
             verbose=True,
-            llm=self.llm)
+            llm=self.llm
+        )
 
     def code_agent(self) -> Agent:
         """Creates an agent for generating automation test scripts."""

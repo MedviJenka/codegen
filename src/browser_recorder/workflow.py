@@ -106,7 +106,7 @@ class BrowserRecorder(Executor):
         with open(self.output_csv, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow(["Element Name", "Element Type", "Element Path", "Action", "Value"])
-            writer.writerows(self.interactions)
+            writer.writerows(self.get_interactions())
 
     def get_interactions(self) -> list:
         """Return the list of recorded interactions."""

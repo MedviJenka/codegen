@@ -30,6 +30,9 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
 
         test_plan_path = r'C:\Users\evgenyp\PycharmProjects\codegen\tests\test_plan.md'
 
+        ai_page_base_task = self.__tasks.update_page_base_task(event_list=event_list,
+                                                               page_base=r"C:\Users\evgenyp\PycharmProjects\codegen\src\output\page_base.csv")
+
         # Step 1: Generate test automation code based on the test plan
         pytest_task = self.__tasks.generate_test(test_plan=test_plan_path, original_code=original_code)
 
@@ -46,7 +49,7 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
         # python_file = r'C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder'
         # generate_code_task = self.__tasks.python_task(file_path=python_file, content=str(post_review_task))
 
-        tasks = [pytest_task, code_review_task, security_check_task, post_review_task]
+        tasks = [ai_page_base_task]
 
         crew = Crew(tasks=tasks)
         crew.kickoff()

@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai_module/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/agents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai_module/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ai_module/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ai_module/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser_recorder/workflow.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/browser_recorder/workflow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/code_gen.log" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/code_gen.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/output/page_base.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,7 +110,7 @@
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images33" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lab">
+  <component name="RunManager" selected="Python.main">
     <configuration name="engine" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
@@ -223,8 +223,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.lab" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.lab" />
         <item itemvalue="Python.engine" />
         <item itemvalue="Python.tools" />
         <item itemvalue="Python.paths (1)" />
