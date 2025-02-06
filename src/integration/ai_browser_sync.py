@@ -24,4 +24,3 @@ class BiniBrowserRecorder:
 
         except Exception as e:
             raise e
-

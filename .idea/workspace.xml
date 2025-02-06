@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/test_plan.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai_module/agents.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/agents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai_module/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai_module/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai_module/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser_recorder/workflow.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/browser_recorder/workflow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/page_base.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +85,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/evgenyp/PycharmProjects/codegen/src/base"
   }
 }]]></component>
