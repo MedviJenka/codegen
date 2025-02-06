@@ -16,6 +16,10 @@ log = Logger()
 
 class BrowserRecorder(Executor):
 
+    """
+    TODO: fix list events to dict
+    """
+
     def __init__(self,
                  device: str,
                  output_csv: str = PAGE_BASE,
@@ -106,11 +110,16 @@ class BrowserRecorder(Executor):
         with open(self.output_csv, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow(["Element Name", "Element Type", "Element Path", "Action", "Value"])
-            writer.writerows(self.get_interactions())
+            writer.writerows(self.interactions)
 
     def get_interactions(self) -> list:
         """Return the list of recorded interactions."""
         return self.interactions
+
+    @property
+    def events_to_dict(self):
+        keys = ["element_ame", "element_type", "element_path", "action", "value"]
+        return [dict(zip(keys, values)) for values in self.get_interactions()]
 
     def __generate_methods(self, scenario: str, test_name: str) -> str:
 

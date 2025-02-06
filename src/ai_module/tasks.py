@@ -64,8 +64,7 @@ class BiniTasks:
                                    input: [[<replace>,2,3,4,5][<replace>,2,3,4,5][<replace>,2,3,4,5]]
                                    """),
             agent=self.agent.page_base_agent,
-            function=self.toolkit.update_page_base(data=event_list, page_base=page_base)
-        )
+            function=self.toolkit.update_page_base(data=event_list, page_base=page_base))
 
     # def python_task(self, file_path: str, content: str) -> Task:
     #     return Task(

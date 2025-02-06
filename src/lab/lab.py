@@ -23,7 +23,7 @@ task = Task(
     description="Write user data into a CSV file.",
     agent=agent,
     expected_output="CSV file should contain user details.",
-    function=write_to_csv([["Alice", 30, "Engineer"], ["Bob", 25, "Designer"]])
+    function=lambda: write_to_csv([["Alice", 30, "Engineer"], ["Bob", 25, "Designer"]])
 )
 
 # Create and run the Crew
