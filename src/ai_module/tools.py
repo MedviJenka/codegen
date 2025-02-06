@@ -1,5 +1,6 @@
+import csv
 from typing import Optional
-from crewai_tools import SeleniumScrapingTool, FileReadTool, Tool
+from crewai_tools import SeleniumScrapingTool, FileReadTool
 
 
 class ToolKit:
@@ -10,6 +11,13 @@ class ToolKit:
             website_url=url,
             css_element=css_element  # '.main-content'
         )
+
+    @staticmethod
+    def update_page_base(data: str, page_base: str = r"C:\Users\evgenyp\PycharmProjects\codegen\src\output\page_base.csv") -> None:
+        with open(page_base, mode="w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Name", "Age", "Role"])  # Header
+            writer.writerows(data)
 
     @staticmethod
     def read_test_plan_tool(path: str) -> FileReadTool:

@@ -37,6 +37,8 @@ class BrowserRecorder(Executor):
             self.screen = 'https://irqa.ai-logix.net'
         elif self.device == 'mi':
             self.screen = 'https://devngming.ai-logix.net'
+        elif self.device is None:
+            pass
         else:
             raise ValueError("A valid screen URL must be provided for custom devices.")
 
@@ -164,9 +166,7 @@ class BrowserRecorder(Executor):
 
             code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
             bini.execute(event_list=self.get_interactions(), original_code=code)
-
-            # if self.generate_code:
-            #     self.__create_python_file(output=code)
+            self.__create_python_file(output=code)
 
         except Exception as e:
             log.log_error(f'error: {e}')

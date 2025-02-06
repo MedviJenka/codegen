@@ -1,4 +1,3 @@
-Element Name,Element Type,Element Path,Action,Value
-Login With Microsoft 365,ID,signIn,Clicked on Login With Microsoft 365,
-i0116,ID,i0116,Clicked on input,
-idsibutton9,ID,idSIButton9,Clicked on input,
+Name,Age,Role
+Alice,30,Engineer
+Bob,25,Designer

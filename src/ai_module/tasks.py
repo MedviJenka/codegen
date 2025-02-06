@@ -3,7 +3,6 @@ from textwrap import dedent
 from dataclasses import dataclass
 from src.ai_module.tools import ToolKit
 from src.ai_module.agents import CustomAgents
-from src.utils.common import TASK
 
 
 @dataclass
@@ -16,14 +15,30 @@ class BiniTasks:
         return Task(
             description=dedent(
                 f"""Convert the test plan into a functional pytest script but use the code format logic.
-                Test Plan: based on test_plan provided from tool
-                Task: {TASK}
+                
+                Test Plan: based on test_plan provided from the tool
+                
+                Task: 
+                    based on code format given bellow, if the device is set to smarttap or st: all the imports should be:
+                    from qasharedinfra.infra.<smarttap>.general_utils import get_file_size
+                    and
+                    st: SmartTap = env.devices['Device_1']
+                    if the device was set to 'mi' all the imports should include meetinginsights instead of smarttap
+                    from qasharedinfra.infra.meetinginsights.selenium.utils.custom_exceptions import ElementIsClickableException
+                    and replace st with:
+                    mi: MeetingInsightsSaaS = env.devices['Device_1']
+                    
                 Code Format: {original_code}
+                
                 **important**
                 1. always log each assertion. example: assert <body> , log.bug('this is a bug') 
+                2. switch selenium equivalent send_keys() to inject_text()
+                3. the amount of tests should be equal to the test plan provided
+                4. keep code logic simple and clean
+                5. each test must container a docstring 
                 """
             ),
-            expected_output=dedent("""A Python script with pytest tests for the UI elements."""),
+            expected_output=dedent("""A Python script with pytest tests"""),
             async_execution=False,
             agent=self.agent.code_agent(),
             tools=[self.toolkit.read_test_plan_tool(path=test_plan)]
