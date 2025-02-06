@@ -7,7 +7,6 @@ from playwright.sync_api import sync_playwright
 from src.core.executor import Executor
 from src.core.logger import Logger
 from src.core.paths import PAGE_BASE, PYTHON_CODE
-from src.infrastructure.utils import BiniCodeUtils
 from ..ai_module.engine import BiniCode
 
 urllib3.disable_warnings()
@@ -162,9 +161,9 @@ class BrowserRecorder(Executor):
             log.log_info("\nRecorded Interactions:")
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
-            bini.execute(event_list=self.get_interactions())
 
-            # code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
+            code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
+            bini.execute(event_list=self.get_interactions(), original_code=code)
 
             # if self.generate_code:
             #     self.__create_python_file(output=code)

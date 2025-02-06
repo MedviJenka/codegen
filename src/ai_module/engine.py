@@ -1,14 +1,10 @@
 import urllib3
 import requests
-from typing import Optional
 from crewai import Crew
-from crewai.crews import CrewOutput
 from src.ai_module.agents import CustomAgents
 from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
 from src.core.executor import Executor
-from src.core.paths import IMAGE_2
-from src.infrastructure.enums import Prompts
 from src.utils.base import BiniBaseModel
 from src.utils.request_handler import APIRequestHandler
 
@@ -26,67 +22,31 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
 
     @property
     def __tasks(self) -> BiniTasks:
-        return BiniTasks(agent=self.__agent, toolkit=self.__tools)
+        return BiniTasks(toolkit=self.__tools)
 
-    @property
-    def screen_map_agent(self) -> str:
-        agent = self.__agent.memory_agent()
-        return f"Role: {agent.role} Goal: {agent.goal} Backstory: {agent.backstory}"
+    def execute(self, event_list: list[str], original_code: str) -> None:
 
-    def run_image_processing(self, image_path: str) -> str:
-        """Extracts UI elements from an image and returns structured JSON"""
+        """Executes the automated workflow"""
 
-        user_content = [
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.get_image(image_path)}"}},
-            {"type": "text", "text": self.screen_map_agent},
-        ]
+        test_plan_path = r'C:\Users\evgenyp\PycharmProjects\codegen\tests\test_plan.md'
 
-        payload = {
-            "messages": [
-                {"role": "system", "content": [{"type": "text", "text": Prompts.image_visualization_prompt}]},
-                {"role": "user", "content": user_content},
-            ],
-            "temperature": 0,
-        }
+        # Step 1: Generate test automation code based on the test plan
+        pytest_task = self.__tasks.generate_test(test_plan=test_plan_path, original_code=original_code)
 
-        response = self.make_request_with_retry(payload=payload)
-        return response
-
-    def execute(self, event_list: list[str]) -> CrewOutput:
-        # Step 1: Extract UI elements
-        # elements = self.run_image_processing(image_path=based_on)
-
-        # Step 2: Create a test plan using extracted UI elements
-        # test_plan_task = self.__tasks.create_test_plan(ui_elements=elements)
-
-        # Step 3: Map UI elements into a structured format for testing
-        map_elements_task = self.__tasks.map_elements_task(event_list=event_list)
-
-        # Step 4: Generate test automation code from the test plan
-        pytest_task = self.__tasks.generate_pytest_code(test_plan=str(map_elements_task))
-
-        # Step 5: Perform code review on the generated test code
+        # Step 2: Perform code review before security validation
         code_review_task = self.__tasks.code_review_task(original_code=str(pytest_task))
 
-        # Step 6: Conduct a security check on the test scripts
-        # security_check_task = self.__tasks.security_check
+        # Step 3: Conduct a security check on the reviewed code
+        security_check_task = self.__tasks.security_check_task(updated_code=str(code_review_task))
 
-        # Execute CrewAI workflow with linked tasks
-        crew = Crew(
-            agents=[
-                self.__agent.memory_agent(),
-                self.__agent.map_elements_agent(),
-                self.__agent.code_agent(),
-                self.__agent.security_agent()
-            ],
-            tasks=[
-                map_elements_task,   # Runs first (maps elements)
-                # test_plan_task,      # Uses mapped elements to create a test plan
-                pytest_task,         # Uses the test plan to generate test scripts
-                code_review_task,    # Reviews the generated test scripts
-                # security_check_task  # Performs a security review on the scripts
-            ]
-        )
+        # Step 4: Final code review
+        post_review_task = self.__tasks.code_review_task(str(security_check_task))
 
-        result = crew.kickoff()
-        return result
+        # Step 5: Generate code
+        # python_file = r'C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder'
+        # generate_code_task = self.__tasks.python_task(file_path=python_file, content=str(post_review_task))
+
+        tasks = [pytest_task, code_review_task, security_check_task, post_review_task]
+
+        crew = Crew(tasks=tasks)
+        crew.kickoff()
