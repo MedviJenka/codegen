@@ -57,14 +57,14 @@ class BiniTasks:
 
     def update_page_base_task(self, event_list: list[str], page_base: str) -> Task:
         return Task(
-            description=f"replace the first items from each list to a logical name",
+            description=f"""replace the first items from each list to a logical name {event_list}""",
             expected_output=dedent("""
                                    you will get a list which container lists with 5 elements
                                    input: [[1,2,3,4,5][1,2,3,4,5][1,2,3,4,5]]
                                    input: [[<replace>,2,3,4,5][<replace>,2,3,4,5][<replace>,2,3,4,5]]
                                    """),
             agent=self.agent.page_base_agent,
-            function=lambda: self.toolkit.update_page_base(data=event_list, page_base=page_base)
+            function=self.toolkit.update_page_base(data=event_list, page_base=page_base)
         )
 
     # def python_task(self, file_path: str, content: str) -> Task:
