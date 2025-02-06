@@ -57,7 +57,7 @@ class BiniTasks:
 
     def update_page_base_task(self, event_list: list[str], page_base: str) -> Task:
         return Task(
-            description=f"replace the first items from each list to a logical name {event_list}",
+            description=f"replace the first items from each list to a logical name",
             expected_output=dedent("""
                                    you will get a list which container lists with 5 elements
                                    input: [[1,2,3,4,5][1,2,3,4,5][1,2,3,4,5]]

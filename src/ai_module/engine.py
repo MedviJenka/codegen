@@ -5,6 +5,7 @@ from src.ai_module.agents import CustomAgents
 from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
 from src.core.executor import Executor
+from src.core.paths import PAGE_BASE
 from src.utils.base import BiniBaseModel
 from src.utils.request_handler import APIRequestHandler
 
@@ -30,8 +31,7 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
 
         test_plan_path = r'C:\Users\evgenyp\PycharmProjects\codegen\tests\test_plan.md'
 
-        ai_page_base_task = self.__tasks.update_page_base_task(event_list=event_list,
-                                                               page_base=r"C:\Users\evgenyp\PycharmProjects\codegen\src\output\page_base.csv")
+        ai_page_base_task = self.__tasks.update_page_base_task(event_list=event_list, page_base=PAGE_BASE)
 
         # Step 1: Generate test automation code based on the test plan
         pytest_task = self.__tasks.generate_test(test_plan=test_plan_path, original_code=original_code)
@@ -52,4 +52,4 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
         tasks = [ai_page_base_task]
 
         crew = Crew(tasks=tasks)
-        crew.kickoff()
+        crew.kickoff().train()
