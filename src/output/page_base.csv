@@ -1,7 +1,1 @@
 Element Name,Element Type,Element Path,Action,Value
-Login With Microsoft 365,ID,signIn,Clicked on Login With Microsoft 365,
-i0116,ID,i0116,Clicked on input,
-idsibutton9,ID,idSIButton9,Clicked on input,
-My meetings,XPATH,"//*[@id=""myMeetings-text""]/span[1]",Clicked on My meetings,
-test HL,ID,meetingSubject-0,Clicked on test HL,
-span,XPATH,"//*[@id=""vjs_video_3""]/button[1]/span[1]",Clicked on span,

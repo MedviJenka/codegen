@@ -51,5 +51,5 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
 
         tasks = [pytest_task, code_review_task, post_review_task]
 
-        crew = Crew(tasks=tasks)
+        crew = Crew(agents=[self.__agent.jira_agent()], tasks=tasks)
         crew.kickoff()
