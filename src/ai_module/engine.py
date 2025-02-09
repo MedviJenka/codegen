@@ -49,7 +49,7 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
         # python_file = r'C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder'
         # generate_code_task = self.__tasks.python_task(file_path=python_file, content=str(post_review_task))
 
-        tasks = [ai_page_base_task]
+        tasks = [pytest_task, code_review_task, post_review_task]
 
         crew = Crew(tasks=tasks)
-        crew.kickoff().train()
+        crew.kickoff()

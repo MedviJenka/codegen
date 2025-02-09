@@ -11,6 +11,13 @@ class BiniTasks:
     toolkit: ToolKit
     agent = CustomAgents()
 
+    def codepilot(self, api_key: str, prompt: str) -> Task:
+        return Task(
+            description="Generate a Python function that interacts with a web page using Selenium.",
+            agent=self.agent.copilot_agent,
+            tool=[self.toolkit.copilot(api_key=api_key, prompt=prompt)]
+        )
+
     def generate_test(self, test_plan: str, original_code: str) -> Task:
         return Task(
             description=dedent(

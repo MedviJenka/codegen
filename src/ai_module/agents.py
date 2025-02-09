@@ -16,6 +16,16 @@ class CustomAgents:
         """Lazily initializes and returns Azure OpenAI config."""
         return AzureOpenAIConfig()
 
+    @property
+    def copilot_agent(self) -> Agent:
+        return Agent(
+            name="Company Copilot",
+            role="AI Code Generator",
+            instructions="Generate production-ready Python code based on the given prompt.",
+            llm=self.llm,
+            verbose=True
+        )
+
     def test_plan_agent(self) -> Agent:
         """Creates an agent for generating test plans based on UI analysis."""
         return Agent(

@@ -1,4 +1,5 @@
 import csv
+import requests
 from typing import Optional
 from crewai_tools import SeleniumScrapingTool, FileReadTool
 
@@ -11,6 +12,29 @@ class ToolKit:
             website_url=url,
             css_element=css_element  # '.main-content'
         )
+
+    @staticmethod
+    def copilot(api_key: str, prompt: str) -> requests:
+        """
+            Sends a request to the company's Copilot API to generate code based on the provided prompt.
+            """
+        url = "https://your-company-copilot-api.com/generate"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+        data = {
+            "prompt": prompt,
+            "language": "python",
+            "max_tokens": 300
+        }
+
+        response = requests.post(url, json=data, headers=headers)
+
+        if response.status_code == 200:
+            return response.json().get("code", "No code generated")
+        else:
+            return f"Error: {response.status_code}, {response.text}"
 
     @staticmethod
     def update_page_base(data: list[str], page_base: str) -> None:

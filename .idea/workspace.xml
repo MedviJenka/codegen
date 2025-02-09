@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ai_module/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser_recorder/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/browser_recorder/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/browser_recorder/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lab/lab.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lab/lab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/output/page_base.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
-    </list>
+    <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,42 +60,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;PowerShell.run_codegen.ps1 (1).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1 (2).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1 (3).executor&quot;: &quot;Run&quot;,
-    &quot;PowerShell.run_codegen.ps1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.agents.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.codegen (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.codegen.executor&quot;: &quot;Run&quot;,
-    &quot;Python.engine.executor&quot;: &quot;Run&quot;,
-    &quot;Python.jira.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.lab.executor&quot;: &quot;Run&quot;,
-    &quot;Python.logic.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.paths (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.paths.executor&quot;: &quot;Run&quot;,
-    &quot;Python.screen_elements.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tools.executor&quot;: &quot;Run&quot;,
-    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/evgenyp/PycharmProjects/codegen/src/base&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "PowerShell.run_codegen.ps1 (1).executor": "Run",
+    "PowerShell.run_codegen.ps1 (2).executor": "Run",
+    "PowerShell.run_codegen.ps1 (3).executor": "Run",
+    "PowerShell.run_codegen.ps1.executor": "Run",
+    "Python.agents.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.codegen (1).executor": "Run",
+    "Python.codegen.executor": "Run",
+    "Python.engine.executor": "Run",
+    "Python.jira.executor": "Debug",
+    "Python.lab.executor": "Run",
+    "Python.logic.executor": "Run",
+    "Python.main (1).executor": "Run",
+    "Python.main (2).executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.paths (1).executor": "Run",
+    "Python.paths.executor": "Run",
+    "Python.screen_elements.executor": "Run",
+    "Python.tools.executor": "Run",
+    "Python.utils.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/evgenyp/PycharmProjects/codegen/src/ai_module"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\ai_module" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\base" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\environment" />
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder" />
-      <recent name="C:\Users\evgenyp\PycharmProjects\codegen\src\ai_module" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\ai" />
