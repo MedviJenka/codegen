@@ -1,20 +1,28 @@
 from textwrap import dedent
 from crewai import Agent
-from functools import cached_property
 from src.utils.azure_config import AzureOpenAIConfig
+from crewai.telemetry import Telemetry
 
 
-class CustomAgents:
+class WorkaroundHandler:
+
+    @staticmethod
+    def _disable_telemetry():
+
+        """Disables telemetry methods temporarily to avoid unwanted behavior."""
+
+        for attr in dir(Telemetry):
+            if callable(getattr(Telemetry, attr)) and not attr.startswith("__"):
+                setattr(Telemetry, attr, lambda *args, **kwargs: None)
+
+
+class CustomAgents(WorkaroundHandler, AzureOpenAIConfig):
 
     """Factory class for creating AI agents using CrewAI."""
 
     def __init__(self) -> None:
-        self.llm = self.config.set_azure_llm
-
-    @cached_property
-    def config(self) -> AzureOpenAIConfig:
-        """Lazily initializes and returns Azure OpenAI config."""
-        return AzureOpenAIConfig()
+        self._disable_telemetry()
+        self.llm = self.set_azure_llm
 
     @property
     def copilot_agent(self) -> Agent:
@@ -89,7 +97,7 @@ class CustomAgents:
                 "efficient, and follow coding standards."
             ),
             verbose=True,
-            llm=self.config.set_azure_llm,
+            llm=self.llm
         )
 
     def jira_agent(self) -> Agent:

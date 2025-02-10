@@ -49,7 +49,8 @@ class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
         # python_file = r'C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder'
         # generate_code_task = self.__tasks.python_task(file_path=python_file, content=str(post_review_task))
 
-        tasks = [pytest_task, code_review_task, post_review_task]
+        # tasks = [pytest_task, code_review_task, post_review_task]
+        tasks = [pytest_task]
 
-        crew = Crew(agents=[self.__agent.jira_agent()], tasks=tasks)
+        crew = Crew(tasks=tasks)
         crew.kickoff()

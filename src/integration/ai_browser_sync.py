@@ -1,7 +1,7 @@
 from src.core.paths import PAGE_BASE
 from src.browser_recorder.workflow import BrowserRecorder
-from src.infrastructure.utils import BiniCodeUtils
 from dataclasses import dataclass
+from src.utils.ai_utils import BiniCodeUtils
 
 
 @dataclass

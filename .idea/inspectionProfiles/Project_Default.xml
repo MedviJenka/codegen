@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="142">
+          <list size="144">
             <item index="0" class="java.lang.String" itemvalue="traitlets" />
             <item index="1" class="java.lang.String" itemvalue="protobuf" />
             <item index="2" class="java.lang.String" itemvalue="tensorflow-estimator" />
@@ -147,6 +147,8 @@
             <item index="139" class="java.lang.String" itemvalue="playwright" />
             <item index="140" class="java.lang.String" itemvalue="pip" />
             <item index="141" class="java.lang.String" itemvalue="debugpy" />
+            <item index="142" class="java.lang.String" itemvalue="crewai-tools" />
+            <item index="143" class="java.lang.String" itemvalue="atlassian" />
           </list>
         </value>
       </option>

@@ -1,12 +1,15 @@
 from src.ai_module.engine import BiniCode
-from src.environment.environment import get_dotenv_data
+from src.utils.azure_config import AzureOpenAIConfig
 
 
 class BiniCodeUtils(BiniCode):
 
     def __init__(self) -> None:
-        self.model: str = get_dotenv_data("MODEL")
-        self.api_key: str = get_dotenv_data("OPENAI_API_KEY")
-        self.version: str = get_dotenv_data("OPENAI_API_VERSION")
-        self.endpoint: str = get_dotenv_data("AZURE_OPENAI_ENDPOINT")
-        super().__init__(endpoint=self.endpoint, model=self.model, version=self.version, api_key=self.api_key)
+
+        config = AzureOpenAIConfig()
+        super().__init__(
+            endpoint=config.azure_endpoint,
+            model=config.model,
+            version=config.openai_api_version,
+            api_key=config.api_key
+        )

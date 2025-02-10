@@ -1,0 +1,10 @@
+DEBUG | Monday | 10/02/2025 | 15:19:29 | asyncio | Using proactor: IocpProactor | Function: __init__ | Line: 634
+INFO | Monday | 10/02/2025 | 15:19:35 | root | Error during execution: Page.goto: net::ERR_ABORTED; maybe frame was detached?
+Call log:
+  - navigating to "https://irqa.ai-logix.net/", waiting until "load"
+ | Function: log_info | Line: 30
+INFO | Monday | 10/02/2025 | 15:19:36 | root | 
+Recorded Interactions: | Function: log_info | Line: 30
+INFO | Monday | 10/02/2025 | 15:19:36 | root | [] | Function: log_info | Line: 30
+INFO | Monday | 10/02/2025 | 15:19:36 | root | 
+Interactions saved to C:\Users\evgenyp\PycharmProjects\codegen\output\page_base.csv | Function: log_info | Line: 30

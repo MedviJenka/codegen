@@ -1,37 +1,31 @@
 import csv
 import requests
-from typing import Optional
-from crewai_tools import SeleniumScrapingTool, FileReadTool
-from src.core.dir_mapping import FunctionDiscovery
+from crewai_tools import FileReadTool, DirectorySearchTool
+# from src.core.dir_mapping import FunctionDiscovery
+from src.core.paths import GLOBAL_PATH
 
 
-class ToolKit(FunctionDiscovery):
-
-    @staticmethod
-    def selenium_tool(url: str, css_element: Optional[str] = None) -> SeleniumScrapingTool:
-        return SeleniumScrapingTool(
-            website_url=url,
-            css_element=css_element  # '.main-content'
-        )
+class ToolKit:
 
     def find_functions(self) -> any:
-        return self.functions_index.items()
+        # self.functions_index.items()
+        return DirectorySearchTool(directory=GLOBAL_PATH)
 
     @staticmethod
     def copilot(api_key: str) -> requests:
         """for now copilot unable to generate code"""
-        url = f"https://api.github.com/enterprises/audiocodes-emu/copilot/metrics"
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Accept": "application/vnd.github+json",
-        }
-
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return f"Error: {response.status_code}, {response.text}"
+        # url = f"https://api.github.com/enterprises/audiocodes-emu/copilot/metrics"
+        # headers = {
+        #     "Authorization": f"Bearer {api_key}",
+        #     "Accept": "application/vnd.github+json",
+        # }
+        #
+        # response = requests.get(url, headers=headers)
+        #
+        # if response.status_code == 200:
+        #     return response.json()
+        # else:
+        #     return f"Error: {response.status_code}, {response.text}"
 
     @staticmethod
     def update_page_base(data: list[str], page_base: str) -> None:
@@ -58,8 +52,3 @@ class ToolKit(FunctionDiscovery):
     #     return Tool(name="SavePythonFile",
     #                 description="Saves Python code to a .py file.",
     #                 function=self.__create_python_file(file_path=file_path, content=content))
-
-
-t = ToolKit()
-for each in t.find_functions():
-    print(each)
