@@ -27,8 +27,3 @@ class BiniCodeUtils(BiniCode):
         self.version: str = get_dotenv_data('OPENAI_API_VERSION')
         self.endpoint: str = get_dotenv_data('AZURE_OPENAI_ENDPOINT')
         super().__init__(endpoint=self.endpoint, model=self.model, version=self.version, api_key=self.api_key)
-
-
-if __name__ == '__main__':
-    utils = BiniCodeUtils()
-    utils.execute(event_list=[], original_code='')

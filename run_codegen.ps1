@@ -3,8 +3,8 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 # Get the script directory dynamically
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$venvPath = Join-Path $scriptDir "venv"
-$pythonScript = Join-Path $scriptDir "engine/codegen.py"
+$venvPath = Join-Path $scriptDir ".venv"
+$pythonScript = Join-Path $scriptDir "/src/browser_recorder/workflow.py"
 $requirementsFile = Join-Path $scriptDir "requirements.txt"
 
 # Check if Python is installed
@@ -18,6 +18,8 @@ if (-not $python) {
 if (-Not (Test-Path $venvPath)) {
     Write-Host "Creating virtual environment..." -ForegroundColor Yellow
     py -m venv $venvPath
+} else {
+    Write-Host "Virtual environment already exists" -ForegroundColor DarkBlue
 }
 
 # Activate virtual environment
@@ -29,6 +31,8 @@ $activateScript = Join-Path $venvPath "Scripts\Activate.ps1"
 if (Test-Path $requirementsFile) {
     Write-Host "Installing dependencies from requirements.txt..." -ForegroundColor Green
     pip install -r $requirementsFile
+    py -m pip install --upgrade pip
+
 } else {
     Write-Host "No requirements.txt found. Skipping dependency installation." -ForegroundColor Yellow
 }

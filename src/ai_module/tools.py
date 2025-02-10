@@ -2,9 +2,10 @@ import csv
 import requests
 from typing import Optional
 from crewai_tools import SeleniumScrapingTool, FileReadTool
+from src.core.dir_mapping import FunctionDiscovery
 
 
-class ToolKit:
+class ToolKit(FunctionDiscovery):
 
     @staticmethod
     def selenium_tool(url: str, css_element: Optional[str] = None) -> SeleniumScrapingTool:
@@ -13,26 +14,22 @@ class ToolKit:
             css_element=css_element  # '.main-content'
         )
 
+    def find_functions(self) -> any:
+        return self.functions_index.items()
+
     @staticmethod
-    def copilot(api_key: str, prompt: str) -> requests:
-        """
-            Sends a request to the company's Copilot API to generate code based on the provided prompt.
-            """
-        url = "https://your-company-copilot-api.com/generate"
+    def copilot(api_key: str) -> requests:
+        """for now copilot unable to generate code"""
+        url = f"https://api.github.com/enterprises/audiocodes-emu/copilot/metrics"
         headers = {
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        }
-        data = {
-            "prompt": prompt,
-            "language": "python",
-            "max_tokens": 300
+            "Accept": "application/vnd.github+json",
         }
 
-        response = requests.post(url, json=data, headers=headers)
+        response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
-            return response.json().get("code", "No code generated")
+            return response.json()
         else:
             return f"Error: {response.status_code}, {response.text}"
 
@@ -61,3 +58,8 @@ class ToolKit:
     #     return Tool(name="SavePythonFile",
     #                 description="Saves Python code to a .py file.",
     #                 function=self.__create_python_file(file_path=file_path, content=content))
+
+
+t = ToolKit()
+for each in t.find_functions():
+    print(each)

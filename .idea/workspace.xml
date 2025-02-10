@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="" />
+    <list default="true" id="d5d191e2-9536-49f9-a879-528130235590" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/core/dir_mapping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_codegen.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/run_codegen.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai_module/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ai_module/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/browser_recorder/automation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/browser_recorder/screen_elements.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/paths.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environment/image_compression.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/image1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/img33.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/integration/ai_browser_sync.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/output/page_base.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/output/page_base.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/request_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/request_handler.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +84,9 @@
     "PowerShell.run_codegen.ps1 (2).executor": "Run",
     "PowerShell.run_codegen.ps1 (3).executor": "Run",
     "PowerShell.run_codegen.ps1.executor": "Run",
+    "Python.__init__.executor": "Run",
     "Python.agents.executor": "Run",
+    "Python.ai_browser_sync.executor": "Run",
     "Python.app.executor": "Run",
     "Python.codegen (1).executor": "Run",
     "Python.codegen.executor": "Run",
@@ -78,15 +98,15 @@
     "Python.main (2).executor": "Run",
     "Python.main.executor": "Run",
     "Python.paths (1).executor": "Run",
-    "Python.paths.executor": "Run",
+    "Python.paths.executor": "Debug",
     "Python.screen_elements.executor": "Run",
-    "Python.tools.executor": "Run",
+    "Python.tools.executor": "Debug",
     "Python.utils.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/evgenyp/PycharmProjects/codegen/src/ai_module"
+    "last_opened_file_path": "C:/Users/evgenyp/OneDrive - AudioCodes Ltd/Desktop/api/copilot-api"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -105,30 +125,12 @@
       <recent name="C:\Users\evgenyp\PycharmProjects\codegen\bini_ai\images33" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.utils">
-    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="codegen" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/armagedon" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/armagedon/app.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+  <component name="RunManager" selected="Python.tools">
+    <configuration name="run_codegen.ps1 (1)" type="PowerShellRunType" factoryName="PowerShell" temporary="true" scriptUrl="$PROJECT_DIR$/run_codegen.ps1" executablePath="$PROJECT_DIR$/../../../../WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe">
+      <envs />
       <method v="2" />
     </configuration>
-    <configuration name="engine" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -141,7 +143,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ai_module/engine.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ai_module/__init__.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -150,7 +152,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="ai_browser_sync" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -159,11 +161,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/integration" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/integration/ai_browser_sync.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -172,7 +174,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="screen_elements" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="paths" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -181,11 +183,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/browser_recorder" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/core" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/browser_recorder/screen_elements.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/core/paths.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -194,7 +196,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="tools" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="codegen" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -203,11 +205,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/infrastructure" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/ai_module" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/infrastructure/utils.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/ai_module/tools.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -218,11 +220,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.utils" />
-        <item itemvalue="Python.engine" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.screen_elements" />
-        <item itemvalue="Python.app" />
+        <item itemvalue="Python.tools" />
+        <item itemvalue="Python.paths" />
+        <item itemvalue="Python.__init__" />
+        <item itemvalue="Python.ai_browser_sync" />
+        <item itemvalue="PowerShell.run_codegen.ps1 (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -296,5 +298,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/core/paths.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/ai_module/tools.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -24,3 +24,9 @@ class BiniBrowserRecorder:
 
         except Exception as e:
             raise e
+
+
+if __name__ == '__main__':
+    utils = BiniCodeUtils()
+    bini = BiniBrowserRecorder(bini=utils)
+    bini.run_bini_recorder()

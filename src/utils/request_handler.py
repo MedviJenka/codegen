@@ -2,11 +2,10 @@ import time
 import requests
 from time import sleep
 from dataclasses import dataclass
-from src.environment.image_compression import ImageCompression
 
 
 @dataclass
-class APIRequestHandler(ImageCompression):
+class APIRequestHandler:
 
     api_key: str
     endpoint: str
