@@ -3,3 +3,4 @@
 /.env
 /browser_recorder/output/test_code.py
 /.venv/
+/venv/

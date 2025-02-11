@@ -6,20 +6,18 @@ from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
 from src.core.executor import Executor
 from src.core.paths import PAGE_BASE
-from src.utils.base import BiniBaseModel
 from src.utils.request_handler import APIRequestHandler
 
 
 urllib3.disable_warnings()
 
 
-class BiniCode(APIRequestHandler, BiniBaseModel, Executor):
+class BiniCode(APIRequestHandler, Executor):
 
-    def __init__(self, model: str, version: str, endpoint: str, api_key: str) -> None:
+    def __init__(self) -> None:
         self.__agent = CustomAgents()
         self.__tools = ToolKit()
         self.session = requests.Session()
-        BiniBaseModel.__init__(self, model=model, version=version, endpoint=endpoint, api_key=api_key)
 
     @property
     def __tasks(self) -> BiniTasks:

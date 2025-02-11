@@ -1,13 +1,13 @@
+from src.ai_module.engine import BiniCode
 from src.core.paths import PAGE_BASE
 from src.browser_recorder.workflow import BrowserRecorder
 from dataclasses import dataclass
-from src.utils.ai_utils import BiniCodeUtils
 
 
 @dataclass
 class BiniBrowserRecorder:
 
-    bini: BiniCodeUtils
+    bini = BiniCode()
 
     def run_bini_recorder(self) -> None:
         try:
@@ -24,9 +24,3 @@ class BiniBrowserRecorder:
 
         except Exception as e:
             raise e
-
-
-if __name__ == '__main__':
-    utils = BiniCodeUtils()
-    bini = BiniBrowserRecorder(bini=utils)
-    bini.run_bini_recorder()
