@@ -1,54 +1,30 @@
-import urllib3
-import requests
 from crewai import Crew
 from src.ai_module.agents import CustomAgents
 from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
-from src.core.executor import Executor
-from src.core.paths import PAGE_BASE
-from src.utils.request_handler import APIRequestHandler
 
 
-urllib3.disable_warnings()
-
-
-class BiniCode(APIRequestHandler, Executor):
+class BiniCode:
 
     def __init__(self) -> None:
         self.__agent = CustomAgents()
         self.__tools = ToolKit()
-        self.session = requests.Session()
 
     @property
     def __tasks(self) -> BiniTasks:
         return BiniTasks(toolkit=self.__tools)
 
-    def execute(self, event_list: list[str], original_code: str) -> None:
-
+    def test(self, path: str) -> None:
         """Executes the automated workflow"""
+        test_plan_task = self.__tasks.view_test_plan(test_plan=path)
 
-        test_plan_path = r'C:\Users\evgenyp\PycharmProjects\codegen\tests\test_plan.md'
+        tasks = [test_plan_task]
 
-        ai_page_base_task = self.__tasks.update_page_base_task(event_list=event_list, page_base=PAGE_BASE)
-
-        # Step 1: Generate test automation code based on the test plan
-        pytest_task = self.__tasks.generate_test(test_plan=test_plan_path, original_code=original_code)
-
-        # Step 2: Perform code review before security validation
-        code_review_task = self.__tasks.code_review_task(original_code=str(pytest_task))
-
-        # Step 3: Conduct a security check on the reviewed code
-        security_check_task = self.__tasks.security_check_task(updated_code=str(code_review_task))
-
-        # Step 4: Final code review
-        post_review_task = self.__tasks.code_review_task(str(security_check_task))
-
-        # Step 5: Generate code
-        # python_file = r'C:\Users\evgenyp\PycharmProjects\codegen\src\browser_recorder'
-        # generate_code_task = self.__tasks.python_task(file_path=python_file, content=str(post_review_task))
-
-        # tasks = [pytest_task, code_review_task, post_review_task]
-        tasks = [pytest_task]
+        print(f"Using LLM: {self.__agent.llm}")  # Debugging output
 
         crew = Crew(tasks=tasks)
         crew.kickoff()
+
+
+bini = BiniCode()
+bini.test(r'C:\Users\medvi\PycharmProjects\codegen\tests\test_plan.md')

@@ -11,12 +11,16 @@ class BiniTasks:
     toolkit: ToolKit
     agent = CustomAgents()
 
-    # def codepilot(self, api_key: str, prompt: str) -> Task:
-    #     return Task(
-    #         description="Generate a Python function that interacts with a web page using Selenium.",
-    #         agent=self.agent.copilot_agent,
-    #         tool=[self.toolkit.copilot(api_key=api_key, prompt=prompt)]
-    #     )
+    def view_test_plan(self, test_plan: str) -> Task:
+        return Task(
+            description=dedent(
+                f"""
+                Read this test plan {self.toolkit.test_plan_tool(path=test_plan)}
+                """
+            ),
+            expected_output=dedent("""A Python script with pytest tests"""),
+            async_execution=False,
+            agent=self.agent.code_agent())
 
     def generate_test(self, test_plan: str, original_code: str) -> Task:
         return Task(

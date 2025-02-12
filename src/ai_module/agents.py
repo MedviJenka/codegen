@@ -1,28 +1,19 @@
+import os
 from textwrap import dedent
-from crewai import Agent
-from src.utils.azure_config import AzureOpenAIConfig
-from crewai.telemetry import Telemetry
+from crewai import Agent, LLM
+from dotenv import load_dotenv
 
 
-class WorkaroundHandler:
-
-    @staticmethod
-    def _disable_telemetry():
-
-        """Disables telemetry methods temporarily to avoid unwanted behavior."""
-
-        for attr in dir(Telemetry):
-            if callable(getattr(Telemetry, attr)) and not attr.startswith("__"):
-                setattr(Telemetry, attr, lambda *args, **kwargs: None)
+load_dotenv()
 
 
-class CustomAgents(WorkaroundHandler, AzureOpenAIConfig):
+class CustomAgents:
 
     """Factory class for creating AI agents using CrewAI."""
 
     def __init__(self) -> None:
-        self._disable_telemetry()
-        self.llm = self.set_azure_llm
+        self.llm = LLM(model=os.getenv('MODEL'), api_version=os.getenv('AZURE_API_VERSION'))
+        self.llm = self.llm
 
     @property
     def copilot_agent(self) -> Agent:
