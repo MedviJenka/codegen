@@ -4,5 +4,5 @@ test_plan_task:
     Make sure you find you review carefully step by step
   expected_output: >
     Validation for the test plan, return a thought about the test plan, add points for improvement
-    and re-write the test plan in correct .md format as given
+    and re-write them in a new test plan in correct .md file format as given above
   agent: test_agent
