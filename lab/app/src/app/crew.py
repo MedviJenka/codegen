@@ -17,7 +17,7 @@ class App:
         self.agents = None
         self.tasks = None
 
-        with open("config/agents.yaml", "r", encoding="utf-8") as file:
+        with open("agents.yaml", "r", encoding="utf-8") as file:
             self.agents_config = yaml.safe_load(file)
         with open("config/tasks.yaml", "r", encoding="utf-8") as file:
             self.tasks_config = yaml.safe_load(file)
@@ -48,3 +48,6 @@ class App:
             process=Process.sequential,
             verbose=True
         )
+
+app = App()
+app.crew().kickoff()

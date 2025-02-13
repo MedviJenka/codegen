@@ -1,7 +1,7 @@
-import os
-import ast
-from src.core.paths import GLOBAL_PATH
+from lab.app.src.app.tools.custom_tool import FunctionMapping
 
 
-class ToolKit:
-    ...
+class ToolKit(FunctionMapping):
+
+    def find_relevant_functions(self) -> dict:
+        return self.index_functions

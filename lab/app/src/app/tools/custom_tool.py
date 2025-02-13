@@ -13,7 +13,7 @@ class FunctionMapping:
         self.base_dir = base_dir
 
     @property
-    def functions_index(self) -> dict:
+    def index_functions(self) -> dict:
         return self.scan_directory()
 
     def scan_directory(self) -> dict:
@@ -68,9 +68,3 @@ class FunctionMapping:
         Generates a unique cache key based on the file path.
         """
         return hashlib.md5(file_path.encode()).hexdigest()
-
-
-if __name__ == "__main__":
-    # ✅ Create an instance and test
-    f = FunctionMapping()
-    print(f.functions_index)  # ✅ Will now use caching
