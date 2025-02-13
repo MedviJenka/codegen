@@ -1,4 +1,4 @@
-from crewai import Crew
+from crewai import Flow, Crew
 from src.ai_module.agents import CustomAgents
 from src.ai_module.tasks import BiniTasks
 from src.ai_module.tools import ToolKit
@@ -17,11 +17,7 @@ class BiniCode:
     def test(self, path: str) -> None:
         """Executes the automated workflow"""
         test_plan_task = self.__tasks.view_test_plan(test_plan=path)
-
         tasks = [test_plan_task]
-
-        print(f"Using LLM: {self.__agent.llm}")  # Debugging output
-
         crew = Crew(tasks=tasks)
         crew.kickoff()
 

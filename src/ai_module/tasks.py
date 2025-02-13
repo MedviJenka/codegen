@@ -13,16 +13,12 @@ class BiniTasks:
 
     def view_test_plan(self, test_plan: str) -> Task:
         return Task(
-            description=dedent(
-                f"""
-                Read this test plan {self.toolkit.test_plan_tool(path=test_plan)}
-                """
-            ),
+            description=dedent(f"""Read this test plan {self.toolkit.test_plan_tool(path=test_plan)}"""),
             expected_output=dedent("""A Python script with pytest tests"""),
             async_execution=False,
             agent=self.agent.code_agent())
 
-    def generate_test(self, test_plan: str, original_code: str) -> Task:
+    def generate_test(self, original_code: str, test_plan: Task) -> Task:
         return Task(
             description=dedent(
                 f"""Convert the test plan into a functional pytest script but use the code format logic.
@@ -52,11 +48,12 @@ class BiniTasks:
             expected_output=dedent("""A Python script with pytest tests"""),
             async_execution=False,
             agent=self.agent.code_agent(),
+            depends_on=test_plan,
             # tools=[self.toolkit.read_test_plan_tool(path=test_plan)]
             tools=[self.toolkit.find_functions()]
         )
 
-    def code_review_task(self, original_code: str) -> Task:
+    def code_review_task(self, original_code: str, generated_code: Task) -> Task:
         return Task(
             description=dedent("""Perform a review of the generated pytest code to ensure quality and correctness."""),
             expected_output=dedent(f"""
@@ -64,6 +61,7 @@ class BiniTasks:
             """),
             async_execution=False,
             agent=self.agent.code_review_agent(),
+            depends_on=generated_code
             # tools=[Tool(name="code_review", description="Analyzes test scripts for best practices and errors")]
         )
 

@@ -7,9 +7,8 @@ from src.core.paths import GLOBAL_PATH
 class ToolKit:
 
     def test_plan_tool(self, path: str) -> str:
-        ...
-        # with open(path, encoding='utf-8') as file:
-        #     return file.read()
+        with open(path, encoding='utf-8') as file:
+            return file.read()
 
     def find_functions(self) -> any:
         # self.functions_index.items()
