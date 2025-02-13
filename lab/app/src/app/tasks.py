@@ -9,7 +9,7 @@ class Tasks:
     """Manages all task configurations and creation."""
 
     def __init__(self):
-        self.tasks = None
+        # self.tasks = None
         self.agents = Agents()  # ✅ Initialize agents properly
         with open("config/tasks.yaml", "r", encoding="utf-8") as file:
             self.tasks_config = yaml.safe_load(file)
