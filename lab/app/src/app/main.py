@@ -5,6 +5,8 @@ from crewai.project import CrewBase, crew, task
 
 from lab.app.src.app.agents import Agents
 from lab.app.src.app.tasks import Tasks
+from lab.app.src.app.tools.toolkit import ToolKit
+from src.core.paths import TEST_PLAN
 
 
 @CrewBase
@@ -20,5 +22,6 @@ class App(Agents, Tasks):
         )
 
 
+toolkit = ToolKit()
 app = App()
-app.crew().kickoff()
+app.crew().kickoff(inputs={'test_plan': toolkit.read_test_plan(path=TEST_PLAN)})

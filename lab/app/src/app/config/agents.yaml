@@ -6,3 +6,10 @@ test_agent:
     Read and understand exactly what is written in this {topic}
   backstory: >
     You're a seasoned test plan engineer
+
+
+function_agent:
+    role: "Code Analyzer"
+    goal: "Find functions in Python files based on a wildcard search pattern in this dict {functions_map}"
+    backstory: "A highly efficient code analyzer that can scan Python directories and find specific function names."
+    capabilities: ["read", "analyze", "extract"]
