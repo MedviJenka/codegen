@@ -11,3 +11,4 @@ class ToolKit(FunctionMapping):
     def find_relevant_functions(self) -> dict:
         """returns full dict with function paths, name and docstring"""
         return self.index_functions
+

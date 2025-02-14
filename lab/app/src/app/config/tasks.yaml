@@ -2,6 +2,8 @@ test_plan_task:
   description: >
     Conduct a thorough research about this test plan {test_plan}
     Make sure you find you review carefully step by step
+    important points:
+    when you encounter '*': leave the text as it is, do not remove the * (asterisk)
   expected_output: >
     Validation for the test plan, return a thought about the test plan, add points for improvement
     and re-write them in a new test plan in correct .md file format as given above
@@ -9,7 +11,10 @@ test_plan_task:
 
 
 function_mapping_task:
-    description: "Scans a directory for Python files and extracts function names matching a pattern with wildcard support."
+    description: >
+      Scans a directory for Python files and extracts function names matching a pattern with wildcard support
+      and getting a specific function by using {get_function} query
+      Query: {get_function}
     agent: function_agent
     expected_output: "List of function names matching the given pattern."
     parameters:
@@ -20,7 +25,7 @@ function_mapping_task:
       - name: pattern
         type: string
         required: true
-        description: "Wildcard pattern for function names (e.g., '*call users' should return 'call_users()')."
+        description: "Wildcard pattern for function names (e.g., '* call users' should return 'call_users()')."
     steps:
       - name: "Search for Python files"
         description: "Find all Python files in the directory."

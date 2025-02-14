@@ -3,7 +3,6 @@ from crewai import Task
 from crewai.project import task, CrewBase
 from lab.app.src.app.agents import Agents
 from lab.app.src.app.tools.toolkit import ToolKit
-from src.core.paths import TEST_PLAN
 
 
 @CrewBase
@@ -25,4 +24,11 @@ class Tasks:
         """Creates the test plan task with an assigned agent."""
         return Task(
             config=self.tasks_config['test_plan_task'],
+        )
+
+    @task
+    def function_mapping_task(self) -> Task:
+        """Creates the function mapping task with an assigned agent."""
+        return Task(
+            config=self.tasks_config['function_mapping_task'],
         )

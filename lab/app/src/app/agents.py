@@ -28,3 +28,12 @@ class Agents:
             verbose=True,
             llm=self.llm
         )
+
+    @agent
+    def function_agent(self) -> Agent:
+        """Creates the function agent."""
+        return Agent(
+            config=self.agents_config['function_agent'],
+            verbose=True,
+            llm=self.llm
+        )
