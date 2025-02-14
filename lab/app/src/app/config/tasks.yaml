@@ -1,4 +1,5 @@
 test_plan_task:
+  agent: test_agent
   description: >
     Conduct a thorough research about this test plan {test_plan}
     Make sure you find you review carefully step by step
@@ -7,32 +8,22 @@ test_plan_task:
   expected_output: >
     Validation for the test plan, return a thought about the test plan, add points for improvement
     and re-write them in a new test plan in correct .md file format as given above
-  agent: test_agent
 
 
 function_mapping_task:
+    agent: function_mapping_agent
     description: >
       Scans a directory for Python files and extracts function names matching a pattern with wildcard support
       and getting a specific function by using {get_function} query
       Query: {get_function}
-    agent: function_agent
-    expected_output: "List of function names matching the given pattern."
-    parameters:
-      - name: directory
-        type: string
-        required: true
-        description: "The directory to search for Python functions."
-      - name: pattern
-        type: string
-        required: true
-        description: "Wildcard pattern for function names (e.g., '* call users' should return 'call_users()')."
-    steps:
-      - name: "Search for Python files"
-        description: "Find all Python files in the directory."
-        action: "search_python_files"
-      - name: "Extract function names"
-        description: "Parse the files and extract function names."
-        action: "extract_functions"
-      - name: "Filter functions by pattern"
-        description: "Match functions against the wildcard pattern and return the result."
-        action: "filter_functions"
+      steps:
+        - name: "Search for Python files"
+          description: "Find all Python files in the directory."
+          action: "search_python_files"
+        - name: "Extract function names"
+          description: "Parse the files and extract function names."
+          action: "extract_functions"
+        - name: "Filter functions by pattern"
+          description: "Match functions against the wildcard pattern and return the result."
+          action: "filter_functions"
+    expected_output: "the most relevant function you can get from the Python files"

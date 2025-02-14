@@ -33,7 +33,7 @@ class Agents:
     def function_agent(self) -> Agent:
         """Creates the function agent."""
         return Agent(
-            config=self.agents_config['function_agent'],
+            config=self.agents_config['function_mapping_agent'],
             verbose=True,
             llm=self.llm
         )

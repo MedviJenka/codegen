@@ -4,6 +4,8 @@ from functools import cached_property
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 
+from src.core.paths import TEST_PLAN
+
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -11,13 +13,13 @@ from crewai.project import CrewBase, agent, crew, task
 
 
 @CrewBase
-class App:
+class TestPlanCrew:
 
     def __init__(self):
         self.agents = None
         self.tasks = None
 
-        with open("agents.yaml", "r", encoding="utf-8") as file:
+        with open("config/agents.yaml", "r", encoding="utf-8") as file:
             self.agents_config = yaml.safe_load(file)
         with open("config/tasks.yaml", "r", encoding="utf-8") as file:
             self.tasks_config = yaml.safe_load(file)
@@ -48,6 +50,3 @@ class App:
             process=Process.sequential,
             verbose=True
         )
-
-app = App()
-app.crew().kickoff()
