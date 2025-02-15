@@ -11,9 +11,10 @@ function_task:
       - Always choose from the available functions in {available_functions}.
       - Extract all necessary arguments dynamically from the query.
       - Do NOT generate new function logic.
+
   expected_output: >
       - Response format:
-        best_function() or best_function() with arguments
+        2. best_function() or best_function() with arguments
 
 
 code_task:
@@ -21,6 +22,7 @@ code_task:
   description: >
     Extract all required code arguments from the {response}.
     return valid code from the {response}.
+    - after getting the right function from {response} import it by splitting the path and function name.
+    - refactor {response} to a valid python module import and function call.
   expected_output: >
-      - Response format:
-        best_code() or best_code() with arguments
+      correct module import and function call

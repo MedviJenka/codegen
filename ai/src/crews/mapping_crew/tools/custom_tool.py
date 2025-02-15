@@ -12,6 +12,19 @@ class FunctionMapping:
         self.base_dir = base_dir
         self.cache = dc.Cache(f"{base_dir}/func_cache_db")
 
+    def extract_wildcard_cells(self):
+        """Reads a file and extracts table cells that contain the '*' wildcard."""
+        extracted_cells = []
+
+        with open(self.base_dir, 'r', encoding='utf-8') as file:
+            for line in file:
+                cells = line.split('|')
+                for cell in cells:
+                    if '*' in cell:
+                        extracted_cells.append(cell.strip().replace('*', '').strip())
+
+        return extracted_cells
+
     @property
     def index_functions(self) -> dict:
         return self.scan_directory()
