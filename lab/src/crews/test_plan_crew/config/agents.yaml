@@ -1,7 +1,6 @@
 test_plan_agent:
   name: test_plan_agent
-  role: >
-    {test_plan} Test Plan and Automation Engineer
+  role: Test Plan and Automation Engineer
   goal: >
     Read and understand exactly what is written in this {test_plan}
   backstory: >

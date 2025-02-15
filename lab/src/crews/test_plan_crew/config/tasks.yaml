@@ -6,7 +6,8 @@ test_plan_task:
     important points:
     ** important ** 
     1. when you encounter '*': leave the text as it is, do not remove the * (asterisk)
-    2. do not add * by yourself
+    2. * or asterisk is a special character for markdown existing functions that can used in the test plan
+    3. do not add * by yourself
   expected_output: >
     Validation for the test plan, return a thought about the test plan, add points for improvement
     and re-write them in a new test plan in correct .md file format as given above

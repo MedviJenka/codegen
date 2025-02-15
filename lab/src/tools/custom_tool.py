@@ -9,8 +9,8 @@ from src.core.paths import FUNCTIONS_INDEX
 class FunctionMapping:
 
     def __init__(self, base_dir=FUNCTIONS_INDEX) -> None:
-        self.base_dir = base_dir
         self.cache = dc.Cache(f"{base_dir}/func_cache_db")
+        self.base_dir = base_dir
 
     @property
     def index_functions(self) -> dict:

@@ -19,6 +19,8 @@ class BiniCode(Flow[InitialState]):
         read_test_plan = lambda path: open(path, "r", encoding="utf-8").read()
         result = PlanCrew().test_plan_crew().kickoff(inputs={'test_plan': read_test_plan(TEST_PLAN)})
         self.state.cache = result.raw
+        with open("test_plan.md", "w") as f:
+            f.write(result.raw)
 
     @listen(read_the_test_plan)
     def get_asterisk(self) -> None:

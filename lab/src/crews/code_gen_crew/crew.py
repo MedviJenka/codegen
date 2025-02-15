@@ -16,11 +16,7 @@ class MappingCrew(AzureLLMConfig, Executor):
 
     @agent
     def code_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['code_agent'],
-            verbose=True,
-            llm=self.llm
-        )
+        return Agent(config=self.agents_config['code_agent'], verbose=True, llm=self.llm)
 
     @task
     def code_task(self) -> Task:
