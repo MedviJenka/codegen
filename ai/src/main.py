@@ -1,10 +1,8 @@
-import asyncio
 from crewai import Flow
 from crewai.flow.flow import start, listen
 from pydantic import BaseModel
-
-from ai.src.crews.mapping_crew.crew import MappingCrew
 from ai.src.crews.test_plan_crew.crew import PlanCrew
+from ai.src.tools.custom_tool import FunctionMapping
 from src.core.paths import TEST_PLAN
 
 
@@ -23,8 +21,9 @@ class BiniCode(Flow[InitialState]):
             f.write(result.raw)
 
     @listen(read_the_test_plan)
-    def get_asterisk(self) -> None:
-        print(self.state.cache)
+    def import_relevant_functions(self) -> None:
+        mapping = FunctionMapping()
+        print(mapping.execute_function(self.state.cache))
 
     # @listen(get_asterisk)
     # def import_relevant_functions(self) -> None:

@@ -1,14 +1,26 @@
 function_task:
   agent: function_agent
   description: >
-    Match user query to the closest existing function in the provided function list.
-    Do NOT generate new function names or code. 
-    Only return the function name that best matches the user query.
+    Match user query {query} to the closest existing function in the provided function list: {available_functions}
+    Extract all required function arguments from the query.
+    return function name and extracted arguments.
+      - "function_name": The matched function.
+      - "arguments": function with arguments
 
-    important_points: >
+    important_points:
       - Always choose from the available functions in {available_functions}.
-      - If no perfect match is found, select the closest function.
-      - Do NOT generate new function logic, only return an existing function.
-      - Response format: {query}
+      - Extract all necessary arguments dynamically from the query.
+      - Do NOT generate new function logic.
   expected_output: >
-    The function name that best matches the user query.
+      - Response format:
+        best_function() or best_function() with arguments
+
+
+code_task:
+  agent: code_agent
+  description: >
+    Extract all required code arguments from the {response}.
+    return valid code from the {response}.
+  expected_output: >
+      - Response format:
+        best_code() or best_code() with arguments
