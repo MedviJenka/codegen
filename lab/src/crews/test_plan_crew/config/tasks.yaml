@@ -1,0 +1,10 @@
+test_plan_task:
+  agent: test_plan_agent
+  description: >
+    Conduct a thorough research about this test plan {test_plan}
+    Make sure you find you review carefully step by step
+    important points:
+    when you encounter '*': leave the text as it is, do not remove the * (asterisk)
+  expected_output: >
+    Validation for the test plan, return a thought about the test plan, add points for improvement
+    and re-write them in a new test plan in correct .md file format as given above

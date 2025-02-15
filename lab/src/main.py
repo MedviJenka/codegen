@@ -2,8 +2,7 @@ import asyncio
 from crewai import Flow
 from crewai.flow.flow import start, listen
 from pydantic import BaseModel
-from lab.app.src.app.functions_map_crew import FunctionMapCrew
-from lab.app.src.app.test_plan_crew import TestPlanCrew
+from lab.src.crews.test_plan_crew.crew import PlanCrew
 from src.core.paths import TEST_PLAN
 
 
@@ -16,18 +15,13 @@ class Main(Flow[InitialState]):
     @start()
     def read_the_test_plan(self) -> None:
         read_test_plan = lambda path: open(path, "r", encoding="utf-8").read()
-        result = TestPlanCrew().crew().kickoff(inputs={'test_plan': read_test_plan(TEST_PLAN)})
+        result = PlanCrew().test_plan_crew().kickoff(inputs={'test_plan': read_test_plan(TEST_PLAN)})
         self.state.cache = result.raw
 
     @listen(read_the_test_plan)
     def get_asterisk(self) -> None:
         print(self.state.cache)
         print("Asterisk: ", self.state.cache.count("*"))
-
-    @listen(get_asterisk)
-    def functions_mapping(self) -> None:
-        function_crew = FunctionMapCrew().crew().kickoff()
-        self.state.cache = function_crew
 
 
 async def run_flow() -> None:
