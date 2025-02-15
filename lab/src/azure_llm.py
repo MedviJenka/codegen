@@ -7,4 +7,4 @@ class AzureLLMConfig:
 
     @cached_property
     def llm(self) -> LLM:
-        return LLM(model=os.getenv('MODEL'), api_version=os.getenv('AZURE_API_VERSION'))
+        return LLM(model=os.getenv('MODEL'), api_version=os.getenv('AZURE_API_VERSION'), temperature=0)

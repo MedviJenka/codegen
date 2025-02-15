@@ -1,7 +1,6 @@
 function_task:
   agent: function_agent
-  description: >
-    {tool}, {get_function}
+  description: |
     Conduct a thorough analysis of the test plan by dynamically reviewing functions.
     Follow a step-by-step approach and ensure all key aspects are validated.
     
@@ -9,6 +8,12 @@ function_task:
     - When you encounter '*', leave the text as it is. Do not remove the * (asterisk).
     Read carefully this dict {tool}, 
     get get the function i want based on {get_function} query
+    ** important **
+    1. always split the path directory and get the function import from the python files with correct pythonic syntax
+    2. import only the functions marked with * prefix
+    3. disregard the functions that do not match the pattern
+    4. import should start with functions
+    5. create functions with relevant parameters as in test plan
   expected_output: >
     - import relevant function from the Python files using python logic
-    - split the path directory and get the function import 
+    

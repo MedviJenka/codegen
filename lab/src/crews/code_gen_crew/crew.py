@@ -23,16 +23,16 @@ class MappingCrew(AzureLLMConfig, Executor):
     tasks_config: dict = "config/tasks.yaml"
 
     @agent
-    def function_agent(self) -> Agent:
+    def code_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['function_agent'],
+            config=self.agents_config['code_agent'],
             verbose=True,
             llm=self.llm
         )
 
     @task
-    def function_task(self) -> Task:
-        return Task(config=self.tasks_config['function_task'])
+    def code_task(self) -> Task:
+        return Task(config=self.tasks_config['code_task'])
 
     @crew
     def map_crew(self) -> Crew:
@@ -45,11 +45,5 @@ class MappingCrew(AzureLLMConfig, Executor):
 
     def execute(self, functions: any) -> list[CrewOutput]:
         tool = ToolKit()
-        data = [
-            {
-                'tool': str(tool.index_functions),
-                'get_function': functions
-            }
-        ]
+        data = [{'tool': str(tool.index_functions)}]
         return self.map_crew().kickoff_for_each(inputs=data)
-
