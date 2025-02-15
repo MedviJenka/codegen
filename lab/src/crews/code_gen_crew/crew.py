@@ -1,17 +1,9 @@
-from abc import ABC, abstractmethod
-from crewai import Agent, Crew, Process, Task
+from src.core.executor import Executor
 from crewai.crews import CrewOutput
-from crewai.project import CrewBase, agent, crew, task
+from crewai import Agent, Crew, Process, Task
 from lab.src.azure_llm import AzureLLMConfig
-from typing import Optional
+from crewai.project import CrewBase, agent, crew, task
 from lab.src.crews.mapping_crew.tools.toolkit import ToolKit
-
-
-class Executor(ABC):
-
-    @abstractmethod
-    def execute(self, *args: Optional[any], **kwargs: Optional[any]) -> None:
-        pass
 
 
 @CrewBase
