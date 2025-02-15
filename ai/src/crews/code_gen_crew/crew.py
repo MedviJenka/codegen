@@ -1,13 +1,14 @@
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
-from lab.src.azure_llm import AzureLLMConfig
+from ai.src.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
-from lab.src.crews.mapping_crew.tools.toolkit import ToolKit
+from ai.src.crews.mapping_crew.tools.toolkit import ToolKit
+from crewai_tools.tools.file_writer_tool.file_writer_tool import FileWriterTool
 
 
 @CrewBase
-class MappingCrew(AzureLLMConfig, Executor):
+class CodegenCrew(AzureLLMConfig, Executor):
 
     agents = None
     tasks = None
@@ -16,7 +17,12 @@ class MappingCrew(AzureLLMConfig, Executor):
 
     @agent
     def code_agent(self) -> Agent:
-        return Agent(config=self.agents_config['code_agent'], verbose=True, llm=self.llm)
+        file_tool = FileWriterTool(file_name='app.py')
+
+        return Agent(config=self.agents_config['code_agent'],
+                     verbose=True,
+                     tools=[file_tool],
+                     llm=self.llm)
 
     @task
     def code_task(self) -> Task:
@@ -28,10 +34,13 @@ class MappingCrew(AzureLLMConfig, Executor):
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
-            verbose=True
+            verbose=True,
         )
 
     def execute(self, functions: any) -> list[CrewOutput]:
         tool = ToolKit()
         data = [{'tool': str(tool.index_functions)}]
         return self.map_crew().kickoff_for_each(inputs=data)
+
+
+m = MappingCrew().execute('python')

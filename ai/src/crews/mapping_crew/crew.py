@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from crewai import Agent, Crew, Process, Task
 from crewai.crews import CrewOutput
 from crewai.project import CrewBase, agent, crew, task
-from lab.src.azure_llm import AzureLLMConfig
+from ai.src.azure_llm import AzureLLMConfig
 from typing import Optional
-from lab.src.crews.mapping_crew.tools.toolkit import ToolKit
+from ai.src.crews.mapping_crew.tools.toolkit import ToolKit
 
 
 class Executor(ABC):
@@ -43,13 +43,7 @@ class MappingCrew(AzureLLMConfig, Executor):
             verbose=True
         )
 
-    def execute(self, functions: any) -> list[CrewOutput]:
-        tool = ToolKit()
-        data = [
-            {
-                'tool': str(tool.index_functions),
-                'get_function': functions
-            }
-        ]
-        return self.map_crew().kickoff_for_each(inputs=data)
+    def execute(self, user_input, function_index) -> CrewOutput:
+
+        return self.map_crew().kickoff({"query": user_input, "available_functions": function_index})
 

@@ -3,8 +3,8 @@ from crewai import Flow
 from crewai.flow.flow import start, listen
 from pydantic import BaseModel
 
-from lab.src.crews.mapping_crew.crew import MappingCrew
-from lab.src.crews.test_plan_crew.crew import PlanCrew
+from ai.src.crews.mapping_crew.crew import MappingCrew
+from ai.src.crews.test_plan_crew.crew import PlanCrew
 from src.core.paths import TEST_PLAN
 
 
