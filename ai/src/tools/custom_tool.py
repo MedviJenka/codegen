@@ -70,21 +70,30 @@ class FunctionMapping(AzureOpenAIConfig):
         Uses CrewAI agent to match user input to the most relevant function.
         """
         function_index = {fn: doc for module in self.index_functions.values() for fn, (_, doc) in module.items()}
-        response = self.client.execute(user_input=user_input, function_index=function_index)
+
+        # ✅ Pass function_index with a strict prompt
+        response = self.client.execute(
+            user_input=user_input,
+            function_index=function_index
+        )
 
         # ✅ Debug CrewOutput structure
         if isinstance(response, CrewOutput):
             print(f"DEBUG: CrewOutput contents -> {response}")
-            function_name = str(response)  # Convert CrewOutput to a string if no output field exists
+            function_name = str(response).strip()  # Convert CrewOutput to string
         elif isinstance(response, list) and response:
-            print(f"DEBUG: CrewOutput List contents -> {response}")
-            function_name = str(response[0])  # Convert first list item to a string
+            function_name = str(response[0]).strip()  # Convert first list item to a string
         elif isinstance(response, str):
-            function_name = response
+            function_name = response.strip()
         else:
             return "Error: AI did not return a valid function name"
 
-        return function_name.strip() if isinstance(function_name, str) else str(function_name)
+        # ✅ Ensure function_name exists in function_index
+        if function_name not in function_index:
+            print(f"ERROR: AI selected function '{function_name}' that does not exist.")
+            return "Error: Selected function does not exist"
+
+        return function_name
 
     def execute_function(self, user_input: str, **kwargs) -> Any:
         """
