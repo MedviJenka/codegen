@@ -12,17 +12,17 @@ function_agent:
       - docstring
       - name
 
-
-code_agent:
-  role: >
-    Software Developer specializing in code analysis.
-  goal: >
-    Read and analyze the provided code snippet by dynamically extracting code details.
-  backstory: >
-    You're a seasoned software developer with expertise in mapping code snippets.
-  code_mapping:
-    codes: "*"
-    extract:
-      - path
-      - docstring
-      - name
+#
+#code_agent:
+#  role: >
+#    Software Developer specializing in code analysis.
+#  goal: >
+#    Read and analyze the provided code snippet by dynamically extracting code details.
+#  backstory: >
+#    You're a seasoned software developer with expertise in mapping code snippets.
+#  code_mapping:
+#    codes: "*"
+#    extract:
+#      - path
+#      - docstring
+#      - name

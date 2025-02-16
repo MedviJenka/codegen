@@ -1,6 +1,5 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-
 from ai.src.tools.toolkit import ReadTestPlanTool
 from ai.src.utils.azure_llm import AzureLLMConfig
 
@@ -36,3 +35,6 @@ class PlanCrew(AzureLLMConfig):
             process=Process.sequential,
             verbose=True
         )
+
+    def execute(self) -> None:
+        self.test_plan_crew().kickoff(inputs={'review': 'review this test plan'})

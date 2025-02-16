@@ -25,7 +25,7 @@ function_task:
 
 
 import_module_task:
-  agent: code_agent
+  agent: function_agent
   description: >
     Identify and import the required Python modules dynamically based on the function selected in {query}.
     Ensure that all necessary dependencies are correctly imported.
@@ -64,7 +64,7 @@ import_module_task:
       ```
 
 pybrenv_task:
-    agent: code_agent
+    agent: function_agent
     description: >
         Identify the Python environment required to execute the function selected in {query}.
         Determine the Python version and any additional dependencies needed to run the function successfully.

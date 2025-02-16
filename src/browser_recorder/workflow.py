@@ -2,16 +2,14 @@ import csv
 import urllib3
 from .event_listener import init_code, JS_SCRIPT
 from typing import Optional
-from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
 from src.core.executor import Executor
 from src.core.logger import Logger
 from src.core.paths import PAGE_BASE, PYTHON_CODE
-from ..ai_module.engine import BiniCode
 
-urllib3.disable_warnings()
-load_dotenv()
+
 log = Logger()
+urllib3.disable_warnings()
 
 
 class BrowserRecorder(Executor):
@@ -160,7 +158,7 @@ class BrowserRecorder(Executor):
             file.write(output)
         log.log_info(f'python file: {PYTHON_CODE}')
 
-    def execute(self, bini: BiniCode, **kwargs: any) -> None:
+    def execute(self, **kwargs: any) -> None:
 
         """Execute the browser recorder."""
 
@@ -168,13 +166,12 @@ class BrowserRecorder(Executor):
 
             self.run()
             self.save_to_csv()
-
+            self.get_interactions()
             log.log_info("\nRecorded Interactions:")
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
 
             code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
-            bini.execute(event_list=self.get_interactions(), original_code=code)
             self.__create_python_file(output=code)
 
         except Exception as e:

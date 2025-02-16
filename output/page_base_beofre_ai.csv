@@ -1,0 +1,17 @@
+Element Name,Element Type,Element Path,Action,Value
+Sign in with Microsoft 365,ID,login_button,Clicked on Sign in with Microsoft 365,
+i0116,ID,i0116,Clicked on input,
+idsibutton9,ID,idSIButton9,Clicked on input,
+checkbox_1739742842380,XPATH,"//*[@id=""67b1c354b627305207967729-checkbox""]/span[1]/input[1]",Checkbox unchecked,off
+checkbox_1739742842783,XPATH,"//*[@id=""67b1bef2b627305207967706-checkbox""]/span[1]/input[1]",Checkbox unchecked,off
+checkbox_1739742843262,XPATH,"//*[@id=""67ae329cb6273052079672bf-checkbox""]/span[1]/input[1]",Checkbox unchecked,off
+svg,XPATH,"//*[@id=""call-Actions-btn""]/svg[1]",Clicked on svg,
+Export to Excel,XPATH,"//*[@id=""exportExcel-menuitem""]/div[2]/span[1]",Clicked on Export to Excel,
+export,ID,interactions-exportToExcel-export-btn,Clicked on export,
+a,XPATH,"//*[@id=""root""]/a[1]",Clicked on a,
+InteractionsActive CallsMy Active CallsSettingsHelp CenterLogoutQAQA_Auto_User_1QA_Auto_User_1@ai-logix.net,XPATH,"//*[@id=""mainSideMenu>F>sidebar:1""]/div[1]",Clicked on InteractionsActive CallsMy Active CallsSettingsHelp CenterLogoutQAQA_Auto_User_1QA_Auto_User_1@ai-logix.net,
+mainsidemenu>f>sidebar:4,ID,mainSideMenu>F>sidebar:4,Clicked on svg,
+Settings,XPATH,"//*[@id=""mainSideMenu>F>sidebar:settings-text""]/span[1]",Clicked on Settings,
+Storage,ID,storage-link,Clicked on Storage,
+Bring Your Own Blob Storage,ID,storage-byos-btn,Clicked on Bring Your Own Blob Storage,
+Apply,ID,btos-form-apply-btn,Clicked on Apply,

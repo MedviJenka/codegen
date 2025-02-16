@@ -1,12 +1,9 @@
 test_plan_task:
   agent: test_plan_agent
   description: >
-    Conduct a thorough research about this test plan {test_plan}
+    Conduct a thorough research about this test plan 
     Make sure you find you review carefully step by step
-    important points:
     ** important ** 
-    1. when you encounter '*': leave the text as it is, do not remove the * (asterisk)
-    2. * or asterisk is a special character for markdown existing functions that can used in the test plan
-    3. do not add * by yourself
+    {review} this test plan and do not edit the test plan, leave it as it is
   expected_output: >
     Announce you've understood the test

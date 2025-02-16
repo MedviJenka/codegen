@@ -1,10 +1,62 @@
-DEBUG | Monday | 10/02/2025 | 15:19:29 | asyncio | Using proactor: IocpProactor | Function: __init__ | Line: 634
-INFO | Monday | 10/02/2025 | 15:19:35 | root | Error during execution: Page.goto: net::ERR_ABORTED; maybe frame was detached?
-Call log:
-  - navigating to "https://irqa.ai-logix.net/", waiting until "load"
- | Function: log_info | Line: 30
-INFO | Monday | 10/02/2025 | 15:19:36 | root | 
-Recorded Interactions: | Function: log_info | Line: 30
-INFO | Monday | 10/02/2025 | 15:19:36 | root | [] | Function: log_info | Line: 30
-INFO | Monday | 10/02/2025 | 15:19:36 | root | 
-Interactions saved to C:\Users\evgenyp\PycharmProjects\codegen\output\page_base.csv | Function: log_info | Line: 30
+INFO | Sunday | 16/02/2025 | 22:35:55 | root | Interact with the browser if needed. Close it when you're done. | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:35:55 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:35:59 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:00 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:03 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | Navigation or context issue: Page.wait_for_timeout: Target page, context or browser has been closed | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | 
+Recorded Interactions: | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | [['Sign in with Microsoft 365', 'ID', 'login_button', 'Clicked on Sign in with Microsoft 365', None], ['contentplaceholdermaincontent_repmapreloadicon', 'ID', 'ContentPlaceholderMainContent_RepMapReloadIcon', 'Clicked on img', None], ['contentplaceholdermaincontent_repmapchallengetypeaudioicon', 'ID', 'ContentPlaceholderMainContent_RepMapChallengeTypeAudioIcon', 'Clicked on img', None], ['Next', 'XPATH', '//*[@id="ContentPlaceholderMainContent_ButtonNext"]/span[1]', 'Clicked on Next', None]] | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | 
+Interactions saved to C:\Users\medvi\OneDrive\Desktop\codegen\output\page_base.csv | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | 
+        import pytest
+from qasharedinfra.devices.audc.smarttap.smarttap import SmartTap
+import coreinfra.core.environment.environment_variables as env
+from coreinfra.services.selenium.mappedselenium import MappedSelenium
+from coreinfra.services.selenium.seleniumwebelement import Actions
+
+from qasharedinfra.infra.smarttap.selenium.utils.bini_utils import IRBiniUtils
+
+HEADLESS = False
+st: SmartTap = env.devices['Device_1']
+log = env.logger
+
+
+@pytest.fixture(scope='module', autouse=True)
+def init_globals() -> None:
+
+    st.logger_.info('
+******** Module (Script) Setup ********')
+    bini = IRBiniUtils()
+    st.test_prerequisites(selenium=True, headless=HEADLESS)
+    st.ui.utils.st_selenium_go_to_screen_in_current_window(st.selenium, st.st_screens)  # add screen
+
+    yield bini
+
+    st.logger.info('******** Module (Script) TearDown ********')
+    st.selenium.finalize()
+
+
+@pytest.fixture(scope='function', autouse=True)
+def setup_and_teardown() -> None:
+    st.logger_.info('******** Test Setup ********')
+
+    yield
+
+    st.logger_.info('******** Test TearDown ********')
+
+@pytest.fixture
+def driver() -> MappedSelenium:
+    return st.selenium
+    
+    
+        class TestNone:
+
+            def test_None(self, driver) -> None:
+                driver.get_mapped_element('Sign in with Microsoft 365').action(Actions.CLICK)
+driver.get_mapped_element('contentplaceholdermaincontent_repmapreloadicon').action(Actions.CLICK)
+driver.get_mapped_element('contentplaceholdermaincontent_repmapchallengetypeaudioicon').action(Actions.CLICK)
+driver.get_mapped_element('Next').action(Actions.CLICK)
+         | Function: log_info | Line: 50
+INFO | Sunday | 16/02/2025 | 22:36:08 | root | python file: C:\Users\medvi\OneDrive\Desktop\codegen\output\test_code.py | Function: log_info | Line: 50
