@@ -2,7 +2,7 @@ from crewai import Flow
 from crewai.flow.flow import start, listen
 from pydantic import BaseModel
 from ai.src.crews.test_plan_crew.crew import PlanCrew
-from ai.src.tools.custom_tool import FunctionMapping
+from ai.src.tools.functions import FunctionMapping
 from src.core.paths import TEST_PLAN
 
 
@@ -12,10 +12,15 @@ class InitialState(BaseModel):
 
 class BiniCode(Flow[InitialState]):
 
+    @staticmethod
+    def read_test_plan(path: str):
+        with open(path, "r", encoding="utf-8") as file:
+            file.read()
+
     @start()
     def read_the_test_plan(self) -> None:
-        read_test_plan = lambda path: open(path, "r", encoding="utf-8").read()
-        result = PlanCrew().test_plan_crew().kickoff(inputs={'test_plan': read_test_plan(TEST_PLAN)})
+
+        result = PlanCrew().test_plan_crew().kickoff(inputs={'test_plan': self.read_test_plan(TEST_PLAN)})
         self.state.cache = result.raw
         with open("test_plan.md", "w") as f:
             f.write(result.raw)

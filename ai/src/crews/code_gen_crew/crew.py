@@ -1,9 +1,9 @@
+from ai.src.tools.toolkit import ToolKit
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
-from ai.src.azure_llm import AzureLLMConfig
+from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
-from ai.src.crews.mapping_crew.tools.toolkit import ToolKit
 from crewai_tools.tools.file_writer_tool.file_writer_tool import FileWriterTool
 
 
@@ -41,6 +41,3 @@ class CodegenCrew(AzureLLMConfig, Executor):
         tool = ToolKit()
         data = [{'tool': str(tool.index_functions)}]
         return self.map_crew().kickoff_for_each(inputs=data)
-
-
-m = MappingCrew().execute('python')

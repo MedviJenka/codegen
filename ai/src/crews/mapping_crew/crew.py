@@ -1,8 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.crews import CrewOutput
 from crewai.project import CrewBase, agent, crew, task
-from ai.src.azure_llm import AzureLLMConfig
-from ai.src.executor import Executor
+from ai.src.utils.azure_llm import AzureLLMConfig
+from ai.src.utils.executor import Executor
 
 
 @CrewBase

@@ -1,14 +1,19 @@
-from ai.src.crews.test_plan_crew.tools.custom_tool import FunctionMapping
+from typing import Type
+from crewai.tools import BaseTool
+from pydantic import BaseModel
+from ai.src.tools.functions import FunctionMapping
+from ai.src.tools.interface import FunctionMapInterface
 
 
-class ToolKit(FunctionMapping):
+class FunctionMappingTool(BaseTool, FunctionMapping):
 
-    @staticmethod
-    def read_test_plan(path: str) -> str:
-        with open(path, "r", encoding="utf-8") as file:
-            return file.read()
+    name: str = "Function Mapping Tool"
+    description: str = "getting the relevant functions"
+    args_schema: Type[BaseModel] = FunctionMapInterface
 
-    def find_relevant_functions(self) -> dict:
-        """returns full dict with function paths, name and docstring"""
-        return self.index_functions
+    def _run(self, argument: str) -> str:
+        # Implementation goes here
+        return "this is an example of a tool output, ignore it and move along."
 
+    def execute(self, user_input: str) -> None:
+        self.execute_function(user_input=user_input)

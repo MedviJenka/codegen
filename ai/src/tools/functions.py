@@ -2,35 +2,18 @@ import os
 import ast
 import hashlib
 import diskcache as db
-from typing import Any, Dict, Tuple
-from crewai.crews import CrewOutput
-from ai.src.crews.mapping_crew.crew import MappingCrew
+from typing import Any, Dict, Tuple, List
 from src.core.paths import FUNCTIONS_INDEX
-from src.utils.azure_config import AzureOpenAIConfig
 
 
-class FunctionMapping(AzureOpenAIConfig):
+class FunctionMapping:
 
     def __init__(self, base_dir=FUNCTIONS_INDEX) -> None:
         self.cache = db.Cache(f"{base_dir}/func_cache_db")
         self.base_dir = base_dir
-        self.client = MappingCrew()  # ✅ Using CrewAI agent for function mapping
-
-    def extract_wildcard_cells(self):
-        """Reads a file and extracts table cells that contain the '*' wildcard."""
-        extracted_cells = []
-
-        with open(self.base_dir, 'r', encoding='utf-8') as file:
-            for line in file:
-                cells = line.split('|')
-                for cell in cells:
-                    if '*' in cell:
-                        extracted_cells.append(cell.strip().replace('*', '').strip())
-
-        return extracted_cells
 
     @property
-    def index_functions(self) -> Dict[str, Dict[str, Tuple[str, str]]]:
+    def index_functions(self) -> Dict[str, Dict[str, Tuple[str, str, List[str]]]]:
         return self.scan_directory()
 
     def scan_directory(self) -> dict:
@@ -43,12 +26,14 @@ class FunctionMapping(AzureOpenAIConfig):
                 if file.endswith(".py"):
                     file_path: Any = os.path.join(root, file)
                     module_name = os.path.splitext(os.path.relpath(file_path, self.base_dir))[0].replace(os.sep, ".")
+
                     extracted_functions = self.__extract_functions_with_cache(file_path, module_name)
-                    files_functions[module_name] = extracted_functions
+                    if extracted_functions:
+                        files_functions[module_name] = extracted_functions
         return files_functions
 
     def __extract_functions_with_cache(self, file_path: str, module_name: str) -> Dict:
-        """Extracts function names and docstrings with caching."""
+        """Extracts function names, arguments, and docstrings with caching."""
         last_modified = os.path.getmtime(file_path)
         cache_key = self.__generate_cache_key(file_path)
 
@@ -60,8 +45,8 @@ class FunctionMapping(AzureOpenAIConfig):
         return functions
 
     @staticmethod
-    def __extract_functions(file_path: str, module_name: str) -> Dict[str, Tuple[str, str]]:
-        """Extracts function names and their docstrings from a Python file."""
+    def __extract_functions(file_path: str, module_name: str) -> dict:
+        """Extracts function names, their docstrings, and arguments from a Python file."""
         functions = {}
         with open(file_path, "r", encoding="utf-8") as file:
             tree = ast.parse(file.read())
@@ -69,7 +54,20 @@ class FunctionMapping(AzureOpenAIConfig):
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef):
                 docstring = ast.get_docstring(node) or ""
-                functions[node.name] = (module_name, docstring)
+
+                # Extract function arguments properly
+                args = [arg.arg for arg in node.args.args or node.args.kwonlyargs]  # Positional arguments
+                args += [arg.arg for arg in node.args.kwonlyargs]  # Keyword-only arguments
+
+                if node.args.vararg:  # *args
+                    args.append(f"*{node.args.vararg.arg}")
+
+                if node.args.kwarg:  # **kwargs
+                    args.append(f"**{node.args.kwarg.arg}")
+
+                # Ensure args is a flat list
+                functions[node.name] = [module_name, docstring, args]
+
         return functions
 
     @staticmethod
@@ -77,19 +75,19 @@ class FunctionMapping(AzureOpenAIConfig):
         """Generates a unique cache key based on the file path."""
         return hashlib.md5(file_path.encode()).hexdigest()
 
-    def find_best_function(self, user_input: str) -> CrewOutput:
+    def get_all_functions(self) -> dict:
+        """Returns a dictionary of all functions mapped to their module, docstring, and arguments."""
+        function_index = {
+            fn: (module, doc, args if isinstance(args, list) else [])  # Ensure args is always a list
+            for module in self.index_functions.values()
+            for fn, data in module.items()
+            for module, doc, *args in [data]  # Unpack safely
+        }
+        return function_index
 
-        function_index = {fn: doc for module in self.index_functions.values() for fn, (_, doc) in module.items()}
 
-        response = self.client.execute(
-            user_input=user_input,
-            function_index=function_index
-        )
-        return response
-
-    def execute_function(self, user_input: str) -> Any:
-        """
-        Identifies the best-matching function, dynamically imports it,
-        """
-        function_name = self.find_best_function(user_input)
-        return function_name  # ✅ Execute function with filled arguments
+# Instantiate and print function mappings
+# print(f.get_all_functions())
+f = FunctionMapping()
+f.cache.clear()
+print(f.get_all_functions())
