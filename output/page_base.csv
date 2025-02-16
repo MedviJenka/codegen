@@ -1,13 +1,3 @@
 Element Name,Element Type,Element Path,Action,Value
-SignInWithMicrosoft365Button,XPATH,"//*[@id="__next"]/div[1]/div[1]",Clicked on Sign in with Microsoft 365,
 SignInWithMicrosoft365Button,ID,login_button,Clicked on Sign in with Microsoft 365,
-EmailInputField,ID,i0116,Clicked on input,
-NextButton,ID,idSIButton9,Clicked on input,
-FirstCheckbox,XPATH,"//*[@id="67b1c354b627305207967729-checkbox"]/span[1]/input[1]",Checkbox unchecked,off
-SecondCheckbox,XPATH,"//*[@id="67b1bef2b627305207967706-checkbox"]/span[1]/input[1]",Checkbox unchecked,off
-ThirdCheckbox,XPATH,"//*[@id="67ae329cb6273052079672bf-checkbox"]/span[1]/input[1]",Checkbox unchecked,off
-ActionButton,ID,call-Actions-btn,Clicked on Action,
-TableActionsDiv,XPATH,"//*[@id="tableActions-menu"]/div[1]",Clicked on div,
-ExportToExcelOption,XPATH,"//*[@id="exportExcel-menuitem"]/div[2]/span[1]",Clicked on Export to Excel,
-ExportButton,ID,interactions-exportToExcel-export-btn,Clicked on export,
-FirstLink,XPATH,"//*[@id="root"]/a[1]",Clicked on a,
+IdSIButton9,ID,idSIButton9,Clicked on input,
