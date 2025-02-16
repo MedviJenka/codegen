@@ -1,4 +1,4 @@
-from ai.src.tools.toolkit import ToolKit
+from ai.src.tools.tools import ToolKit
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task

@@ -9,5 +9,4 @@ test_plan_task:
     2. * or asterisk is a special character for markdown existing functions that can used in the test plan
     3. do not add * by yourself
   expected_output: >
-    Validation for the test plan, return a thought about the test plan, add points for improvement
-    and re-write them in a new test plan in correct .md file format as given above
+    Announce you've understood the test

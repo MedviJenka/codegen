@@ -13,11 +13,14 @@ class FunctionMappingTool(BaseTool):
     query: Type[BaseModel] = FunctionMapInterface
 
     def _run(self, query: str) -> str:
-        if isinstance(query, dict):  # Handle incorrect input type
-            query.get("query", query)
 
         function_mapping = FunctionMapping()
-        return function_mapping.get_all_mappings()
+        function = function_mapping.get_all_mappings()
+
+        if function:
+            return function
+
+        return "No matching function found."
 
 
 class ReadTestPlanTool(BaseTool):

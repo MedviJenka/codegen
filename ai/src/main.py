@@ -15,8 +15,6 @@ class BiniCode(Flow[InitialState]):
     def read_the_test_plan(self) -> None:
         result = PlanCrew().test_plan_crew().kickoff()
         self.state.cache = result.raw
-        # with open("test_plan.md", "w") as f:
-        #     f.write(result.raw)
 
     @listen(read_the_test_plan)
     def import_relevant_functions(self) -> None:

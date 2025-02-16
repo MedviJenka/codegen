@@ -3,7 +3,7 @@ import ast
 import hashlib
 import diskcache as db
 import json
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict
 from src.core.paths import FUNCTIONS_INDEX
 
 
@@ -13,7 +13,7 @@ class FunctionMapping:
         self.cache = db.Cache(f"{self.base_dir}/func_cache_db")
 
     def get_all_mappings(self) -> str:
-        """Returns a JSON string of all functions and classes mapped to their details."""
+        """Returns a JSON string of all functions and classes mapped to their details, including relative paths."""
         mappings = {"functions": {}, "classes": {}}
         for module, content in self.index_functions.items():
             for fn, data in content["functions"].items():
@@ -23,7 +23,7 @@ class FunctionMapping:
         return json.dumps(mappings, indent=4)
 
     @property
-    def index_functions(self) -> Dict[str, Dict[str, Tuple[str, str, List[str]]]]:
+    def index_functions(self) -> dict:
         return self.scan_directory()
 
     def scan_directory(self) -> dict:
@@ -54,10 +54,11 @@ class FunctionMapping:
         self.cache[cache_key] = {'content': content, 'timestamp': last_modified}
         return content
 
-    @staticmethod
-    def __extract_content(file_path: str, module_name: str) -> dict:
-        """Extracts function names, their docstrings, argument names, and types from a Python file."""
+    def __extract_content(self, file_path: str, module_name: str) -> dict:
+        """Extracts function names, their docstrings, argument names, types, and relative paths from a Python file."""
         content = {"functions": {}, "classes": {}}
+        relative_path = os.path.relpath(file_path, self.base_dir)  # Get relative path
+
         with open(file_path, "r", encoding="utf-8") as file:
             tree = ast.parse(file.read())
 
@@ -76,11 +77,21 @@ class FunctionMapping:
                     for arg in node.args.args if arg.arg != "self"
                 }
 
-                content["functions"][node.name] = {"module": module_name, "docstring": docstring, "arguments": args}
+                content["functions"][node.name] = {
+                    "module": module_name,
+                    "path": relative_path,  # Store the relative file path
+                    "docstring": docstring,
+                    "arguments": args
+                }
 
             elif isinstance(node, ast.ClassDef):
                 class_docstring = ast.get_docstring(node) or ""
-                class_data = {"docstring": class_docstring, "init_args": {}, "methods": {}}
+                class_data = {
+                    "docstring": class_docstring,
+                    "init_args": {},
+                    "methods": {},
+                    "path": relative_path  # Store relative path for class
+                }
 
                 for sub_node in node.body:
                     if isinstance(sub_node, ast.FunctionDef) and sub_node.name == "__init__":
@@ -94,7 +105,11 @@ class FunctionMapping:
                             arg.arg: arg.annotation.id if isinstance(arg.annotation, ast.Name) else "Unknown"
                             for arg in sub_node.args.args if arg.arg != "self"
                         }
-                        class_data["methods"][sub_node.name] = {"docstring": method_docstring, "arguments": method_args}
+                        class_data["methods"][sub_node.name] = {
+                            "docstring": method_docstring,
+                            "arguments": method_args,
+                            "path": relative_path
+                        }
 
                 content["classes"][node.name] = class_data
 
@@ -104,3 +119,8 @@ class FunctionMapping:
     def __generate_cache_key(file_path: str) -> str:
         """Generates a unique cache key based on the file path."""
         return hashlib.md5(file_path.encode()).hexdigest()
+
+
+# Test the function mapping
+a = FunctionMapping()
+print(a.get_all_mappings())
