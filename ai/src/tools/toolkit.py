@@ -2,8 +2,8 @@ from typing import Type
 from crewai.tools import BaseTool
 from pydantic import BaseModel
 from ai.src.tools.functions import FunctionMapping
-from ai.src.tools.interface import FunctionMapInterface
-from src.core.paths import FUNCTIONS_INDEX
+from ai.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface
+from src.core.paths import TEST_PLAN
 
 
 class FunctionMappingTool(BaseTool):
@@ -11,13 +11,27 @@ class FunctionMappingTool(BaseTool):
     name: str = "Function Mapping Tool"
     description: str = "getting the relevant functions"
     query: Type[BaseModel] = FunctionMapInterface
-    # base_dir: str = FUNCTIONS_INDEX
 
     def _run(self, query: str) -> str:
         if isinstance(query, dict):  # Handle incorrect input type
             query.get("query", query)
 
-        f = FunctionMapping()
-        return f.get_all_mappings()
+        function_mapping = FunctionMapping()
+        return function_mapping.get_all_mappings()
 
 
+class ReadTestPlanTool(BaseTool):
+
+    name: str = "Function Mapping Tool"
+    description: str = "getting the relevant functions"
+    test_plan: Type[BaseModel] = ReadTestPlanToolInterface
+
+    @staticmethod
+    def read_test_plan(path: str):
+        with open(path, "r", encoding="utf-8") as file:
+            return file.read()
+
+    def _run(self, test_plan: str) -> str:
+        if isinstance(test_plan, dict):
+            test_plan.get("query", test_plan)
+        return self.read_test_plan(TEST_PLAN)

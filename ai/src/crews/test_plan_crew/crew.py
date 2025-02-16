@@ -1,5 +1,7 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+
+from ai.src.tools.toolkit import ReadTestPlanTool
 from ai.src.utils.azure_llm import AzureLLMConfig
 
 
@@ -16,7 +18,8 @@ class PlanCrew(AzureLLMConfig):
         return Agent(
             config=self.agents_config['test_plan_agent'],
             verbose=True,
-            llm=self.llm
+            llm=self.llm,
+            tools=[ReadTestPlanTool()]
         )
 
     @task
