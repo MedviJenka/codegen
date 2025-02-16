@@ -3,17 +3,21 @@ from crewai.tools import BaseTool
 from pydantic import BaseModel
 from ai.src.tools.functions import FunctionMapping
 from ai.src.tools.interface import FunctionMapInterface
+from src.core.paths import FUNCTIONS_INDEX
 
 
-class FunctionMappingTool(BaseTool, FunctionMapping):
+class FunctionMappingTool(BaseTool):
 
     name: str = "Function Mapping Tool"
     description: str = "getting the relevant functions"
-    args_schema: Type[BaseModel] = FunctionMapInterface
+    query: Type[BaseModel] = FunctionMapInterface
+    # base_dir: str = FUNCTIONS_INDEX
 
-    def _run(self, argument: str) -> str:
-        # Implementation goes here
-        return "this is an example of a tool output, ignore it and move along."
+    def _run(self, query: str) -> str:
+        if isinstance(query, dict):  # Handle incorrect input type
+            query.get("query", query)
 
-    def execute(self, user_input: str) -> None:
-        self.execute_function(user_input=user_input)
+        f = FunctionMapping()
+        return f.get_all_mappings()
+
+

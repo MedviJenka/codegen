@@ -1,28 +1,64 @@
 function_task:
   agent: function_agent
   description: >
-    Match user query {query} to the closest existing function in the provided function list: {available_functions}
-    Extract all required function arguments from the query.
-    return function name and extracted arguments.
-      - "function_name": The matched function.
-      - "arguments": function with arguments
+    Identify the most relevant function from the provided function list based on the user query: "{query}".
+    Extract all necessary function arguments dynamically from the {query}.
+    Return the function name along with the extracted arguments.
 
-    important_points:
-      - Always choose from the available functions in {available_functions}.
-      - Extract all necessary arguments dynamically from the query.
-      - Do NOT generate new function logic.
+    ### **Key Requirements:**
+      - **Function Matching:** Select only from the available functions.
+      - **Argument Extraction:** Dynamically determine all required arguments based on the query context.
+      - **Strict Syntax Compliance:** Do NOT generate new function logic.
+      - **Maintain Correct Data Types:** Ensure argument types align with the provided JSON schema.
 
   expected_output: >
-      - Response format:
-        2. best_function() or best_function() with arguments
+    Return the function name and arguments in a valid syntax.
+
+    **Format:**  
+      - **function_name:** The best-matched function name.
+      - **arguments:** Extracted function arguments in the correct syntax and type.
+
+    **Example Response:**
+      ```python
+      function_name(arg1: type1, arg2: type2)
+      ```
 
 
-code_task:
-  agent: code_agent
+import_module_task:
+  agent: function_agent
   description: >
-    Extract all required code arguments from the {response}.
-    return valid code from the {response}.
-    - after getting the right function from {response} import it by splitting the path and function name.
-    - refactor {response} to a valid python module import and function call.
+    Identify and import the required Python modules dynamically based on the function selected in "{query}".
+    Ensure that all necessary dependencies are correctly imported.
+    Handle cases where a module might need aliasing for cleaner usage.
+
+    ### **Key Requirements:**
+      - **Module Matching:** Identify the correct modules required for executing the function.
+      - **Avoid Redundant Imports:** Do not import built-in Python modules if they are not needed.
+      - **Alias Modules If Necessary:** Use standard aliasing (e.g., `import numpy as np` if applicable).
+      - **Format Code Correctly:** Ensure imports are in Pythonic format and PEP8 compliant.
+
   expected_output: >
-      correct module import and function call
+    Return the required module imports in valid Python syntax based on {query}.
+
+    **Format:**  
+      - **Single Import:**  
+        ```python
+        import module_name
+        ```
+
+      - **Aliased Import:**  
+        ```python
+        import module_name as alias
+        ```
+
+      - **Specific Function Import:**  
+        ```python
+        from module_name import function_name
+        ```
+
+    **Example Response:**
+      ```python
+      import os
+      import json
+      from datetime import datetime
+      ```

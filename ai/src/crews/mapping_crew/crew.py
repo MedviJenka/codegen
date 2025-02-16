@@ -1,8 +1,9 @@
-from crewai import Agent, Crew, Process, Task
 from crewai.crews import CrewOutput
-from crewai.project import CrewBase, agent, crew, task
-from ai.src.utils.azure_llm import AzureLLMConfig
 from ai.src.utils.executor import Executor
+from crewai import Agent, Crew, Process, Task
+from ai.src.utils.azure_llm import AzureLLMConfig
+from ai.src.tools.toolkit import FunctionMappingTool
+from crewai.project import CrewBase, agent, crew, task
 
 
 @CrewBase
@@ -18,15 +19,8 @@ class MappingCrew(AzureLLMConfig, Executor):
         return Agent(
             config=self.agents_config['function_agent'],
             verbose=True,
-            llm=self.llm
-        )
-
-    @agent
-    def code_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['code_agent'],
-            verbose=True,
-            llm=self.llm
+            llm=self.llm,
+            tools=[FunctionMappingTool()]
         )
 
     @task
@@ -34,8 +28,8 @@ class MappingCrew(AzureLLMConfig, Executor):
         return Task(config=self.tasks_config['function_task'])
 
     @task
-    def code_task(self) -> Task:
-        return Task(config=self.tasks_config['code_task'])
+    def import_module_task(self) -> Task:
+        return Task(config=self.tasks_config['import_module_task'])
 
     @crew
     def map_crew(self) -> Crew:
@@ -46,9 +40,9 @@ class MappingCrew(AzureLLMConfig, Executor):
             verbose=True
         )
 
-    def execute(self, user_input, function_index, **kwargs) -> CrewOutput:
-
-        return self.map_crew().kickoff({"query": user_input,
-                                        "available_functions": function_index,
-                                        'response': kwargs})
-
+    def execute(self, user_input) -> CrewOutput:
+        return self.map_crew().kickoff({"query": user_input})
+#
+#
+# m = MappingCrew()
+# m.execute("create a call with 2 users")

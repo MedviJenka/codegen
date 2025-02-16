@@ -1,80 +1,54 @@
-**Validation for the Test Plan:**
+# Test Plan
 
-1. Ensure that the test plan includes all necessary sections such as objectives, scope, test items, features to be tested, features not to be tested, approach, item pass/fail criteria, suspension criteria and resumption requirements, test deliverables, testing tasks, environmental needs, responsibilities, staffing and training needs, schedule, and risks and contingencies.
-2. Verify that the test plan is clear, concise, and free of any ambiguities.
-3. Confirm that the test plan follows the specified format and includes the use of * (asterisk) as required.
-4. Check that the test plan is aligned with the project requirements and goals.
+## Validation for the Test Plan
 
-**Points for Improvement:**
+### Important Points:
+1. When you encounter '*': leave the text as it is, do not remove the * (asterisk)
+2. * or asterisk is a special character for markdown existing functions that can be used in the test plan
+3. Do not add * by yourself
 
-1. Ensure that the test plan includes a detailed description of the testing approach and methodology.
-2. Include specific test cases and scenarios to provide a clear understanding of what will be tested.
-3. Add a section for test data requirements and preparation.
-4. Include a detailed schedule with milestones and deadlines for each testing phase.
-5. Provide a clear definition of the roles and responsibilities of each team member involved in the testing process.
-6. Include a risk management plan to identify potential risks and mitigation strategies.
-7. Ensure that the test plan includes a section for test environment setup and configuration.
-8. Add a section for test automation strategy and tools to be used.
+### Points for Improvement:
+1. Ensure that all steps are clearly defined and easy to follow.
+2. Include specific test cases and expected outcomes.
+3. Make sure to validate the use of special characters and their functions within the markdown format.
+4. Provide a section for recording test results and any issues encountered.
+5. Include a summary of the test plan's objectives and scope.
 
-**Re-written Test Plan in Correct .md File Format:**
+## Re-written Test Plan in Correct .md File Format
 
 ```markdown
 # Test Plan
 
-## 1. Introduction
-This test plan outlines the testing strategy and approach for the project. It includes the objectives, scope, test items, features to be tested, features not to be tested, approach, item pass/fail criteria, suspension criteria and resumption requirements, test deliverables, testing tasks, environmental needs, responsibilities, staffing and training needs, schedule, and risks and contingencies.
+## Objectives
+- Define the scope and objectives of the test plan.
+- Ensure all steps are clearly defined and easy to follow.
+- Validate the use of special characters and their functions within the markdown format.
 
-## 2. Objectives
-The objective of this test plan is to ensure that the project meets the specified requirements and functions as expected.
+## Scope
+- This test plan covers the validation of markdown special characters, specifically the asterisk (*).
 
-## 3. Scope
-This test plan covers the testing of all features and functionalities of the project.
+## Test Cases
 
-## 4. Test Items
-- List of test items
+### Test Case 1: Validation of Asterisk Usage
+- **Step 1:** Identify the presence of '*' in the text.
+- **Expected Outcome:** The '*' should be left as it is and not removed.
 
-## 5. Features to be Tested
-- List of features to be tested
+### Test Case 2: Functionality of Asterisk in Markdown
+- **Step 1:** Use '*' in markdown to create bullet points.
+- **Expected Outcome:** The '*' should correctly create bullet points in the markdown format.
 
-## 6. Features Not to be Tested
-- List of features not to be tested
+### Test Case 3: Avoid Adding Asterisk
+- **Step 1:** Ensure no additional '*' are added by the user.
+- **Expected Outcome:** The text should not contain any extra '*' added by the user.
 
-## 7. Approach
-The testing approach will include the following:
-- Detailed description of the testing methodology
-- Specific test cases and scenarios
-- Test data requirements and preparation
+## Test Results
+- Record the outcomes of each test case.
+- Note any issues encountered during testing.
 
-## 8. Item Pass/Fail Criteria
-- Criteria for passing or failing test items
-
-## 9. Suspension Criteria and Resumption Requirements
-- Criteria for suspending and resuming testing
-
-## 10. Test Deliverables
-- List of test deliverables
-
-## 11. Testing Tasks
-- List of testing tasks
-
-## 12. Environmental Needs
-- Test environment setup and configuration
-
-## 13. Responsibilities
-- Roles and responsibilities of each team member
-
-## 14. Staffing and Training Needs
-- Staffing and training requirements
-
-## 15. Schedule
-- Detailed schedule with milestones and deadlines
-
-## 16. Risks and Contingencies
-- Risk management plan with potential risks and mitigation strategies
-
-## 17. Test Automation Strategy
-- Test automation strategy and tools to be used
+## Summary
+- The test plan aims to validate the correct usage of the asterisk (*) in markdown format.
+- Ensures that the special character functions as intended and no additional asterisks are added.
 
 ```
 
-This re-written test plan follows the specified format and includes the use of * (asterisk) as required. It also incorporates the points for improvement to ensure a comprehensive and effective test plan.
+This re-written test plan ensures clarity, includes specific test cases, and provides a section for recording test results. It adheres to the criteria provided and maintains the integrity of the special character usage in markdown format.

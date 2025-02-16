@@ -1,8 +1,8 @@
 from crewai import Flow
 from crewai.flow.flow import start, listen
 from pydantic import BaseModel
+from ai.src.crews.mapping_crew.crew import MappingCrew
 from ai.src.crews.test_plan_crew.crew import PlanCrew
-from ai.src.tools.functions import FunctionMapping
 from src.core.paths import TEST_PLAN
 
 
@@ -19,22 +19,14 @@ class BiniCode(Flow[InitialState]):
 
     @start()
     def read_the_test_plan(self) -> None:
-
         result = PlanCrew().test_plan_crew().kickoff(inputs={'test_plan': self.read_test_plan(TEST_PLAN)})
         self.state.cache = result.raw
-        with open("test_plan.md", "w") as f:
-            f.write(result.raw)
+        # with open("test_plan.md", "w") as f:
+        #     f.write(result.raw)
 
     @listen(read_the_test_plan)
     def import_relevant_functions(self) -> None:
-        mapping = FunctionMapping()
-        print(mapping.execute_function(self.state.cache))
-
-    # @listen(get_asterisk)
-    # def import_relevant_functions(self) -> None:
-    #     relevant_functions = MappingCrew().execute(self.state.cache)
-    #     self.state.cache = relevant_functions
-    #
+        MappingCrew().execute(self.state.cache)
 
 
 BiniCode().kickoff()

@@ -8,9 +8,19 @@ from src.core.paths import FUNCTIONS_INDEX
 
 
 class FunctionMapping:
-    def __init__(self, base_dir=FUNCTIONS_INDEX) -> None:
-        self.cache = db.Cache(f"{base_dir}/func_cache_db")
+    def __init__(self, base_dir: str = FUNCTIONS_INDEX) -> None:
         self.base_dir = base_dir
+        self.cache = db.Cache(f"{self.base_dir}/func_cache_db")
+
+    def get_all_mappings(self) -> str:
+        """Returns a JSON string of all functions and classes mapped to their details."""
+        mappings = {"functions": {}, "classes": {}}
+        for module, content in self.index_functions.items():
+            for fn, data in content["functions"].items():
+                mappings["functions"][fn] = data
+            for cls, data in content["classes"].items():
+                mappings["classes"][cls] = data
+        return json.dumps(mappings, indent=4)
 
     @property
     def index_functions(self) -> Dict[str, Dict[str, Tuple[str, str, List[str]]]]:
@@ -94,14 +104,3 @@ class FunctionMapping:
     def __generate_cache_key(file_path: str) -> str:
         """Generates a unique cache key based on the file path."""
         return hashlib.md5(file_path.encode()).hexdigest()
-
-    def get_all_mappings(self) -> str:
-        """Returns a JSON string of all functions and classes mapped to their details."""
-        mappings = {"functions": {}, "classes": {}}
-        for module, content in self.index_functions.items():
-            for fn, data in content["functions"].items():
-                mappings["functions"][fn] = data
-            for cls, data in content["classes"].items():
-                mappings["classes"][cls] = data
-        return json.dumps(mappings, indent=4)
-
