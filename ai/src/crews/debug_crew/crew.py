@@ -3,10 +3,13 @@ from src.core.executor import Executor
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
+from crewai_tools import FileWriterTool, FileReadTool
 
 
 @CrewBase
 class DebugCrew(AzureLLMConfig, Executor):
+
+    """TODO: add rewrite: bool = False"""
     agents = None
     tasks = None
     agents_config: dict = "config/agents.yaml"
@@ -14,9 +17,12 @@ class DebugCrew(AzureLLMConfig, Executor):
 
     @agent
     def debug_agent(self) -> Agent:
+        read_tool = FileReadTool(filename=__name__)
+        write_tool = FileWriterTool(filename='debugged_code.py')
         return Agent(config=self.agents_config['debug_agent'],
                      verbose=True,
-                     llm=self.llm)
+                     llm=self.llm,
+                     tools=[read_tool, write_tool])
 
     @task
     def debug_task(self) -> Task:

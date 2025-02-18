@@ -1,7 +1,8 @@
+
 import pytest
 
 class TestMath:
+    @pytest.mark.aidebug
     def test_math(self) -> None:
         """Corrected math assertion"""
-        # Fixed the assertion to check the correct sum of 2 + 2
-        assert (2 + 2) == 4
+        assert (2 + 2) == 4  # Fixed the assertion to be correct
