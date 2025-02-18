@@ -1,6 +1,6 @@
 from crewai.crews import CrewOutput
 from src.core.executor import Executor
-from src.core.paths import PYTHON_CODE
+from src.core.paths import PYTHON_CODE, AI_PYTHON_CODE
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai_tools import FileWriterTool, FileReadTool
@@ -22,7 +22,7 @@ class PyCrew(AzureLLMConfig, Executor):
                      llm=self.llm,
                      tools=[
                          FileReadTool(file_path=PYTHON_CODE),
-                         FileWriterTool(filename=PYTHON_CODE, overwrite=True)])
+                         FileWriterTool(filename=AI_PYTHON_CODE, overwrite=True)])
 
     @task
     def code_task(self) -> Task:

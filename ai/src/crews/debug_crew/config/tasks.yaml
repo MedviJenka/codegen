@@ -1,0 +1,6 @@
+debug_task:
+  description: >
+    debug given code: {input} {function}
+  expected_output: >
+    new clean python solution
+  agent: debug_agent

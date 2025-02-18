@@ -44,5 +44,10 @@ def driver() -> MappedSelenium:
 
             def test_None(self, driver) -> None:
                 driver.get_mapped_element('Sign in with Microsoft 365').action(Actions.CLICK)
+driver.get_mapped_element('i0116').action(Actions.CLICK)
 driver.get_mapped_element('idsibutton9').action(Actions.CLICK)
+driver.get_mapped_element('Action').action(Actions.CLICK)
+driver.get_mapped_element('Export to Excel').action(Actions.CLICK)
+driver.get_mapped_element('export').action(Actions.CLICK)
+driver.get_mapped_element('a').action(Actions.CLICK)
         

@@ -4,7 +4,7 @@ from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool, FileWriterTool
-from src.core.paths import PAGE_BASE
+from src.core.paths import PAGE_BASE, AI_PAGE_BASE
 
 
 @CrewBase
@@ -23,7 +23,7 @@ class CSVCrew(AzureLLMConfig, Executor):
                      llm=self.llm,
                      tools=[
                          FileReadTool(file_path=PAGE_BASE),
-                         FileWriterTool(filename=f'{PAGE_BASE}', overwrite=True)],
+                         FileWriterTool(filename=f'{AI_PAGE_BASE}')],
                      )
 
     @task
