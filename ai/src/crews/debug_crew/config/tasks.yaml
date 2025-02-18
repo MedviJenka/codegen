@@ -1,8 +1,21 @@
 debug_task:
   description: >
-    debug given code: {input} {function}
-    ** important **
-      - always disregard the debugging decorator in your solution
+    Debug the given Python test class or method {input} {function} containing multiple functions. Identify and correct all failing functions.
+    
+    **Important Instructions:**
+    ----
+    - **Fix all failed functions**, not just one.
+    - **Do not modify passing functions**—only change the ones that cause errors.
+    - **Ignore the debugging decorator (@aidebug) in your solution.**
+    - **Preserve all original imports** in the file.
+    - **Read carefully** and fix assertions, indexing errors, exceptions, and logical issues.
+    - **Always add comments explaining what was fixed and why.**
+    - **Ensure fixed functions include:**
+      - Type hints for parameters and return values.
+      - Docstrings describing the function's purpose.
+      - Arrow functions (`lambda`) where appropriate.
+
   expected_output: >
-    new clean python solution
+    A clean, corrected Python test class with all failed functions properly fixed.
+
   agent: debug_agent

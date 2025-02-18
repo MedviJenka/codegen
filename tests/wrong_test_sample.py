@@ -1,7 +1,3 @@
-from ai.src.utils.decorators import aidebug
-
-
-@aidebug
 class TestComplexCases:
 
     def test_math(self):
