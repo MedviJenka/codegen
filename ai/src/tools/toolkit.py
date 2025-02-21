@@ -1,13 +1,53 @@
+import io
 import os
+import base64
 import hashlib
 import diskcache as db
 from typing import Type
-from crewai.tools import BaseTool
 from pydantic import BaseModel
-from ai.src.tools.functions import FunctionMapping
-from ai.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface
+from crewai.tools import BaseTool
+from PIL import Image
+from ai.src.utils.azure_llm import AzureLLMConfig
 from src.core.paths import TEST_PLAN
 from src.core.paths import FUNCTION
+from ai.src.tools.functions import FunctionMapping
+from ai.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface, ImageVisionToolInterface
+
+
+class ImageVisionTool(BaseTool):
+
+    name: str = 'Image Vision Tool'
+    description: str = 'Image Vision Tool'
+    image_path: Type[BaseModel] = ImageVisionToolInterface
+    azure_client = AzureLLMConfig()
+
+    def __compress_image_to_base64(self, image_path: str, image_format: str = 'JPEG' or 'PNG') -> str:
+
+        with Image.open(image_path) as img:
+            buffer = io.BytesIO()
+            img.save(buffer, image_format=image_format, quality=100)
+            return base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+    def _run(self, image_path: str) -> None:
+        llm = self.azure_client.azure_llm
+        image_base64 = self.__compress_image_to_base64(image_path)
+        response = llm.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "What's in this image?"},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
+                        },
+                    ],
+                }
+            ],
+            max_tokens=15000,
+        )
+        return response.choices[0].message.content
 
 
 class FunctionMappingTool(BaseTool):
