@@ -1,9 +1,11 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.crews import CrewOutput
 from crewai.project import CrewBase, agent, crew, task
+from crewai_tools.tools.vision_tool.vision_tool import VisionTool
 
 from ai.src.tools.toolkit import ImageVisionTool
 from ai.src.utils.azure_llm import AzureLLMConfig
+VisionTool()
 
 
 # from ai.src.crews.new_bini.bini.src.bini.tools.custom_tool import ImageCompressionTool
@@ -43,7 +45,6 @@ class BiniCrew(AzureLLMConfig):
                     verbose=True)
 
     def execute(self, prompt: str, image_path: str) -> CrewOutput:
-        # image = ImageCompression()
         return self.crew().kickoff(inputs={'prompt': prompt, 'image': image_path})
 
 

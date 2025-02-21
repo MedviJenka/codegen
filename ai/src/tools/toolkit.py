@@ -28,11 +28,10 @@ class ImageVisionTool(BaseTool):
             img.save(buffer, image_format=image_format, quality=100)
             return base64.b64encode(buffer.getvalue()).decode("utf-8")
 
-    def _run(self, image_path: str) -> None:
+    def _run(self, **kwargs: any) -> None:
         llm = self.azure_client.azure_llm
-        image_base64 = self.__compress_image_to_base64(image_path)
+        image_base64 = self.__compress_image_to_base64(kwargs.get('image_path'))
         response = llm.chat.completions.create(
-            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "user",
@@ -46,6 +45,7 @@ class ImageVisionTool(BaseTool):
                 }
             ],
             max_tokens=15000,
+            temperature=self.azure_client.temperature
         )
         return response.choices[0].message.content
 

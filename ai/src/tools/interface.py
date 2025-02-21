@@ -13,4 +13,4 @@ class ReadTestPlanToolInterface(BaseModel):
 
 class ImageVisionToolInterface(BaseModel):
     """Input schema for MyCustomTool."""
-    image_path: str = Field(..., description="The image path or URL.")
+    image_path: str = Field(..., description="The image path")
