@@ -1,6 +1,15 @@
 JS_SCRIPT = """
 window.recordedInteractions = [];
 
+// Helper function to check if an interaction already exists
+function isDuplicateInteraction(newInteraction) {
+    return window.recordedInteractions.some((existing) => 
+        existing.action === newInteraction.action &&
+        existing.xpath === newInteraction.xpath &&
+        existing.value === newInteraction.value
+    );
+}
+
 // Debounce utility to delay logging until typing is finished
 function debounce(func, delay) {
     let timer;
@@ -10,96 +19,93 @@ function debounce(func, delay) {
     };
 }
 
-document.addEventListener("click",(event) => {
-
-        const target = event.target;
-
-        // Skip logging click events for checkboxes
-        if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") {
-            return;
-        }
-
-        const tag_name = target.tagName.toLowerCase();
-        const element_text = target.textContent.trim();
-        const element_id = target.id ? target.id.toLowerCase() : "";
-        const element_name = target.name ? target.name.toLowerCase() : "";
-
-        const interaction = {
-            action: "click",
-            tag_name: element_text || element_id || tag_name,
-            id: target.id || null,
-            name: target.name || null,
-            xpath: generateXPath(target),
-            action_description: `Clicked on ${element_text || tag_name}`,
-            value: null, // No value for clicks
-        };
-
-        window.recordedInteractions.push(interaction);
-
-        // Detect calendar dropdown after clicking date field
-        if (target.matches('input[type="text"], input.datepicker, .date-picker-field')) {
-            setTimeout(() => {
-                let calendar = document.querySelector(".calendar-dropdown, .datepicker-popup, [role='dialog']");
-                if (calendar) {
-                    console.log("Calendar dropdown detected:", calendar);
-                } else {
-                    console.warn("Calendar dropdown not found.");
-                }
-            }, 500); // Small delay to allow rendering
-            window.recordedInteractions.push(interaction);
-        }
-    },
-    true 
-);
-
-
-// Capture input events with debouncing
-document.addEventListener('input', debounce((event) => {
-    if (target.type === 'checkbox') return; // Ignore checkboxes in input event
+// Capture click events (no duplicates)
+document.addEventListener("click", (event) => {
     const target = event.target;
-    const tag_name = target.tagName.toLowerCase();
-    const element_id = target.id ? target.id.toLowerCase() : 'undetected';
-    const element_name = target.name ? target.name.toLowerCase() : 'undetected';
 
-    if (target.tagName.toLowerCase() === 'input' || target.tagName.toLowerCase() === 'textarea') {
-        const interaction = {
-            action: 'input',
-            tag_name: `${element_id || tag_name}_input`,
-            id: target.id || null,
-            name: target.name || null,
-            xpath: generateXPath(target),
-            action_description: `Typed in ${target.tagName.toLowerCase()}`,
-            value: target.value || ''
-        };
+    // Ignore checkboxes (they are handled separately in 'change' event)
+    if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") return;
+
+    const interaction = {
+        action: "click",
+        tag_name: target.textContent.trim() || target.id || target.tagName.toLowerCase(),
+        id: target.id || null,
+        name: target.name || null,
+        xpath: generateXPath(target),
+        action_description: `Clicked on ${target.textContent.trim() || target.tagName.toLowerCase()}`,
+        value: null
+    };
+
+    if (!isDuplicateInteraction(interaction)) {
         window.recordedInteractions.push(interaction);
     }
-}, 100));
+}, true);
 
-// Checkbox handler
-document.addEventListener('change', (event) => {
+// Capture input events (debounced to capture full text input)
+document.addEventListener("input", debounce((event) => {
     const target = event.target;
-    if (target.tagName.toLowerCase() === 'input' && target.type === 'checkbox') {
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
+
+    const interaction = {
+        action: "input",
+        tag_name: target.id || target.name || target.tagName.toLowerCase(),
+        id: target.id || null,
+        name: target.name || null,
+        type: target.type.toLowerCase(),
+        xpath: generateXPath(target),
+        action_description: `Typed in ${target.type} field`,
+        value: target.value.trim() || "" // Avoid 'None' values
+    };
+
+    if (!isDuplicateInteraction(interaction)) {
+        window.recordedInteractions.push(interaction);
+    }
+}, 300));
+
+// Capture final input when the user leaves the field (ensures complete text capture)
+document.addEventListener("blur", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
+
+    const interaction = {
+        action: "input_final",
+        tag_name: target.id || target.name || target.tagName.toLowerCase(),
+        id: target.id || null,
+        name: target.name || null,
+        xpath: generateXPath(target),
+        action_description: `Finished typing in ${target.type} field`,
+        value: target.value.trim() || ""
+    };
+
+    if (!isDuplicateInteraction(interaction)) {
+        window.recordedInteractions.push(interaction);
+    }
+}, true);
+
+// Capture checkbox changes (no duplicates)
+document.addEventListener("change", (event) => {
+    const target = event.target;
+    if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") {
         const interaction = {
-            action: 'change',
+            action: "change",
             tag_name: target.id || target.name || `checkbox_${Date.now()}`,
             id: target.id || null,
             name: target.name || null,
             xpath: generateXPath(target),
-            action_description: `Checkbox ${target.checked ? 'checked' : 'unchecked'}`,
-            value: target.checked ? 'on' : 'off'
+            action_description: `Checkbox ${target.checked ? "checked" : "unchecked"}`,
+            value: target.checked ? "on" : "off"
         };
 
-        // Prevent duplicates by checking existing interactions
-        if (!window.recordedInteractions.some(i => i.xpath === interaction.xpath && i.value === interaction.value)) {
+        if (!isDuplicateInteraction(interaction)) {
             window.recordedInteractions.push(interaction);
         }
     }
 });
 
-// Generate XPath for an element
+// Generate XPath for elements
 function generateXPath(element) {
     if (element.id) return `//*[@id="${element.id}"]`;
-    if (element === document.body) return '/html/body';
+    if (element === document.body) return "/html/body";
     let ix = 0;
     const siblings = element.parentNode ? element.parentNode.childNodes : [];
     for (let i = 0; i < siblings.length; i++) {
@@ -109,68 +115,21 @@ function generateXPath(element) {
         }
         if (sibling.nodeType === 1 && sibling.tagName === element.tagName) ix++;
     }
-    return '';
+    return "";
 }
 
-// MutationObserver to detect dynamically added elements (like calendar dropdown)
+// MutationObserver to detect dynamically added elements (ensures event listeners work on new elements)
 const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
         mutation.addedNodes.forEach(node => {
-            if (node.nodeType === 1 && node.matches('.calendar-dropdown, .datepicker-popup, [role="dialog"]')) {
-                console.log("Calendar dynamically detected:", node);
+            if (node.nodeType === 1 && node.matches("input, textarea, button, a")) {
+                console.log("New interactable element detected:", node);
             }
         });
     }
 });
 observer.observe(document.body, { childList: true, subtree: true });
+
+console.log("Event recording script initialized.");
+
 """
-
-IMPORT_ST_DEVICE = "from qasharedinfra.devices.audc.smarttap.smarttap import SmartTap"
-IMPORT_MI_DEVICE = "from qasharedinfra.devices.audc.meetinginsights.meetinginsights import MeetingInsightsSaaS"
-
-
-def init_code(device: str) -> str:
-
-    CODE = f"""\
-import pytest
-{IMPORT_ST_DEVICE if device == 'st' else IMPORT_MI_DEVICE}
-import coreinfra.core.environment.environment_variables as env
-from coreinfra.services.selenium.mappedselenium import MappedSelenium
-from coreinfra.services.selenium.seleniumwebelement import Actions
-
-from qasharedinfra.infra.smarttap.selenium.utils.bini_utils import IRBiniUtils
-
-HEADLESS = False
-{device}: {'SmartTap' if device == 'st' else 'MeetingInsightsSaaS'} = env.devices['Device_1']
-log = env.logger
-
-
-@pytest.fixture(scope='module', autouse=True)
-def init_globals() -> None:
-
-    {device}.logger_.info('\n******** Module (Script) Setup ********')
-    bini = IRBiniUtils()
-    {device}.test_prerequisites(selenium=True, headless=HEADLESS)
-    {device}.ui.utils.st_selenium_go_to_screen_in_current_window({device}.selenium, {device}.st_screens)  # add screen
-
-    yield bini
-
-    {device}.logger.info('******** Module (Script) TearDown ********')
-    {device}.selenium.finalize()
-
-
-@pytest.fixture(scope='function', autouse=True)
-def setup_and_teardown() -> None:
-    {device}.logger_.info('******** Test Setup ********')
-
-    yield
-
-    {device}.logger_.info('******** Test TearDown ********')
-
-@pytest.fixture
-def driver() -> MappedSelenium:
-    return {device}.selenium
-    
-    """
-
-    return CODE

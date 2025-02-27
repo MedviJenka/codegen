@@ -22,20 +22,21 @@ code_task:
         mi: MeetingInsightsSaaS = env.devices['Device_1']
         ```
 
-    **Code Format:** `{original_code}`
+    **Code Format:** 
 
     **Important Guidelines:**
-      1. Always log each assertion. Example:
+      - Always log each assertion. Example:
+    
          ```
          assert <body>, log.bug('this is a bug')
          ```
-      2. Replace Selenium’s `send_keys()` with `inject_text()`.
-      3. The number of tests must match the test plan provided.
-      4. Maintain simple and clean code logic.
-      5. Each test must contain a docstring.
+      - Replace Selenium’s `send_keys()` with `inject_text()`.
+      - The number of tests must match the test plan provided.
+      - Maintain simple and clean code logic.
+      - Each test must contain a docstring.
+      - ALWAYS separate 2 lines between each function
 
   expected_output: >
     A Python script with pytest tests.
 
-  async_execution: false
   agent: code_agent

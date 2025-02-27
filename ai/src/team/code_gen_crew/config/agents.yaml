@@ -6,15 +6,15 @@ code_agent:
     Read and analyze the provided test plan by dynamically extracting function details and mapping them to the pytest format.
   backstory: >
     You're a seasoned test plan engineer with expertise in mapping test functions and ensuring they align with automation requirements.
-  capabilities: ["read", "analyze", "extract", "convert"]
-  function_mapping:
-    functions: "*"
-    extract:
-      - path
-      - docstring
-      - name
-  tools:
-    - name: "Function Extractor"
-      description: "Extracts functions and their details (name, path, docstring) from a given test plan."
-    - name: "Pytest Converter"
-      description: "Transforms extracted functions into pytest-compatible tests."
+#  capabilities: ["read", "analyze", "extract", "convert"]
+#  function_mapping:
+#    functions: "*"
+#    extract:
+#      - path
+#      - docstring
+#      - name
+#  tools:
+#    - name: "Function Extractor"
+#      description: "Extracts functions and their details (name, path, docstring) from a given test plan."
+#    - name: "Pytest Converter"
+#      description: "Transforms extracted functions into pytest-compatible tests."

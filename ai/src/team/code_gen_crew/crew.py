@@ -1,10 +1,11 @@
-from ai.src.tools.tools import ToolKit
+from crewai_tools.tools.file_read_tool.file_read_tool import FileReadTool
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools.tools.file_writer_tool.file_writer_tool import FileWriterTool
+from src.core.paths import PYTHON_CODE, OUTPUT_PATH
 
 
 @CrewBase
@@ -17,11 +18,11 @@ class CodegenCrew(AzureLLMConfig, Executor):
 
     @agent
     def code_agent(self) -> Agent:
-        file_tool = FileWriterTool(file_name='app.py')
-
         return Agent(config=self.agents_config['code_agent'],
                      verbose=True,
-                     tools=[file_tool],
+                     tools=[
+                         FileReadTool(file_path=PYTHON_CODE),
+                         FileWriterTool(directory=OUTPUT_PATH, overwrite=True)],
                      llm=self.llm)
 
     @task
@@ -29,7 +30,7 @@ class CodegenCrew(AzureLLMConfig, Executor):
         return Task(config=self.tasks_config['code_task'])
 
     @crew
-    def map_crew(self) -> Crew:
+    def crew(self) -> Crew:
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
@@ -37,10 +38,5 @@ class CodegenCrew(AzureLLMConfig, Executor):
             verbose=True,
         )
 
-    def execute(self, functions: any) -> list[CrewOutput]:
-        tool = ToolKit()
-        data = [{'tool': str(tool.index_functions)}]
-        return self.map_crew().kickoff_for_each(inputs=data)
-
-
-CodegenCrew().execute(functions=None)
+    def execute(self) -> CrewOutput:
+        return self.crew().kickoff()

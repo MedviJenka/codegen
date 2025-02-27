@@ -38,3 +38,6 @@ class PlanCrew(AzureLLMConfig):
 
     def execute(self) -> None:
         self.test_plan_crew().kickoff(inputs={'review': 'review this test plan'})
+
+
+PlanCrew().execute()

@@ -23,7 +23,7 @@ class CSVCrew(AzureLLMConfig, Executor):
                      llm=self.llm,
                      max_retry_limit=3,
                      tools=[FileReadTool(file_path=PAGE_BASE),
-                            FileWriterTool(filename=f'{PAGE_BASE}', overwrite=True)])
+                            FileWriterTool(filename=PAGE_BASE, overwrite=True)])
 
     @task
     def csv_task(self) -> Task:
@@ -40,7 +40,3 @@ class CSVCrew(AzureLLMConfig, Executor):
 
     def execute(self) -> CrewOutput:
         return self.csv_crew().kickoff()
-
-
-
-# app.execute()

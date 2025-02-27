@@ -1,4 +1,5 @@
 import csv
+from ai.src.team.code_gen_crew.crew import CodegenCrew
 from src.core.paths import PAGE_BASE
 from src.browser_recorder.workflow import BrowserRecorder
 from crewai import Flow
@@ -9,10 +10,19 @@ from ai.src.team.page_base_crew.crew import CSVCrew
 
 class InitialState(BaseModel):
     cache: list = []
-    status: str = ''
+    status: bool = False
 
 
 class BiniOps(Flow[InitialState]):
+
+    """
+    TODO
+        1. concentrate on specific screen like action items
+        2. prove that this tool can handle clicks and inject test
+        ---
+        phase 2:
+
+    """
 
     @start()
     def page_base_crew(self) -> None:
@@ -32,37 +42,26 @@ class BiniOps(Flow[InitialState]):
     @router(validate_csv_content)
     def csv_branch(self) -> str:
         if self.state.status:
-            return 'success'
-        return 'fail'
+            return 'router_success'
+        return 'router_fail'
 
-    @listen('success')
-    def success(self) -> None:
-        print('CSV file has content')
+    @listen('router_success')
+    def generate_code(self) -> None:
+        print('CSV file has content, running PyCrew which generates PyBREnv code')
+        CodegenCrew().execute()
 
-    @listen('fail')
+    @listen('router_fail')
     def csv_is_empty(self) -> None:
-        print('CSV file is empty')
+        print('CSV file is empty, please check the file and try again')
 
 
-def run_recorder() -> None:
-    try:
-        device = input("Enter device type (e.g., 'st', 'mi', or custom): ").strip()
-        output_csv = input("Enter output CSV file name (default: 'page_base.csv'): ").strip()
-        screen = input("Enter custom screen URL (leave blank to use default for the device): ").strip()
-        # generate_code = input("Generate code? (y/n): ").strip().lower() == 'n'
-
-        if not output_csv:
-            output_csv = PAGE_BASE
-
-        app = BrowserRecorder(device=device, output_csv=output_csv, screen=screen)
-        app.execute()
-
-    except Exception as e:
-        raise e
-
-    finally:
-        BiniOps().kickoff()
-        BiniOps().plot()
+def main() -> None:
+    device = 'mi'
+    browser = BrowserRecorder(device=device)
+    browser.execute()
+    # BiniOps().kickoff()
+    # BiniOps().plot()
 
 
-run_recorder()
+if __name__ == '__main__':
+    main()
