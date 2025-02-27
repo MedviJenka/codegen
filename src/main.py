@@ -9,7 +9,7 @@ from ai.src.team.page_base_crew.crew import CSVCrew
 
 class InitialState(BaseModel):
     cache: list = []
-    retries: int = 3
+    status: str = ''
 
 
 class BiniOps(Flow[InitialState]):
@@ -19,23 +19,29 @@ class BiniOps(Flow[InitialState]):
         result = CSVCrew().execute()
         self.state.cache.append(result)
 
-    @router
-    def csv_branch(self) -> str:
+    @listen(page_base_crew)
+    def validate_csv_content(self) -> None:
         with open(PAGE_BASE, mode="r", encoding="utf-8") as file:
             reader = csv.reader(file)
             next(reader)
             for row in reader:
                 if not any(row):
-                    return 'empty'
-        return 'success'
+                    self.state.status = False
+                self.state.status = True
+
+    @router(validate_csv_content)
+    def csv_branch(self) -> str:
+        if self.state.status:
+            return 'success'
+        return 'fail'
 
     @listen('success')
     def success(self) -> None:
-        pass
+        print('CSV file has content')
 
-    @listen('empty')
+    @listen('fail')
     def csv_is_empty(self) -> None:
-        CSVCrew().execute()
+        print('CSV file is empty')
 
 
 def run_recorder() -> None:

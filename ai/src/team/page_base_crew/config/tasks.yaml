@@ -2,5 +2,7 @@ csv_task:
   agent: csv_agent
   description: >
     under `Element Name` column change to a logical name based on hole input
+    ** important **
+    if you're unable to find any content, do not invent new one, leave it as it is
   expected_output: >
     correct page base csv
