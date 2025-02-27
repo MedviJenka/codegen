@@ -41,3 +41,6 @@ class CodegenCrew(AzureLLMConfig, Executor):
         tool = ToolKit()
         data = [{'tool': str(tool.index_functions)}]
         return self.map_crew().kickoff_for_each(inputs=data)
+
+
+CodegenCrew().execute(functions=None)

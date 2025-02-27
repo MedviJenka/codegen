@@ -1,17 +1,17 @@
-from src.core.executor import Executor
 from crewai.crews import CrewOutput
+from src.core.paths import PAGE_BASE
+from src.core.executor import Executor
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool, FileWriterTool
-from src.core.paths import PAGE_BASE, AI_PAGE_BASE
 
 
 @CrewBase
 class CSVCrew(AzureLLMConfig, Executor):
 
-    agents = None
-    tasks = None
+    agents: list[Agent] = None
+    tasks: list[Task] = None
     agents_config: dict = "config/agents.yaml"
     tasks_config: dict = "config/tasks.yaml"
 
@@ -21,10 +21,9 @@ class CSVCrew(AzureLLMConfig, Executor):
         return Agent(config=self.agents_config['csv_agent'],
                      verbose=True,
                      llm=self.llm,
-                     tools=[
-                         FileReadTool(file_path=PAGE_BASE),
-                         FileWriterTool(filename=f'{AI_PAGE_BASE}')],
-                     )
+                     max_retry_limit=3,
+                     tools=[FileReadTool(file_path=PAGE_BASE),
+                            FileWriterTool(filename=f'{PAGE_BASE}', overwrite=True)])
 
     @task
     def csv_task(self) -> Task:
@@ -43,5 +42,5 @@ class CSVCrew(AzureLLMConfig, Executor):
         return self.csv_crew().kickoff()
 
 
-# app = CSVCrew()
+
 # app.execute()

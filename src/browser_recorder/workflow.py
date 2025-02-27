@@ -8,8 +8,8 @@ from src.core.logger import Logger
 from src.core.paths import PAGE_BASE, PYTHON_CODE
 
 
-log = Logger()
 urllib3.disable_warnings()
+log = Logger()
 
 
 class BrowserRecorder(Executor):
@@ -171,8 +171,8 @@ class BrowserRecorder(Executor):
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
 
-            code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
-            self.__create_python_file(output=code)
+            # code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
+            # self.__create_python_file(output=code)
 
         except Exception as e:
             log.log_error(f'error: {e}')

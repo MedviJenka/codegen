@@ -4,7 +4,7 @@ import re
 import sys
 from typing import Callable, Type, Optional
 from functools import wraps
-from ai.src.crews.debug_crew.crew import DebugCrew
+from ai.src.team.debug_crew.crew import DebugCrew
 
 
 def aidebug(function: Optional[any] = None) -> Callable:
