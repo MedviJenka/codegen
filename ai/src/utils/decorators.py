@@ -1,63 +1,70 @@
-import re
-import inspect
 import traceback
-from typing import Callable, Type, Optional, Union
+import inspect
+import re
+import sys
+from typing import Callable, Type, Optional
 from functools import wraps
-from ai.src.crews.debug_crew.crew import DebugCrew
+from ai.src.team.debug_crew.crew import DebugCrew
 
 
-def aidebug(function: Optional[Union[Callable, Type]] = None, *, class_mode: bool = True) -> Callable:
+def aidebug(function: Optional[any] = None) -> Callable:
     """Decorator that wraps test functions & test classes, invokes DebugCrew on failure, and autocorrects code.
 
     - Works on **functions**: `@aidebug`
-    - Works on **pytest test classes**: `@aidebug(class_mode=True)`
+    - Works on **classes**: `@aidebug`
     - Supports usage with or without parentheses: `@aidebug()` and `@aidebug`
     """
 
-    def function_decorator(func: Callable) -> Callable:
-        """Wraps individual test functions to catch exceptions and invoke DebugCrew."""
+    def function_decorator(func: any) -> Callable:
+        """Decorator for individual test functions that replaces the function but does NOT execute it."""
 
-        @wraps(func)  # ✅ Keeps function signature for pytest compatibility
+        @wraps(func)
         def wrapper(*args: any, **kwargs: any) -> None:
             try:
                 return func(*args, **kwargs)
 
-            except Exception:
+            except Exception as e:
                 error_trace = traceback.format_exc()
+                print(f"Test failed in {func.__name__}. Triggering DebugCrew...\n{error_trace}, error: {e}")
+
+                # Extract source code of the function
                 original_code = inspect.getsource(func)
 
-                print(f"\n❌ Test Failed: {func.__name__}\n")
-                print("Traceback:\n", error_trace)
-                print("\nOriginal Code:\n", original_code)
-
+                # Debug and Fix Code via AI Agent
                 debug_team = DebugCrew()
                 fixed_code = debug_team.execute(error_trace, original_code)
 
-                # Sanitize AI-generated code (keep this for debugging)
-                cleaned_code = re.sub(r"```python\n?|```", "", fixed_code).strip()
-                print("\n🔧 AI-Suggested Fix:\n", cleaned_code)
+                # Sanitize AI-generated code
+                fixed_code = re.sub(r"```python\n?|```", "", fixed_code).strip()
 
-                return  # Ensure test execution stops properly on failure
+                # Inject fixed function dynamically into the module's namespace
+                exec(fixed_code, globals())
+
+                # Retrieve the module where the function is defined
+                module = sys.modules[func.__module__]
+
+                # Prevent infinite loop: Ensure decorator does not wrap the function again
+                corrected_func_name = func.__name__
+                if corrected_func_name in globals():
+                    corrected_func = globals()[corrected_func_name]
+                    setattr(module, corrected_func_name, corrected_func)  # Replace function in module
+                    print(f"Function {corrected_func_name} successfully updated.")
+
+                return
 
         return wrapper
 
     def class_decorator(cls: Type) -> Type:
-        """Decorator for pytest test classes (Test*), applies aidebug to all test methods but does NOT run them."""
-        if not cls.__name__.startswith("Test"):  # ✅ Only wrap pytest test classes
-            return cls
-
+        """Decorator for classes: applies aidebug to all test methods but does NOT run them."""
         for attr_name, attr_value in cls.__dict__.items():
-            if callable(attr_value) and attr_name.startswith("test"):  # ✅ Only wrap test methods
+            if callable(attr_value) and attr_name.startswith("test"):
                 setattr(cls, attr_name, function_decorator(attr_value))
 
-        return cls
+        return cls  # ✅ Explicitly return the modified class to keep pytest compatibility
 
-    # **Handle usage with or without parentheses**
+    # If called without parentheses (@aidebug), determine if it's a function or class
     if function:
-        if isinstance(function, type):  # If it's a class
-            return class_decorator(function) if class_mode else function
-        elif callable(function):  # If it's a function
-            return function_decorator(function)
+        return function_decorator(function) if callable(function) else class_decorator(function)
 
-    # # If called with parentheses (@aidebug())
-    return lambda x: class_decorator(x) if class_mode and isinstance(x, type) else function_decorator(x)
+    # If called with parentheses (@aidebug()), return a decorator function
+    return lambda x: function_decorator(x) if callable(x) else class_decorator(x)

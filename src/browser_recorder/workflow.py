@@ -1,6 +1,6 @@
 import csv
 import urllib3
-from .event_listener import init_code, JS_SCRIPT
+from .event_listener import JS_SCRIPT
 from typing import Optional
 from playwright.sync_api import sync_playwright
 from src.core.executor import Executor
@@ -8,8 +8,8 @@ from src.core.logger import Logger
 from src.core.paths import PAGE_BASE, PYTHON_CODE
 
 
-log = Logger()
 urllib3.disable_warnings()
+log = Logger()
 
 
 class BrowserRecorder(Executor):
@@ -62,7 +62,22 @@ class BrowserRecorder(Executor):
                     try:
                         # Evaluate only if the page is still open
                         if not page.is_closed():
-                            new_interactions = page.evaluate("window.recordedInteractions || []")
+                            new_interactions = page.evaluate("""
+                                (() => {
+                                    let unique = [];
+                                    let seen = new Set();
+                                    for (let i of window.recordedInteractions) {
+                                        let key = JSON.stringify(i);
+                                        if (!seen.has(key)) {
+                                            seen.add(key);
+                                            unique.push(i);
+                                        }
+                                    }
+                                    window.recordedInteractions = []; // Clear after fetching
+                                    return unique;
+                                })()
+                            """)
+
                             if new_interactions:
                                 for interaction in new_interactions:
                                     element_identifier = (
@@ -104,23 +119,31 @@ class BrowserRecorder(Executor):
                     log.log_info(f"Error closing the browser: {e}")
 
     def save_to_csv(self) -> None:
-        """Save the interactions to a CSV file."""
+        """Save the unique interactions to a CSV file."""
         with open(self.output_csv, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow(["Element Name", "Element Type", "Element Path", "Action", "Value"])
-            writer.writerows(self.interactions)
+            writer.writerows(self.get_interactions())  # Use unique interactions
 
     def get_interactions(self) -> list:
-        """Return the list of recorded interactions."""
-        return self.interactions
+        """Return unique recorded interactions (no duplicates)."""
+        seen = set()
+        unique_interactions = []
+
+        for interaction in self.interactions:
+            key = (interaction[0], interaction[1], interaction[2], interaction[3], interaction[4])  # Unique identifier
+            if key not in seen and interaction[4] != "None":  # Ensure we don't log 'None' values
+                seen.add(key)
+                unique_interactions.append(interaction)
+
+        return unique_interactions
 
     @property
     def events_to_dict(self):
         keys = ["element_ame", "element_type", "element_path", "action", "value"]
         return [dict(zip(keys, values)) for values in self.get_interactions()]
 
-    def __generate_methods(self, scenario: str, test_name: str) -> str:
-
+    def __generate_methods(self, function_name: str) -> str:
         code_cache = []
 
         for each_list in self.get_interactions():
@@ -128,26 +151,25 @@ class BrowserRecorder(Executor):
             action = each_list[3]
             value = each_list[4]
 
-            if action == 'Clicked on button':
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
-            elif action == 'Clicked on input' and value is not None:
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').inject_text('{value}')")
-            elif action == 'Typed in input':
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').inject_text('{value}')")
-            elif action.startswith('Clicked on'):
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
-            elif action.startswith('Checkbox checked'):
+            # Fix Click Actions
+            if "Clicked" in action:
                 code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
-        methods_code = "\n".join(code_cache)  # Ensure proper indentation for generated code
+            # Fix Typing Actions - Only add inject_text if there's an actual value
+            if "Typed" in action or "typing" in action:
+                if value and value.strip():  # Avoid 'None' or empty values
+                    code_cache.append(f"driver.get_mapped_element('{tag_name}').inject_text('{value}')")
+
+            # Handle checkbox interactions correctly
+            if action.startswith("Checkbox checked"):
+                code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
         # Ensure overall indentation for the final generated code
-        final_code = f"""
-        {init_code(device=self.device)}
-        class Test{scenario}:
+        methods_code = "\n".join(code_cache)
 
-            def test_{test_name}(self, driver) -> None:
-                {methods_code}
+        final_code = f"""
+        def {function_name}(self, driver) -> None:
+            {methods_code}
         """
         log.log_info(final_code)
         return final_code
@@ -171,7 +193,7 @@ class BrowserRecorder(Executor):
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
 
-            code = self.__generate_methods(scenario=kwargs.get('scenario'), test_name=kwargs.get('test_name'))
+            code = self.__generate_methods(function_name='run_interactions')
             self.__create_python_file(output=code)
 
         except Exception as e:

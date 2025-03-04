@@ -1,0 +1,4 @@
+evaluation_task:
+    description: "{input} Evaluate the given task, define its category, and outline a strategic execution plan."
+    expected_output: "A high-level task strategy with priorities and execution direction."
+    agent: visionary_strategist

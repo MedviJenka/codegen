@@ -1,31 +1,52 @@
 import os
 from crewai import LLM
 from functools import cached_property
-from openai import AzureOpenAI
+from crewai.telemetry import Telemetry
+from dotenv import load_dotenv
+from langchain_openai import AzureChatOpenAI
 
 
-class AzureLLMConfig:
+load_dotenv()
 
-    """class template to handle original .env bini config"""
 
-    api_key: str = os.getenv("OPENAI_API_KEY")
-    endpoint: str = os.getenv("AZURE_OPENAI_ENDPOINT")
-    api_version: str = os.getenv("OPENAPI_API_VERSION")
-    model: str = f'azure/{os.getenv("MODEL")}'
-    temperature: float = 0.0
+class TelemetryPatch:
+
+    def __init__(self) -> None:
+        for attr in dir(Telemetry):
+            if callable(getattr(Telemetry, attr)) and not attr.startswith("__"):
+                setattr(Telemetry, attr, self.__nop)
+
+    def __nop(*args: any, **kwargs: any) -> None:
+        """NOT OPERATIVE function for handling telemetry"""
+        pass
+
+
+class AzureLLMConfig(TelemetryPatch):
+
+    api_key: str = os.getenv("AZURE_API_KEY")
+    endpoint: str = os.getenv("AZURE_API_BASE")
+    version: str = os.getenv("AZURE_API_VERSION")
+    model: str = os.getenv("MODEL")
+
+    def __post_init__(self) -> None:
+        if not all([self.api_key, self.endpoint, self.version, self.model]):
+            raise ValueError("Missing Azure OpenAI environment variables!")
+        if self.api_key != 'OPENAI_API_KEY':
+            self.api_key = os.getenv('OPENAI_API_KEY')
+
+        super().__init__()
 
     @cached_property
     def llm(self) -> LLM:
-        return LLM(
-            model=self.model,
-            base_url=self.endpoint,
-            api_key=self.api_key,
-            api_version=self.api_version,
-            temperature=self.temperature
-        )
+        return LLM(model=self.model, api_version=self.version, temperature=0)
 
     @cached_property
-    def azure_llm(self) -> AzureOpenAI:
-        return AzureOpenAI(api_key=self.api_key,
-                           api_version=self.api_version,
-                           azure_endpoint=self.endpoint)
+    def langchain_llm(self) -> AzureChatOpenAI:
+        """Fix LangChain API handling for Azure"""
+        return AzureChatOpenAI(
+            openai_api_type="azure",
+            azure_endpoint=self.endpoint,
+            openai_api_key=self.api_key,
+            openai_api_version=self.version,
+            deployment_name=self.model
+        )

@@ -1,6 +1,6 @@
 /browser_recorder/output/code_gen.log
 /browser_recorder/output/page_base.csv
-/.env
+/ai/.env
 /browser_recorder/output/test_code.py
 /.venv/
 /venv/

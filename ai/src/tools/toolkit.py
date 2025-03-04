@@ -1,53 +1,13 @@
-import io
 import os
-import base64
 import hashlib
 import diskcache as db
 from typing import Type
-from pydantic import BaseModel
 from crewai.tools import BaseTool
-from PIL import Image
-from ai.src.utils.azure_llm import AzureLLMConfig
+from pydantic import BaseModel
+from ai.src.tools.functions import FunctionMapping
+from ai.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface
 from src.core.paths import TEST_PLAN
 from src.core.paths import FUNCTION
-from ai.src.tools.functions import FunctionMapping
-from ai.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface, ImageVisionToolInterface
-
-
-class ImageVisionTool(BaseTool):
-
-    name: str = 'Image Vision Tool'
-    description: str = 'Image Vision Tool'
-    image_path: Type[BaseModel] = ImageVisionToolInterface
-    azure_client = AzureLLMConfig()
-
-    def __compress_image_to_base64(self, image_path: str, image_format: str = 'JPEG' or 'PNG') -> str:
-
-        with Image.open(image_path) as img:
-            buffer = io.BytesIO()
-            img.save(buffer, image_format=image_format, quality=100)
-            return base64.b64encode(buffer.getvalue()).decode("utf-8")
-
-    def _run(self, **kwargs: any) -> None:
-        llm = self.azure_client.azure_llm
-        image_base64 = self.__compress_image_to_base64(kwargs.get('image_path'))
-        response = llm.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": "What's in this image?"},
-                        {
-                            "type": "image_url",
-                            "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
-                        },
-                    ],
-                }
-            ],
-            max_tokens=15000,
-            temperature=self.azure_client.temperature
-        )
-        return response.choices[0].message.content
 
 
 class FunctionMappingTool(BaseTool):

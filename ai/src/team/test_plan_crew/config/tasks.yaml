@@ -1,0 +1,9 @@
+test_plan_task:
+  agent: test_plan_agent
+  description: >
+    Conduct a thorough research about this test plan 
+    Make sure you find you review carefully step by step
+    ** important ** 
+    {review} this test plan and do not edit the test plan, leave it as it is
+  expected_output: >
+    Announce you've understood the test

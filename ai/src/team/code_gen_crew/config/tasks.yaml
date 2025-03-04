@@ -1,0 +1,42 @@
+code_task:
+  description: >
+    Convert the test plan into a functional pytest script using the specified code format logic.
+
+    **Test Plan:** Based on the `test_plan` provided from the tool.
+
+    **Task:**
+      - If the device is set to `smarttap` or `st`, all imports should be:
+        ```
+        from qasharedinfra.infra.smarttap.general_utils import get_file_size
+        ```
+        and the device instance should be:
+        ```
+        st: SmartTap = env.devices['Device_1']
+        ```
+      - If the device is set to `mi`, all imports should include `meetinginsights` instead of `smarttap`:
+        ```
+        from qasharedinfra.infra.meetinginsights.selenium.utils.custom_exceptions import ElementIsClickableException
+        ```
+        and replace `st` with:
+        ```
+        mi: MeetingInsightsSaaS = env.devices['Device_1']
+        ```
+
+    **Code Format:** 
+
+    **Important Guidelines:**
+      - Always log each assertion. Example:
+    
+         ```
+         assert <body>, log.bug('this is a bug')
+         ```
+      - Replace Selenium’s `send_keys()` with `inject_text()`.
+      - The number of tests must match the test plan provided.
+      - Maintain simple and clean code logic.
+      - Each test must contain a docstring.
+      - ALWAYS separate 2 lines between each function
+
+  expected_output: >
+    A Python script with pytest tests.
+
+  agent: code_agent

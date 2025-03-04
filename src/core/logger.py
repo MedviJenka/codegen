@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 from src.core.paths import LOG
 
-
+# Define which logs to suppress
 LOGGING_CONFIG = {
     "crewai": logging.INFO,
     "asyncio": logging.ERROR,
@@ -12,6 +12,7 @@ LOGGING_CONFIG = {
     "httpcore": logging.ERROR,
     "httpx": logging.ERROR,
     "azure": logging.ERROR,
+    "LiteLLM": logging.ERROR,  # Explicitly suppress LiteLLM logs
 }
 
 
@@ -28,21 +29,27 @@ class Logger:
     def __disregard_this_logs() -> None:
         """Setup logging to suppress unnecessary logs while keeping CrewAI agent outputs."""
         logging.basicConfig(level=logging.WARNING, format="%(message)s")  # Set global log level
+
+        # Explicitly disable logs from unwanted modules
         for module, level in LOGGING_CONFIG.items():
-            logging.getLogger(module).setLevel(level)
+            log = logging.getLogger(module)
+            log.setLevel(level)
+            log.propagate = False  # Prevent propagation to root logger
 
     def _configure_logger(self):
         """Configures the root logger."""
-        logging.basicConfig(
-            filename=LOG,
-            filemode='w',
-            format=self.format,
-            datefmt=self.date,
-            level=logging.DEBUG  # Set to DEBUG to capture all logs
-        )
+        handler = logging.FileHandler(LOG, mode='w')
+        handler.setLevel(logging.DEBUG)  # Capture DEBUG logs only for root logging
+        handler.setFormatter(logging.Formatter(self.format, self.date))
 
-        # Ensure all loggers propagate to the root logger
-        logging.getLogger().setLevel(logging.DEBUG)
+        # Get the root logger and apply the handler
+        root_logger = logging.getLogger()
+        root_logger.setLevel(logging.DEBUG)
+        root_logger.addHandler(handler)
+
+        # Ensure suppressed logs do not propagate
+        for module in LOGGING_CONFIG:
+            logging.getLogger(module).propagate = False
 
     @staticmethod
     def log_info(message: str):

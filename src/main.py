@@ -1,18 +1,29 @@
+import csv
+from ai.src.team.code_gen_crew.crew import CodegenCrew
 from src.core.paths import PAGE_BASE
 from src.browser_recorder.workflow import BrowserRecorder
 from crewai import Flow
-from crewai.flow.flow import start, listen
+from crewai.flow.flow import start, router, listen
 from pydantic import BaseModel
-from ai.src.crews.page_base_crew.crew import CSVCrew
-from ai.src.crews.py_crew.crew import PyCrew
-from time import sleep
+from ai.src.team.page_base_crew.crew import CSVCrew
 
 
 class InitialState(BaseModel):
     cache: list = []
+    status: bool = False
+    count: int = 0
 
 
 class BiniOps(Flow[InitialState]):
+
+    """
+    TODO
+        1. concentrate on specific screen like action items
+        2. prove that this tool can handle clicks and inject test
+        ---
+        phase 2:
+
+    """
 
     @start()
     def page_base_crew(self) -> None:
@@ -20,31 +31,38 @@ class BiniOps(Flow[InitialState]):
         self.state.cache.append(result)
 
     @listen(page_base_crew)
-    def code_crew(self) -> None:
-        result = PyCrew().execute()
-        self.state.cache.append(result)
+    def validate_csv_content(self) -> None:
+        with open(PAGE_BASE, mode="r", encoding="utf-8") as file:
+            reader = csv.reader(file)
+            next(reader)
+            for row in reader:
+                if not any(row):
+                    self.state.status = False
+                self.state.status = True
+
+    @router(validate_csv_content)
+    def csv_branch(self) -> str:
+        if self.state.status:
+            return 'router_success'
+        return 'router_fail'
+
+    @listen('router_success')
+    def generate_code(self) -> None:
+        print('CSV file has content, running PyCrew which generates PyBREnv code')
+        CodegenCrew().execute()
+
+    @listen('router_fail')
+    def csv_is_empty(self) -> None:
+        print('CSV file is empty, please check the file and try again')
 
 
-def run_recorder() -> None:
-    try:
-        device = input("Enter device type (e.g., 'st', 'mi', or custom): ").strip()
-        output_csv = input("Enter output CSV file name (default: 'page_base_beofre_ai.csv'): ").strip()
-        screen = input("Enter custom screen URL (leave blank to use default for the device): ").strip()
-        generate_code = input("Generate code? (y/n): ").strip().lower() == 'y'
-
-        if not output_csv:
-            output_csv = PAGE_BASE
-
-        app = BrowserRecorder(device=device, output_csv=output_csv, screen=screen, generate_code=generate_code)
-        app.execute()
-
-    except Exception as e:
-        raise e
-
-    finally:
-        # wait fo csv and python templates to be generated
-        sleep(10)
-        BiniOps().kickoff()
+def main() -> None:
+    device = 'mi'
+    browser = BrowserRecorder(device=device)
+    browser.execute()
+    # BiniOps().kickoff()
+    # BiniOps().plot()
 
 
-run_recorder()
+if __name__ == '__main__':
+    main()

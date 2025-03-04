@@ -1,0 +1,20 @@
+docx_agent:
+  name: "DOCX Reader Agent"
+  role: >
+    Document Analysis and Extraction Specialist.
+  goal: >
+    Read and analyze DOCX files to extract relevant information based on specified search terms.
+  backstory: >
+    You are an expert in document analysis with a focus on extracting and processing information from DOCX files.
+#  capabilities: ["read", "analyze", "extract", "convert"]
+#  function_mapping:
+#    functions: "*"
+#    extract:
+#      - path
+#      - docstring
+#      - name
+#  tools:
+#    - name: "Function Extractor"
+#      description: "Extracts functions and their details (name, path, docstring) from a given test plan."
+#    - name: "Pytest Converter"
+#      description: "Transforms extracted functions into pytest-compatible tests."
