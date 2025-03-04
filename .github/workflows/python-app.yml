@@ -25,8 +25,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Get API KEY
+    - name: Get API Keys
+      run: | 
+        echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> $GITHUB_ENV
+        echo "AZURE_API_BASE=${{ secrets.AZURE_API_BASE }}" >> $GITHUB_ENV
+        echo "AZURE_API_VERSION=${{ secrets.AZURE_API_VERSION }}" >> $GITHUB_ENV
+        echo "MODEL=${{ secrets.MODEL }}" >> $GITHUB_ENV
+
+    - name: Create .env file
       run: |
+        cd ai 
+        touch .env 
+        echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> .env 
+        echo "AZURE_API_BASE=${{ secrets.AZURE_API_BASE }}" >> .env 
+        echo "AZURE_API_VERSION=${{ secrets.AZURE_API_VERSION }}" >> .env 
+        echo "MODEL=${{ secrets.MODEL }}" >> .env 
+        
+        
 
     - name: Run Tests
       run: |
