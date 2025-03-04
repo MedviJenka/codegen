@@ -10,6 +10,7 @@ permissions:
   contents: read
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
@@ -28,7 +29,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - run: Get API Keys from Secrets
+    - run: "echo Get API Keys from Secrets"
       env:
         AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
         AZURE_API_BASE: ${{ secrets.AZURE_API_BASE }}
@@ -36,8 +37,7 @@ jobs:
         MODEL: ${{ secrets.MODEL }}
 
     - name: Run Tests
-      run: |
-        pytest tests/
+      run: pytest tests/
 
     - name: Build & Push Docker Image
       run: |
