@@ -11,6 +11,7 @@ from ai.src.team.page_base_crew.crew import CSVCrew
 class InitialState(BaseModel):
     cache: list = []
     status: bool = False
+    count: int = 0
 
 
 class BiniOps(Flow[InitialState]):

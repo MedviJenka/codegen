@@ -40,3 +40,6 @@ class CodegenCrew(AzureLLMConfig, Executor):
 
     def execute(self) -> CrewOutput:
         return self.crew().kickoff()
+
+
+CodegenCrew().execute()
