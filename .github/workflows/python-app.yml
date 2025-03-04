@@ -29,11 +29,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - run: "echo Get API Keys from Secrets"
+    - name: Test API Key Exists
+      run: |
+        if [[ -z "${AZURE_API_KEY}" ]]; then
+          echo "API Key is missing!"
+          exit 1
+        else
+          echo "API Key is set (value hidden)"
+        fi
       env:
         AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
-        AZURE_API_BASE: ${{ secrets.AZURE_API_BASE }}
-        AZURE_API_VERSION: ${{ secrets.AZURE_API_VERSION }}
         MODEL: ${{ secrets.MODEL }}
 
     - name: Run Tests
