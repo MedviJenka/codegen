@@ -1,10 +1,9 @@
-from crewai_tools.tools.file_read_tool.file_read_tool import FileReadTool
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools.tools.file_writer_tool.file_writer_tool import FileWriterTool
+from crewai_tools import FileWriterTool, FileReadTool
 from src.core.paths import PYTHON_CODE, OUTPUT_PATH
 
 
@@ -20,10 +19,9 @@ class CodegenCrew(AzureLLMConfig, Executor):
     def code_agent(self) -> Agent:
         return Agent(config=self.agents_config['code_agent'],
                      verbose=True,
-                     tools=[
-                         FileReadTool(file_path=PYTHON_CODE),
-                         FileWriterTool(directory=OUTPUT_PATH, overwrite=True)],
-                     llm=self.llm)
+                     llm=self.llm,
+                     tools=[FileReadTool(file_path=PYTHON_CODE),
+                            FileWriterTool(directory=OUTPUT_PATH, overwrite=True)])
 
     @task
     def code_task(self) -> Task:
@@ -40,6 +38,5 @@ class CodegenCrew(AzureLLMConfig, Executor):
 
     def execute(self) -> CrewOutput:
         return self.crew().kickoff()
-
 
 CodegenCrew().execute()

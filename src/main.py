@@ -14,7 +14,7 @@ class InitialState(BaseModel):
     count: int = 0
 
 
-class BiniOps(Flow[InitialState]):
+class AgentOps(Flow[InitialState]):
 
     """
     TODO
