@@ -1,15 +1,20 @@
+import os
 from typing import Optional
-
+from dotenv import load_dotenv
 from src.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from ai.src.utils.azure_llm import AzureLLMConfig
+from crewai_tools import DOCXSearchTool
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools.tools.docx_search_tool.docx_search_tool import DOCXSearchTool
+
+
+load_dotenv()
+FILE = r'./file.docx'
 
 
 @CrewBase
-class DOCXTeam(AzureLLMConfig, Executor):
+class MicrosoftWordAgent(Executor, AzureLLMConfig):
 
     agents: list[Agent] = None
     tasks: list[Task] = None
@@ -20,8 +25,8 @@ class DOCXTeam(AzureLLMConfig, Executor):
     def docx_agent(self) -> Agent:
         return Agent(config=self.agents_config['docx_agent'],
                      verbose=True,
-                     tools=[DOCXSearchTool(docx='./file.docx')],
-                     llm=self.llm)
+                     llm=self.llm,
+                     tools=[DOCXSearchTool(docx=FILE)])
 
     @task
     def docx_task(self) -> Task:
@@ -44,4 +49,5 @@ class DOCXTeam(AzureLLMConfig, Executor):
                 return self.docx_crew().kickoff({'input': inputs})
 
 
-DOCXTeam().execute(inputs='whats the name?')
+m = MicrosoftWordAgent()
+m.execute(inputs='whats the name?')

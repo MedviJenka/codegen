@@ -55,5 +55,6 @@ class MappingCrew(AzureLLMConfig, Executor):
         return self.map_crew().kickoff({"query": user_input})
 
 
-m = MappingCrew()
-m.execute("")
+if __name__ == "__main__":
+    m = MappingCrew()
+    m.execute("")
