@@ -1,5 +1,4 @@
 import os
-from dataclasses import dataclass
 from crewai import LLM
 from functools import cached_property
 from crewai.telemetry import Telemetry
@@ -15,10 +14,10 @@ class TelemetryPatch:
     def __init__(self) -> None:
         for attr in dir(Telemetry):
             if callable(getattr(Telemetry, attr)) and not attr.startswith("__"):
-                setattr(Telemetry, attr, self.__noop)
+                setattr(Telemetry, attr, self.__nop)
 
-    def __noop(*args: any, **kwargs: any) -> None:
-        """dummy function for handling telemetry"""
+    def __nop(*args: any, **kwargs: any) -> None:
+        """NOT OPERATIVE function for handling telemetry"""
         pass
 
 
