@@ -13,7 +13,7 @@ FILE = r'./img.png'
 
 
 @CrewBase
-class MicrosoftWordAgent(Executor, AzureLLMConfig):
+class Bini(Executor, AzureLLMConfig):
 
     agents: list[Agent] = None
     tasks: list[Task] = None
@@ -32,7 +32,7 @@ class MicrosoftWordAgent(Executor, AzureLLMConfig):
         return Task(config=self.tasks_config['vision_task'])
 
     @crew
-    def docx_crew(self) -> Crew:
+    def crew(self) -> Crew:
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
@@ -43,10 +43,10 @@ class MicrosoftWordAgent(Executor, AzureLLMConfig):
     def execute(self, inputs: str, raw_output: Optional[str] = False) -> CrewOutput or str:
         match raw_output:
             case True:
-                return self.docx_crew().kickoff({'image': inputs}).raw
+                return self.crew().kickoff({'image': inputs}).raw
             case _:
-                return self.docx_crew().kickoff({'image': inputs})
+                return self.crew().kickoff({'image': inputs})
 
 
-m = MicrosoftWordAgent()
+m = Bini()
 m.execute(inputs='whats the name?')
