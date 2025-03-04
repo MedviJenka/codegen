@@ -31,10 +31,7 @@ class AzureLLMConfig(TelemetryPatch):
     def __post_init__(self) -> None:
         if not all([self.api_key, self.endpoint, self.version, self.model]):
             raise ValueError("Missing Azure OpenAI environment variables!")
-        if self.api_key != 'OPENAI_API_KEY':
-            self.api_key = os.getenv('OPENAI_API_KEY')
-
-        super().__init__()
+        os.getenv('OPENAI_API_KEY') if self.api_key != 'OPENAI_API_KEY' else self.api_key
 
     @cached_property
     def llm(self) -> LLM:

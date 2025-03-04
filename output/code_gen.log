@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INFO | Tuesday | 04/03/2025 | 18:24:28 | root | Interact with the browser if needed. Close it when you're done. | Function: log_info | Line: 57
 INFO | Tuesday | 04/03/2025 | 18:24:30 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 57
 INFO | Tuesday | 04/03/2025 | 18:24:31 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 57
@@ -13,3 +14,65 @@ INFO | Tuesday | 04/03/2025 | 18:24:34 | root |
             driver.get_mapped_element('Login With Microsoft 365').action(Actions.CLICK)
          | Function: log_info | Line: 57
 INFO | Tuesday | 04/03/2025 | 18:24:34 | root | python file: C:\Users\evgenyp\PycharmProjects\codegen\output\test_code.py | Function: log_info | Line: 57
+=======
+DEBUG | Tuesday | 25/02/2025 | 18:40:04 | LiteLLM | [Non-Blocking] Unable to import GenericAPILogger - LiteLLM Enterprise Feature - No module named 'litellm.proxy.enterprise' | Function: <module> | Line: 113
+INFO | Tuesday | 25/02/2025 | 18:40:17 | root | Interact with the browser if needed. Close it when you're done. | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:18 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:25 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:29 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:29 | root | Navigation or context issue: Page.wait_for_timeout: Target page, context or browser has been closed | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:30 | root | 
+Recorded Interactions: | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:30 | root | [['Sign in with Microsoft 365', 'ID', 'login_button', 'Clicked on Sign in with Microsoft 365', None]] | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:30 | root | 
+Interactions saved to C:\Users\medvi\OneDrive\Desktop\codegen\output\page_base.csv | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:30 | root | 
+        import pytest
+from qasharedinfra.devices.audc.smarttap.smarttap import SmartTap
+import coreinfra.core.environment.environment_variables as env
+from coreinfra.services.selenium.mappedselenium import MappedSelenium
+from coreinfra.services.selenium.seleniumwebelement import Actions
+
+from qasharedinfra.infra.smarttap.selenium.utils.bini_utils import IRBiniUtils
+
+HEADLESS = False
+st: SmartTap = env.devices['Device_1']
+log = env.logger
+
+
+@pytest.fixture(scope='module', autouse=True)
+def init_globals() -> None:
+
+    st.logger_.info('
+******** Module (Script) Setup ********')
+    bini = IRBiniUtils()
+    st.test_prerequisites(selenium=True, headless=HEADLESS)
+    st.ui.utils.st_selenium_go_to_screen_in_current_window(st.selenium, st.st_screens)  # add screen
+
+    yield bini
+
+    st.logger.info('******** Module (Script) TearDown ********')
+    st.selenium.finalize()
+
+
+@pytest.fixture(scope='function', autouse=True)
+def setup_and_teardown() -> None:
+    st.logger_.info('******** Test Setup ********')
+
+    yield
+
+    st.logger_.info('******** Test TearDown ********')
+
+@pytest.fixture
+def driver() -> MappedSelenium:
+    return st.selenium
+    
+    
+        class TestNone:
+
+            def test_None(self, driver) -> None:
+                driver.get_mapped_element('Sign in with Microsoft 365').action(Actions.CLICK)
+         | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:30 | root | python file: C:\Users\medvi\OneDrive\Desktop\codegen\output\test_code.py | Function: log_info | Line: 50
+INFO | Tuesday | 25/02/2025 | 18:40:40 | crewai.flow.flow | Flow started with ID: 53b26876-9ba7-48b6-b16c-9dc96f83baf5 | Function: _log_flow_event | Line: 1007
+>>>>>>> e0a9dd3 (a)

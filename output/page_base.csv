@@ -1,2 +1,6 @@
 Element Name,Element Type,Element Path,Action,Value
+<<<<<<< HEAD
 Login With Microsoft 365,XPATH,"//*[@id=""signIn""]/text[1]",Clicked on Login With Microsoft 365,
+=======
+Sign in with Microsoft 365,ID,login_button,Clicked on Sign in with Microsoft 365,
+>>>>>>> e0a9dd3 (a)
