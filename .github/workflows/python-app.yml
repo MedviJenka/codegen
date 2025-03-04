@@ -1,4 +1,4 @@
-name: Python application
+name: Python Application
 
 on:
   push:
@@ -15,37 +15,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Set up Python 3.12
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v4
       with:
         python-version: "3.12"
+
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Get API Keys
-      run: | 
-        echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> $GITHUB_ENV
-        echo "AZURE_API_BASE=${{ secrets.AZURE_API_BASE }}" >> $GITHUB_ENV
-        echo "AZURE_API_VERSION=${{ secrets.AZURE_API_VERSION }}" >> $GITHUB_ENV
-        echo "MODEL=${{ secrets.MODEL }}" >> $GITHUB_ENV
-
-    - name: Create .env file
-      run: |
-        cd ai 
-        touch .env 
-        echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> .env 
-        echo "AZURE_API_BASE=${{ secrets.AZURE_API_BASE }}" >> .env 
-        echo "AZURE_API_VERSION=${{ secrets.AZURE_API_VERSION }}" >> .env 
-        echo "MODEL=${{ secrets.MODEL }}" >> .env 
-        
-        
+    - run: Get API Keys from Secrets
+      env:
+        AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+        AZURE_API_BASE: ${{ secrets.AZURE_API_BASE }}
+        AZURE_API_VERSION: ${{ secrets.AZURE_API_VERSION }}
+        MODEL: ${{ secrets.MODEL }}
 
     - name: Run Tests
       run: |
-        cd tests
-        pytest
-    - name: Push Docker
+        pytest tests/
+
+    - name: Build & Push Docker Image
       run: |
+        echo "This step should build and push a Docker image."
+        # Example:
+        # docker build -t my-image .
+        # echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        # docker tag my-image my-docker-repo/my-image:latest
+        # docker push my-docker-repo/my-image:latest
