@@ -5,3 +5,4 @@
 /.venv/
 /venv/
 /src/browser_recorder/credentials.py
+/output/*
