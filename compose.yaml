@@ -1,0 +1,36 @@
+services:
+
+  base:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      target: base
+    ports:
+      - "5001:5001"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      target: frontend
+    ports:
+      - "5000:5000"
+    networks:
+      - my-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: agent_ops/Dockerfile
+    networks:
+      - my-network
+
+  tests:
+    build:
+      context: .
+      dockerfile: tests/Dockerfile
+    networks:
+      - my-network
+
+networks:
+  my-network:
