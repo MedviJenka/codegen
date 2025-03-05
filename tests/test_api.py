@@ -1,4 +1,4 @@
-from ai.src.utils.azure_llm import AzureLLMConfig
+from agent_ops.src.utils.azure_llm import AzureLLMConfig
 
 
 class TestAzureConfig:

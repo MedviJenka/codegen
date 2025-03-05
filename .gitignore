@@ -1,6 +1,7 @@
 /browser_recorder/output/code_gen.log
 /browser_recorder/output/page_base.csv
-/ai/.env
+/agent_ops/.env
 /browser_recorder/output/test_code.py
 /.venv/
 /venv/
+/src/browser_recorder/credentials.py

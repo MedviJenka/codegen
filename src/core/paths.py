@@ -16,3 +16,5 @@ AI_PYTHON_CODE = fr'{GLOBAL_PATH}\output\ai_test_code.py'
 PYTHON_CODE = fr'{GLOBAL_PATH}\output\test_code.py'
 PYTHON_CODE_AI = fr'{GLOBAL_PATH}\output\test_code_ai.py'
 OUTPUT_PATH = fr'{GLOBAL_PATH}\output'
+JS_SCRIPT = fr'{GLOBAL_PATH}\src\browser_recorder\script.js'
+

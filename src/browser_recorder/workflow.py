@@ -1,11 +1,11 @@
 import csv
 import urllib3
-from .event_listener import JS_SCRIPT
 from typing import Optional
 from playwright.sync_api import sync_playwright
+from src.browser_recorder.credentials import USERNAME, PASSWORD
 from src.core.executor import Executor
 from src.core.logger import Logger
-from src.core.paths import PAGE_BASE, PYTHON_CODE
+from src.core.paths import PAGE_BASE, PYTHON_CODE, JS_SCRIPT
 
 
 urllib3.disable_warnings()
@@ -44,6 +44,11 @@ class BrowserRecorder(Executor):
         else:
             raise ValueError("A valid screen URL must be provided for custom devices.")
 
+    @property
+    def __read_script(self) -> str:
+        with open(JS_SCRIPT, 'r', encoding='utf-8') as file:
+            return file.read()
+
     def run(self) -> None:
         """Run the browser and automate interactions."""
         with sync_playwright() as playwright:
@@ -53,8 +58,16 @@ class BrowserRecorder(Executor):
                 page = context.new_page()
 
                 # Inject JavaScript to capture interactions
-                page.add_init_script(JS_SCRIPT)
+                page.add_init_script(self.__read_script)
                 page.goto(self.screen)
+
+                log.log_info("Login meeting insights")
+                page.click("#signIn")
+                page.fill(selector="#i0116", value=USERNAME)
+                page.click("#idSIButton9")
+                page.fill(selector="#i0118", value=PASSWORD)
+                page.click("#idSIButton9")
+                page.click("#idSIButton9")
 
                 log.log_info("Interact with the browser if needed. Close it when you're done.")
 
@@ -153,24 +166,24 @@ class BrowserRecorder(Executor):
 
             # Fix Click Actions
             if "Clicked" in action:
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
+                code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
             # Fix Typing Actions - Only add inject_text if there's an actual value
             if "Typed" in action or "typing" in action:
                 if value and value.strip():  # Avoid 'None' or empty values
-                    code_cache.append(f"driver.get_mapped_element('{tag_name}').inject_text('{value}')")
+                    code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').inject_text('{value}')")
 
             # Handle checkbox interactions correctly
             if action.startswith("Checkbox checked"):
-                code_cache.append(f"driver.get_mapped_element('{tag_name}').action(Actions.CLICK)")
+                code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
-        # Ensure overall indentation for the final generated code
-        methods_code = "\n".join(code_cache)
+        # Ensure proper indentation for the final generated code
+        methods_code = "\n".join(code_cache)  # Preserve indentation
 
-        final_code = f"""
-        def {function_name}(self, driver) -> None:
-            {methods_code}
-        """
+        final_code = f"""def test_{function_name}(self, device) -> None:
+    {methods_code}
+    """
+
         log.log_info(final_code)
         return final_code
 

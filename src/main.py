@@ -1,20 +1,20 @@
 import csv
-from ai.src.team.code_gen_crew.crew import CodegenCrew
+from time import sleep
 from src.core.paths import PAGE_BASE
 from src.browser_recorder.workflow import BrowserRecorder
 from crewai import Flow
 from crewai.flow.flow import start, router, listen
 from pydantic import BaseModel
-from ai.src.team.page_base_crew.crew import CSVCrew
+from agent_ops.src.team.page_base_crew.crew import PageBaseCrew
 
 
 class InitialState(BaseModel):
+
     cache: list = []
     status: bool = False
-    count: int = 0
 
 
-class AgentOps(Flow[InitialState]):
+class PageBaseFlow(Flow[InitialState]):
 
     """
     TODO
@@ -27,7 +27,7 @@ class AgentOps(Flow[InitialState]):
 
     @start()
     def page_base_crew(self) -> None:
-        result = CSVCrew().execute()
+        result = PageBaseCrew().execute()
         self.state.cache.append(result)
 
     @listen(page_base_crew)
@@ -36,9 +36,8 @@ class AgentOps(Flow[InitialState]):
             reader = csv.reader(file)
             next(reader)
             for row in reader:
-                if not any(row):
-                    self.state.status = False
-                self.state.status = True
+                if any(row):
+                    self.state.status = True
 
     @router(validate_csv_content)
     def csv_branch(self) -> str:
@@ -46,22 +45,25 @@ class AgentOps(Flow[InitialState]):
             return 'router_success'
         return 'router_fail'
 
-    @listen('router_success')
-    def generate_code(self) -> None:
-        print('CSV file has content, running PyCrew which generates PyBREnv code')
-        CodegenCrew().execute()
-
-    @listen('router_fail')
-    def csv_is_empty(self) -> None:
-        print('CSV file is empty, please check the file and try again')
+    # @listen('router_success')
+    # def generate_code(self) -> None:
+    #     print('CSV file has content, running PyCrew which generates PyBREnv code')
+    #     CodegenCrew().execute()
+    #
+    # @listen('router_fail')
+    # def csv_is_empty(self) -> None:
+    #     print('CSV file is empty, please check the file and try again')
 
 
 def main() -> None:
     device = 'mi'
     browser = BrowserRecorder(device=device)
-    browser.execute()
-    # BiniOps().kickoff()
-    # BiniOps().plot()
+    try:
+        browser.execute()
+        # sleep(10)
+    finally:
+        ...
+        # PageBaseFlow().kickoff()
 
 
 if __name__ == '__main__':

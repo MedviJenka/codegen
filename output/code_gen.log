@@ -1,15 +1,14 @@
-INFO | Tuesday | 04/03/2025 | 18:24:28 | root | Interact with the browser if needed. Close it when you're done. | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:30 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:31 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:33 | root | Navigation or context issue: Page.evaluate: Execution context was destroyed, most likely because of a navigation | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | Navigation or context issue: Page.wait_for_timeout: Target page, context or browser has been closed | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | 
+INFO | Wednesday | 05/03/2025 | 17:02:05 | root | Login meeting insights | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:12 | root | Interact with the browser if needed. Close it when you're done. | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | Navigation or context issue: Page.wait_for_timeout: Target page, context or browser has been closed | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | 
 Recorded Interactions: | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | [['Login With Microsoft 365', 'XPATH', '//*[@id="signIn"]/text[1]', 'Clicked on Login With Microsoft 365', None]] | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | 
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | [['svg', 'XPATH', '//*[@id="sharedWithMe-icon"]/button[1]/svg[1]', 'Clicked on svg', None], ['Events', 'XPATH', '//*[@id="events-text"]/span[1]', 'Clicked on Events', None], ['Favorites', 'XPATH', '//*[@id="favorites-text"]/span[1]', 'Clicked on Favorites', None]] | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | 
 Interactions saved to C:\Users\evgenyp\PycharmProjects\codegen\output\page_base.csv | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | 
-        def run_interactions(self, driver) -> None:
-            driver.get_mapped_element('Login With Microsoft 365').action(Actions.CLICK)
-         | Function: log_info | Line: 57
-INFO | Tuesday | 04/03/2025 | 18:24:34 | root | python file: C:\Users\evgenyp\PycharmProjects\codegen\output\test_code.py | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | def test_run_interactions(self, device) -> None:
+    	device.get_mapped_element('svg').action(Actions.CLICK)
+	device.get_mapped_element('Events').action(Actions.CLICK)
+	device.get_mapped_element('Favorites').action(Actions.CLICK)
+     | Function: log_info | Line: 57
+INFO | Wednesday | 05/03/2025 | 17:02:51 | root | python file: C:\Users\evgenyp\PycharmProjects\codegen\output\test_code.py | Function: log_info | Line: 57

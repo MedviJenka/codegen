@@ -1,4 +1,6 @@
+def test_run_interactions(self, device) -> None:
+    device.get_mapped_element('svg').action(Actions.CLICK)
+	device.get_mapped_element('Events').action(Actions.CLICK)
+	device.get_mapped_element('Favorites').action(Actions.CLICK)
 
-        def run_interactions(self, driver) -> None:
-            driver.get_mapped_element('Login With Microsoft 365').action(Actions.CLICK)
-        
+
