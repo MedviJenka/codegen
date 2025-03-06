@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass
-from src.core.paths import LOG
+from event_recorder.core.paths import LOG
 
 # Define which logs to suppress
 LOGGING_CONFIG = {

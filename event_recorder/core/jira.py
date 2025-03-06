@@ -4,7 +4,7 @@ from atlassian import Jira
 from typing import Optional
 from dotenv import load_dotenv
 from dataclasses import dataclass
-from src.core.logger import Logger
+from event_recorder.core.logger import Logger
 
 
 logger = Logger()

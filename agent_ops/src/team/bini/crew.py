@@ -1,6 +1,6 @@
 from typing import Optional
 from dotenv import load_dotenv
-from src.core.executor import Executor
+from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
