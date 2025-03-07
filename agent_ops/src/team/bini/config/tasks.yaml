@@ -1,7 +1,4 @@
 vision_task:
-  description: >
-    Analyze images to extract relevant information based on specified search terms.
-    Search these terms: {image}
-  expected_output: >
-    Extracted relevant information from the provided images.
+  description: '{prompt}'
+  expected_output: Extracted relevant information from the provided images.
   agent: vision_agent

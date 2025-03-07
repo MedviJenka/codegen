@@ -1,15 +1,15 @@
 window.recordedInteractions = [];
 
-// Helper function to check if an interaction already exists
+// Helper function to check for duplicate interactions
 function isDuplicateInteraction(newInteraction) {
     return window.recordedInteractions.some((existing) =>
         existing.action === newInteraction.action &&
-        existing.xpath === newInteraction.xpath &&
+        existing.element_path === newInteraction.element_path &&
         existing.value === newInteraction.value
     );
 }
 
-// Debounce utility to delay logging until typing is finished
+// Debounce utility for delayed execution
 function debounce(func, delay) {
     let timer;
     return function (...args) {
@@ -18,19 +18,26 @@ function debounce(func, delay) {
     };
 }
 
-// Capture click events (no duplicates)
+// Function to determine the best element identifier
+function getElementPath(target) {
+    if (target.id) return `#${target.id}`;
+    if (target.name) return `name=${target.name}`;
+    return generateXPath(target); // Use XPath only if ID or name is unavailable
+}
+
+// Event listener for clicks
 document.addEventListener("click", (event) => {
     const target = event.target;
 
-    // Ignore checkboxes (they are handled separately in 'change' event)
+    // Ignore checkboxes (handled in 'change' event)
     if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") return;
 
     const interaction = {
         action: "click",
-        tag_name: target.textContent.trim() || target.id || target.tagName.toLowerCase(),
+        tag_name: target.textContent.trim() || target.tagName.toLowerCase(),
         id: target.id || null,
         name: target.name || null,
-        xpath: generateXPath(target),
+        element_path: getElementPath(target),
         action_description: `Clicked on ${target.textContent.trim() || target.tagName.toLowerCase()}`,
         value: null
     };
@@ -40,28 +47,7 @@ document.addEventListener("click", (event) => {
     }
 }, true);
 
-//// Capture input events (debounced to capture full text input)
-//document.addEventListener("input", debounce((event) => {
-//    const target = event.target;
-//    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
-//
-//    const interaction = {
-//        action: "input",
-//        tag_name: target.id || target.name || target.tagName.toLowerCase(),
-//        id: target.id || null,
-//        name: target.name || null,
-//        type: target.type.toLowerCase(),
-//        xpath: generateXPath(target),
-//        action_description: `Typed in ${target.type} field`,
-//        value: target.value.trim() || "" // Avoid 'None' values
-//    };
-//
-//    if (!isDuplicateInteraction(interaction)) {
-//        window.recordedInteractions.push(interaction);
-//    }
-//}, 100));
-
-// Capture input events (debounced to capture full text input)
+// Event listener for capturing text input (debounced for better tracking)
 document.addEventListener("input", debounce((event) => {
     const target = event.target;
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
@@ -72,9 +58,9 @@ document.addEventListener("input", debounce((event) => {
         id: target.id || null,
         name: target.name || null,
         type: target.type.toLowerCase(),
-        xpath: generateXPath(target),
-        action_description: `Typed in ${target.type} field`,
-        value: target.value.trim() || "" // Avoid 'None' values
+        element_path: getElementPath(target),
+        action_description: `Typing in ${target.type} field`,
+        value: target.value // Capture exact input
     };
 
     if (!isDuplicateInteraction(interaction)) {
@@ -82,7 +68,7 @@ document.addEventListener("input", debounce((event) => {
     }
 }, 100));
 
-// Capture final input when the user leaves the field (ensures complete text capture)
+// Capture final input when the user leaves the field
 document.addEventListener("blur", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) return;
@@ -92,9 +78,9 @@ document.addEventListener("blur", (event) => {
         tag_name: target.id || target.name || target.tagName.toLowerCase(),
         id: target.id || null,
         name: target.name || null,
-        xpath: generateXPath(target),
+        element_path: getElementPath(target),
         action_description: `Finished typing in ${target.type} field`,
-        value: target.value.trim() || ""
+        value: target.value
     };
 
     if (!isDuplicateInteraction(interaction)) {
@@ -102,7 +88,7 @@ document.addEventListener("blur", (event) => {
     }
 }, true);
 
-// Capture checkbox changes (no duplicates)
+// Event listener for checkboxes
 document.addEventListener("change", (event) => {
     const target = event.target;
     if (target.tagName.toLowerCase() === "input" && target.type === "checkbox") {
@@ -111,7 +97,7 @@ document.addEventListener("change", (event) => {
             tag_name: target.id || target.name || `checkbox_${Date.now()}`,
             id: target.id || null,
             name: target.name || null,
-            xpath: generateXPath(target),
+            element_path: getElementPath(target),
             action_description: `Checkbox ${target.checked ? "checked" : "unchecked"}`,
             value: target.checked ? "on" : "off"
         };
@@ -126,6 +112,7 @@ document.addEventListener("change", (event) => {
 function generateXPath(element) {
     if (element.id) return `//*[@id="${element.id}"]`;
     if (element === document.body) return "/html/body";
+
     let ix = 0;
     const siblings = element.parentNode ? element.parentNode.childNodes : [];
     for (let i = 0; i < siblings.length; i++) {
@@ -138,7 +125,7 @@ function generateXPath(element) {
     return "";
 }
 
-// MutationObserver to detect dynamically added elements (ensures event listeners work on new elements)
+// MutationObserver to detect dynamically added elements
 const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
         mutation.addedNodes.forEach(node => {
