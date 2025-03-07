@@ -27,8 +27,10 @@ class AzureLLMConfig(TelemetryPatch):
     endpoint: str = os.getenv("AZURE_API_BASE")
     version: str = os.getenv("AZURE_API_VERSION")
     model: str = os.getenv("MODEL")
+    temperature: float = 0
 
     def __post_init__(self) -> None:
+
         if not all([self.api_key, self.endpoint, self.version, self.model]):
             raise ValueError("Missing Azure OpenAI environment variables!")
         if self.api_key != 'OPENAI_API_KEY':
@@ -38,7 +40,7 @@ class AzureLLMConfig(TelemetryPatch):
 
     @cached_property
     def llm(self) -> LLM:
-        return LLM(model=self.model, api_version=self.version, temperature=0)
+        return LLM(model=self.model, api_version=self.version, temperature=self.temperature)
 
     @cached_property
     def langchain_llm(self) -> AzureChatOpenAI:

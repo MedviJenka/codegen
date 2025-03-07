@@ -5,7 +5,7 @@ from crewai import Agent, Crew, Process, Task
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
-from src.core.paths import FUNCTION
+from event_recorder.core.paths import FUNCTION
 
 
 @CrewBase

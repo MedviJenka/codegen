@@ -4,7 +4,7 @@ import hashlib
 import diskcache as db
 import json
 from typing import Any, Dict
-from src.core.paths import FUNCTIONS_INDEX
+from event_recorder.core.paths import FUNCTIONS_INDEX
 
 
 class FunctionMapping:

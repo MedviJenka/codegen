@@ -1,11 +1,13 @@
+import os
 import csv
 import urllib3
+from time import sleep
 from typing import Optional
 from playwright.sync_api import sync_playwright
-from src.browser_recorder.credentials import USERNAME, PASSWORD
-from src.core.executor import Executor
-from src.core.logger import Logger
-from src.core.paths import PAGE_BASE, PYTHON_CODE, JS_SCRIPT
+from event_recorder.engine.credentials import USERNAME, PASSWORD
+from event_recorder.core.executor import Executor
+from event_recorder.core.logger import Logger
+from event_recorder.core.paths import PAGE_BASE, PYTHON_CODE, JS_SCRIPT
 
 
 urllib3.disable_warnings()
@@ -15,7 +17,13 @@ log = Logger()
 class BrowserRecorder(Executor):
 
     """
-    TODO: fix list events to dict
+    TODO:
+        1. Find element by id, name. if using xpath find by value
+        2. Compare original page base with temp one.
+           * first with value
+           * second with name using AI
+        3. Replace relevant rows
+
     """
 
     def __init__(self,
@@ -38,7 +46,7 @@ class BrowserRecorder(Executor):
         elif self.device == 'st':
             self.screen = 'https://irqa.ai-logix.net'
         elif self.device == 'mi':
-            self.screen = 'https://devngming.ai-logix.net'
+            self.screen = 'https://misquad01.ai-logix.net'
         elif self.device is None:
             pass
         else:
@@ -60,6 +68,7 @@ class BrowserRecorder(Executor):
                 # Inject JavaScript to capture interactions
                 page.add_init_script(self.__read_script)
                 page.goto(self.screen)
+                sleep(2)
 
                 log.log_info("Login meeting insights")
                 page.click("#signIn")
@@ -132,7 +141,10 @@ class BrowserRecorder(Executor):
                     log.log_info(f"Error closing the browser: {e}")
 
     def save_to_csv(self) -> None:
+
         """Save the unique interactions to a CSV file."""
+        if not os.path.isdir(self.output_csv):
+            os.makedirs(os.path.dirname(self.output_csv), exist_ok=True)
         with open(self.output_csv, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow(["Element Name", "Element Type", "Element Path", "Action", "Value"])
@@ -157,32 +169,32 @@ class BrowserRecorder(Executor):
         return [dict(zip(keys, values)) for values in self.get_interactions()]
 
     def __generate_methods(self, function_name: str) -> str:
+
         code_cache = []
 
         for each_list in self.get_interactions():
+
             tag_name = each_list[0]
             action = each_list[3]
             value = each_list[4]
 
             # Fix Click Actions
             if "Clicked" in action:
-                code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').action(Actions.CLICK)")
+                code_cache.append(f"    device.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
             # Fix Typing Actions - Only add inject_text if there's an actual value
             if "Typed" in action or "typing" in action:
                 if value and value.strip():  # Avoid 'None' or empty values
-                    code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').inject_text('{value}')")
+                    code_cache.append(f"    device.get_mapped_element('{tag_name}').inject_text('{value}')")
 
             # Handle checkbox interactions correctly
             if action.startswith("Checkbox checked"):
-                code_cache.append(f"\tdevice.get_mapped_element('{tag_name}').action(Actions.CLICK)")
+                code_cache.append(f"    device.get_mapped_element('{tag_name}').action(Actions.CLICK)")
 
         # Ensure proper indentation for the final generated code
         methods_code = "\n".join(code_cache)  # Preserve indentation
 
-        final_code = f"""def test_{function_name}(self, device) -> None:
-    {methods_code}
-    """
+        final_code = f"""def test_{function_name}(device) -> None:\n{methods_code}"""
 
         log.log_info(final_code)
         return final_code
@@ -198,7 +210,6 @@ class BrowserRecorder(Executor):
         """Execute the browser recorder."""
 
         try:
-
             self.run()
             self.save_to_csv()
             self.get_interactions()
@@ -206,7 +217,7 @@ class BrowserRecorder(Executor):
             log.log_info(f'{self.get_interactions()}')
             log.log_info(f"\nInteractions saved to {self.output_csv}")
 
-            code = self.__generate_methods(function_name='run_interactions')
+            code = self.__generate_methods(function_name=kwargs.get('function_name'))
             self.__create_python_file(output=code)
 
         except Exception as e:
