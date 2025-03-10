@@ -18,7 +18,7 @@ class BrowserRecorder(Executor):
 
     """
     TODO:
-        1. Find element by id, name. if using xpath find by value
+        1. Find element by id, name. if using xpath find by value .............. WIP
         2. Compare original page base with temp one.
            * first with value
            * second with name using AI
@@ -56,6 +56,10 @@ class BrowserRecorder(Executor):
     def __read_script(self) -> str:
         with open(JS_SCRIPT, 'r', encoding='utf-8') as file:
             return file.read()
+
+    def __compare_page_base_elements(self, original: str, temp: str) -> None:
+        """compares generated csv to original one"""
+
 
     def run(self) -> None:
         """Run the browser and automate interactions."""

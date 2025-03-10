@@ -1,9 +1,11 @@
 import os
+import base64
 from crewai import LLM
 from functools import cached_property
 from crewai.telemetry import Telemetry
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
+from langchain_core.messages import HumanMessage
 
 
 load_dotenv()
@@ -33,8 +35,6 @@ class AzureLLMConfig(TelemetryPatch):
 
         if not all([self.api_key, self.endpoint, self.version, self.model]):
             raise ValueError("Missing Azure OpenAI environment variables!")
-        if self.api_key != 'OPENAI_API_KEY':
-            self.api_key = os.getenv('OPENAI_API_KEY')
 
         super().__init__()
 
@@ -46,9 +46,25 @@ class AzureLLMConfig(TelemetryPatch):
     def langchain_llm(self) -> AzureChatOpenAI:
         """Fix LangChain API handling for Azure"""
         return AzureChatOpenAI(
-            openai_api_type="azure",
             azure_endpoint=self.endpoint,
             openai_api_key=self.api_key,
             openai_api_version=self.version,
-            deployment_name=self.model
+            deployment_name=f'azure/{self.model}'
         )
+
+
+class CompressAndUploadToOpenAI(AzureLLMConfig):
+
+    def upload_image(self, image_path: str, prompt: str = "Describe this image"):
+        with open(image_path, "rb") as image_file:
+            encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+
+        message = HumanMessage(content=[
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded_image}"}}
+        ])
+
+        response = self.langchain_llm.invoke([message])
+
+        print(response.content)
+        return response

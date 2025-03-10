@@ -1,4 +1,4 @@
 vision_task:
-  description: '{prompt}'
+  description: '{prompt} in: {image_path}'
   expected_output: Extracted relevant information from the provided images.
   agent: vision_agent
