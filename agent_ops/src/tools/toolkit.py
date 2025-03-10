@@ -6,8 +6,8 @@ from crewai.tools import BaseTool
 from pydantic import BaseModel
 from agent_ops.src.tools.functions import FunctionMapping
 from agent_ops.src.tools.interface import FunctionMapInterface, ReadTestPlanToolInterface
-from src.core.paths import TEST_PLAN
-from src.core.paths import FUNCTION
+from event_recorder.core.paths import TEST_PLAN
+from event_recorder.core.paths import FUNCTION
 
 
 class FunctionMappingTool(BaseTool):

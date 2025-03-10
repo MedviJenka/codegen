@@ -4,5 +4,6 @@
 /browser_recorder/output/test_code.py
 /.venv/
 /venv/
-/src/browser_recorder/credentials.py
+/event_recorder/engine/credentials.py
 /output/*
+
