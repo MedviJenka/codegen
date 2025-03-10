@@ -1,11 +1,9 @@
 import os
-import base64
 from crewai import LLM
 from functools import cached_property
 from crewai.telemetry import Telemetry
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
-from langchain_core.messages import HumanMessage
 
 
 load_dotenv()
@@ -40,7 +38,7 @@ class AzureLLMConfig(TelemetryPatch):
 
     @cached_property
     def llm(self) -> LLM:
-        return LLM(model=self.model, api_version=self.version, temperature=self.temperature)
+        return LLM(model=f'azure/{self.model}', api_version=self.version, temperature=self.temperature)
 
     @cached_property
     def langchain_llm(self) -> AzureChatOpenAI:
@@ -49,22 +47,5 @@ class AzureLLMConfig(TelemetryPatch):
             azure_endpoint=self.endpoint,
             openai_api_key=self.api_key,
             openai_api_version=self.version,
-            deployment_name=f'azure/{self.model}'
+            deployment_name=self.model
         )
-
-
-class CompressAndUploadToOpenAI(AzureLLMConfig):
-
-    def upload_image(self, image_path: str, prompt: str = "Describe this image"):
-        with open(image_path, "rb") as image_file:
-            encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
-
-        message = HumanMessage(content=[
-            {"type": "text", "text": prompt},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded_image}"}}
-        ])
-
-        response = self.langchain_llm.invoke([message])
-
-        print(response.content)
-        return response
