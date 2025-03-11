@@ -1,4 +1,0 @@
-Element Name,Element Type,Element Path,Action,Value
-svg,XPATH,"//*[@id=""sharedWithMe-icon""]/button[1]/svg[1]",Clicked on svg,
-Events,XPATH,"//*[@id=""events-text""]/span[1]",Clicked on Events,
-Favorites,XPATH,"//*[@id=""favorites-text""]/span[1]",Clicked on Favorites,

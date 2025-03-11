@@ -1,0 +1,19 @@
+chain_of_thought_task:
+
+  description: |
+    Analyze the provided input using a structured chain-of-thought reasoning approach:
+
+    steps:
+      - Clearly summarize and understand the provided input.
+      - Identify and list the critical features, details, or requirements mentioned in the input.
+      - Methodically validate each feature against the given criteria or conditions.
+      - Logically assess if the validation meets the established expectations or requirements.
+      - Clearly state the reasoning behind the conclusion.
+
+    input: {prompt}
+
+  expected_output: > 
+    Detailed reasoning steps articulated clearly each thought should be marked with * (asterisk)
+    to indicate a clear reasoning step.
+
+  agent: chain_of_thought_agent

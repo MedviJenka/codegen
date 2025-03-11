@@ -1,0 +1,17 @@
+Element Name_file1,Element Type_file1,Element Path,Action_file1,Value_file1,Element Name_file2,Element Type_file2,Action_file2,Value_file2,_merge
+action items,ID,action-items,Clicked on Action items,,,,,,left_only
+action items (0/12),ID,actionitems-tab,Clicked on Action Items (0/12),,,,,,left_only
+issues & solutions (6),ID,issues-tab,Clicked on Issues & Solutions (6),,,,,,left_only
+smoke_test_06_03_2025_21_13,ID,meetingsubject-0,Clicked on Smoke_Test_06_03_2025_21_13,,,,,,left_only
+notifications,ID,notifications-link,Clicked on Notifications,,,,,,left_only
+outline (0),ID,outline-tab,Clicked on Outline (0),,,,,,left_only
+recap,ID,playerpanel-recap-tab,Clicked on Recap,,,,,,left_only
+transcript,ID,playerpanel-transcript-tab,Clicked on Transcript,,,,,,left_only
+preference,ID,preference-link,Clicked on Preference,,,,,,left_only
+q&a (8),ID,q&a-tab,Clicked on Q&A (8),,,,,,left_only
+representatives,ID,representatives-link,Clicked on Representatives,,,,,,left_only
+settings,ID,settings,Clicked on Settings,,,,,,left_only
+tags,ID,tags-link,Clicked on Tags,,,,,,left_only
+,,events,,,events,ID,Clicked on Events,,right_only
+,,searchfilter,,,input,ID,Clicked on input,,right_only
+,,searchfilter,,,searchfilter,ID,Typing in text field,je,right_only

@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
 from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
@@ -8,11 +7,10 @@ from crewai.project import CrewBase, agent, crew, task
 
 
 load_dotenv()
-FILE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
 
 
 @CrewBase
-class Bini(Executor, AzureLLMConfig):
+class ChainOfThought(Executor, AzureLLMConfig):
 
     agents: list[Agent] = None
     tasks: list[Task] = None
@@ -20,14 +18,14 @@ class Bini(Executor, AzureLLMConfig):
     tasks_config: dict = "config/tasks.yaml"
 
     @agent
-    def vision_agent(self) -> Agent:
-        return Agent(config=self.agents_config['vision_agent'],
+    def chain_of_thought_agent(self) -> Agent:
+        return Agent(config=self.agents_config['chain_of_thought_agent'],
                      verbose=True,
                      llm=self.llm)
 
     @task
-    def vision_task(self) -> Task:
-        return Task(config=self.tasks_config['vision_task'])
+    def chain_of_thought_task(self) -> Task:
+        return Task(config=self.tasks_config['chain_of_thought_task'])
 
     @crew
     def crew(self) -> Crew:
@@ -38,8 +36,8 @@ class Bini(Executor, AzureLLMConfig):
             verbose=True,
         )
 
-    def execute(self, prompt: str, image_path: str) -> CrewOutput:
-        compressor = CompressAndUploadImage()
-        image = compressor.upload_image(image_path=image_path)
-        return self.crew().kickoff({'prompt': prompt, 'image': image})
-
+    def execute(self, prompt: str) -> list:
+        result = self.crew().kickoff({'prompt': prompt}).raw
+        thought_list = result.split('*')
+        print(thought_list)
+        return thought_list
