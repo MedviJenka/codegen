@@ -1,5 +1,7 @@
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
+
+from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 
@@ -39,3 +41,12 @@ class TestSanity:
     def test_execute(self) -> None:
         result = self.agent.crew().kickoff().raw
         assert result == 'Hello'
+
+
+class TestProcess:
+
+    cot = ChainOfThought()
+
+    def test_chain_of_thought(self) -> None:
+        result = self.cot.execute("how much is 2 + 2")
+        assert '4' in result[0]

@@ -41,7 +41,3 @@ class ChainOfThought(Executor, AzureLLMConfig):
         thought_list = result.split('*')
         print(thought_list)
         return thought_list
-
-
-if __name__ == '__main__':
-    ChainOfThought().execute("how much is 2 + 2")
