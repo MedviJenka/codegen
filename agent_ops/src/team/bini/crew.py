@@ -1,15 +1,14 @@
-from typing import Optional
 from dotenv import load_dotenv
-from src.core.executor import Executor
+from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
+from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
-from crewai_tools import VisionTool
 from crewai.project import CrewBase, agent, crew, task
 
 
 load_dotenv()
-FILE = r'./img.png'
+FILE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
 
 
 @CrewBase
@@ -24,8 +23,7 @@ class Bini(Executor, AzureLLMConfig):
     def vision_agent(self) -> Agent:
         return Agent(config=self.agents_config['vision_agent'],
                      verbose=True,
-                     llm=self.llm,
-                     tools=[VisionTool(image_url_path=FILE)])
+                     llm=self.llm)
 
     @task
     def vision_task(self) -> Task:
@@ -40,13 +38,8 @@ class Bini(Executor, AzureLLMConfig):
             verbose=True,
         )
 
-    def execute(self, inputs: str, raw_output: Optional[str] = False) -> CrewOutput or str:
-        match raw_output:
-            case True:
-                return self.crew().kickoff({'image': inputs}).raw
-            case _:
-                return self.crew().kickoff({'image': inputs})
+    def execute(self, prompt: str, image_path: str) -> CrewOutput:
+        compressor = CompressAndUploadImage()
+        image = compressor.upload_image(image_path=image_path)
+        return self.crew().kickoff({'prompt': prompt, 'image': image})
 
-
-m = Bini()
-m.execute(inputs='whats the name?')
