@@ -10,37 +10,37 @@ IMAGE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.p
 
 class InitialState(BaseModel):
     cache: str = ""
+    prompt: str = ""
+    image: str = ""
 
 
 class BiniOps(Flow[InitialState]):
 
     @start()
-    def refactor_prompt_to_valid_english(self, prompt: str) -> None:
-        result = EnglishProfessor().execute(prompt=prompt)
+    def refactor_prompt_to_valid_english(self) -> None:
+        result = EnglishProfessor().execute(prompt=self.state.prompt)
         self.state.cache = result.raw
 
-    # @listen(refactor_prompt_to_valid_english)
-    # def run_bini(self, image_path: str) -> None:
-    #     result = Bini().execute(prompt=self.state.cache, image_path=image_path)
-    #     self.state.cache = result.raw
-    #
-    # @router(run_bini)
-    # def decision_point_1(self) -> str:
-    #     if self.state.cache == "Passed":
-    #         return 'Success'
-    #     return 'Failed'
-    #
-    # @listen('Success')
-    # def success(self) -> None:
-    #     print("Success")
-    #
-    # @listen('Failed')
-    # def failed(self) -> None:
-    #     print('Failed')
+    @listen(refactor_prompt_to_valid_english)
+    def run_bini(self) -> None:
+        result = Bini().execute(prompt=self.state.cache, image_path=self.state.image)
+        self.state.cache = result.raw
+
+    @router(run_bini)
+    def decision_point_1(self) -> str:
+        return 'Success' if self.state.cache == "Passed" else 'Failed'
+
+    @listen('Success')
+    def success(self) -> None:
+        print("Success")
+
+    @listen('Failed')
+    def failed(self) -> None:
+        print('Failed')
 
 
 def execute(prompt, image) -> None:
-    ops = BiniOps()
-    ops.kickoff(inputs={'prompt': prompt, 'image': image})
+    BiniOps().kickoff(inputs={'prompt': prompt, 'image': image})
+
 
 execute("This is a test", IMAGE)
