@@ -1,3 +1,4 @@
+from typing import Optional
 from dotenv import load_dotenv
 from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
 from event_recorder.core.executor import Executor
@@ -8,7 +9,6 @@ from crewai.project import CrewBase, agent, crew, task
 
 
 load_dotenv()
-FILE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
 
 
 @CrewBase
@@ -29,6 +29,10 @@ class Bini(Executor, AzureLLMConfig):
     def vision_task(self) -> Task:
         return Task(config=self.tasks_config['vision_task'])
 
+    @task
+    def compare_task(self) -> Task:
+        return Task(config=self.tasks_config['compare_task'])
+
     @crew
     def crew(self) -> Crew:
         return Crew(
@@ -38,8 +42,8 @@ class Bini(Executor, AzureLLMConfig):
             verbose=True,
         )
 
-    def execute(self, prompt: str, image_path: str) -> CrewOutput:
+    def execute(self, prompt: str, image_path: str, sample_image: Optional[str or list] = '') -> CrewOutput:
         compressor = CompressAndUploadImage()
         image = compressor.upload_image(image_path=image_path)
-        return self.crew().kickoff({'prompt': prompt, 'image': image})
+        return self.crew().kickoff({'prompt': prompt, 'image': image, 'sample_image': sample_image})
 

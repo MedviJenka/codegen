@@ -1,17 +1,14 @@
+from typing import Optional
 from crewai import Flow
-from crewai.flow import start, listen, router
 from pydantic import BaseModel
+from dataclasses import dataclass
+from crewai.flow import start, listen, router
 from agent_ops.src.team.bini.crew import Bini
 from agent_ops.src.team.english_professor.crew import EnglishProfessor
 
 
-IMAGE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
-
-
 class InitialState(BaseModel):
     cache: str = ""
-    prompt: str = ""
-    image: str = ""
 
 
 class BiniOps(Flow[InitialState]):
@@ -28,19 +25,31 @@ class BiniOps(Flow[InitialState]):
 
     @router(run_bini)
     def decision_point_1(self) -> str:
-        return 'Success' if self.state.cache == "Passed" else 'Failed'
+
+        if 'Passed' in self.state.cache:
+            return 'Success'
+        elif 'Failed' in self.state.cache:
+            return 'Failed'
+        else:
+            return 'Invalid Question'
 
     @listen('Success')
     def success(self) -> None:
-        print("Success")
+        print('Success')
 
     @listen('Failed')
     def failed(self) -> None:
-        print('Failed')
+        print('Failed, image could not be identified')
+
+    # @listen('Invalid Question')
+    # def invalid(self) -> None:
+    #     print('Invalid question was provided, please rephrase')
 
 
-def execute(prompt, image) -> None:
-    BiniOps().kickoff(inputs={'prompt': prompt, 'image': image})
+@dataclass
+class BiniOpsUtils:
 
+    bini = BiniOps()
 
-execute("This is a test", IMAGE)
+    def execute(self, prompt: str, image: str, sample_image: Optional[str or list] = '') -> str:
+        return self.bini.kickoff(inputs={'prompt': prompt, 'image': image, 'sample_image': sample_image})

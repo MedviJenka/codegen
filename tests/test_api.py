@@ -1,9 +1,45 @@
-from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 
+from agent_ops.src.stories.bini_story import BiniOpsUtils
 from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
+
+
+IMAGE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
+SAMPLE_IMAGE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\sample_1.png'
+
+
+class TestBiniOps:
+
+    def test_open_question(self) -> None:
+        bini = BiniOpsUtils()
+        result = bini.execute(prompt="what name is displayed in this image?", image=IMAGE)
+        assert 'Passed' in result
+
+    def test_valid_question(self) -> None:
+        bini = BiniOpsUtils()
+        result = bini.execute(prompt="what name is displayed in this image?", image=IMAGE)
+        assert 'Passed' in result
+        assert 'Jenia' in result
+
+    def test_wrong_question(self) -> None:
+        bini = BiniOpsUtils()
+        result = bini.execute(prompt="what is the name displayed in this picture?", image=IMAGE)
+        assert 'Passed' in result
+        assert 'Joe' in result
+
+    def test_invalid_question(self) -> None:
+        bini = BiniOpsUtils()
+        result = bini.execute(prompt="write me a song", image=IMAGE)
+        assert 'Invalid Question' in result
+
+    def test_sample_image(self) -> None:
+        bini = BiniOpsUtils()
+        result = bini.execute(prompt="is the icon displayed in the second image is also displayed in the main?",
+                              image=IMAGE,
+                              sample_image=SAMPLE_IMAGE)
+        assert 'Passed' in result
 
 
 @CrewBase
