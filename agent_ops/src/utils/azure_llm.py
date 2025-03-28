@@ -23,29 +23,36 @@ class TelemetryPatch:
 
 class AzureLLMConfig(TelemetryPatch):
 
+    model: str = os.getenv("MODEL")
+
     api_key: str = os.getenv("AZURE_API_KEY")
     endpoint: str = os.getenv("AZURE_API_BASE")
     version: str = os.getenv("AZURE_API_VERSION")
-    model: str = os.getenv("MODEL")
-    temperature: float = 0
 
-    def __post_init__(self) -> None:
+    azure_api_key: str = os.getenv("AZURE_OPENAI_API_KEY")
+    azure_endpoint: str = os.getenv("AZURE_OPENAI_ENDPOINT")
+    azure_version: str = os.getenv("OPENAI_API_VERSION")
 
-        if not all([self.api_key, self.endpoint, self.version, self.model]):
-            raise ValueError("Missing Azure OpenAI environment variables!")
+    temperature: float = 0.1
 
-        super().__init__()
+    # def __post_init__(self) -> None:
+    #     super().__init__()
+    #     if not all([self.api_key, self.endpoint, self.version, self.model]):
+    #         raise ValueError("Missing Azure OpenAI environment variables!")
 
     @cached_property
     def llm(self) -> LLM:
-        return LLM(model=f'azure/{self.model}', api_version=self.version, temperature=self.temperature)
+        return LLM(model=self.model,
+                   api_version=self.version,
+                   api_key=self.api_key,
+                   api_base=self.endpoint,
+                   temperature=self.temperature)
 
     @cached_property
     def langchain_llm(self) -> AzureChatOpenAI:
         """Fix LangChain API handling for Azure"""
         return AzureChatOpenAI(
-            azure_endpoint=self.endpoint,
-            openai_api_key=self.api_key,
-            openai_api_version=self.version,
-            deployment_name=self.model
-        )
+            azure_endpoint=self.azure_endpoint,
+            openai_api_key=self.azure_api_key,
+            openai_api_version=self.azure_version,
+            deployment_name=self.model)

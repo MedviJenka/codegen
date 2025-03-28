@@ -5,7 +5,7 @@ from agent_ops.src.team.bini.crew import Bini
 from agent_ops.src.team.english_professor.crew import EnglishProfessor
 
 
-IMAGE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
+IMAGE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
 
 
 class InitialState(BaseModel):

@@ -1,4 +1,3 @@
-from dotenv import load_dotenv
 from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
 from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
@@ -7,8 +6,7 @@ from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 
 
-load_dotenv()
-FILE = r'C:\Users\evgenyp\PycharmProjects\codegen\agent_ops\src\team\bini\img.png'
+FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
 
 
 @CrewBase
@@ -23,7 +21,7 @@ class Bini(Executor, AzureLLMConfig):
     def vision_agent(self) -> Agent:
         return Agent(config=self.agents_config['vision_agent'],
                      verbose=True,
-                     llm=self.llm)
+                     llm=self.langchain_llm)
 
     @task
     def vision_task(self) -> Task:
@@ -43,3 +41,7 @@ class Bini(Executor, AzureLLMConfig):
         image = compressor.upload_image(image_path=image_path)
         return self.crew().kickoff({'prompt': prompt, 'image': image})
 
+
+if __name__ == '__main__':
+    bini = Bini()
+    bini.execute(prompt='what you see?', image_path=FILE)
