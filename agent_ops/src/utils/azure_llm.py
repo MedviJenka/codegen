@@ -35,10 +35,10 @@ class AzureLLMConfig(TelemetryPatch):
 
     temperature: float = 0.1
 
-    # def __post_init__(self) -> None:
-    #     super().__init__()
-    #     if not all([self.api_key, self.endpoint, self.version, self.model]):
-    #         raise ValueError("Missing Azure OpenAI environment variables!")
+    def __post_init__(self) -> None:
+        super().__init__()
+        if not all([self.api_key, self.endpoint, self.version, self.model]):
+            raise ValueError("Missing Azure OpenAI environment variables!")
 
     @cached_property
     def llm(self) -> LLM:
