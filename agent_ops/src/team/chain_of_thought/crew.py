@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from event_recorder.core.executor import Executor
-from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
@@ -39,5 +38,4 @@ class ChainOfThought(Executor, AzureLLMConfig):
     def execute(self, prompt: str) -> list:
         result = self.crew().kickoff({'prompt': prompt}).raw
         thought_list = result.split('*')
-        print(thought_list)
         return thought_list

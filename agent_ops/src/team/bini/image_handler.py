@@ -4,6 +4,9 @@ from langchain_core.messages import HumanMessage
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 
 
+FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
+
+
 class CompressAndUploadImage(AzureLLMConfig):
 
     @staticmethod
@@ -27,5 +30,9 @@ class CompressAndUploadImage(AzureLLMConfig):
                 sample = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"}}
                 message.append(sample)
 
-        response = self.azure_openai_llm.invoke([message])
+        response = self.azure_openai.invoke([message])
         return str(response)
+
+
+if __name__ == '__main__':
+    CompressAndUploadImage().upload_image(image_path=FILE)

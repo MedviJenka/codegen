@@ -21,7 +21,7 @@ class Bini(Executor, AzureLLMConfig):
     def vision_agent(self) -> Agent:
         return Agent(config=self.agents_config['vision_agent'],
                      verbose=True,
-                     llm=self.azure_openai_llm)
+                     llm=self.azure_openai)
 
     @task
     def vision_task(self) -> Task:
