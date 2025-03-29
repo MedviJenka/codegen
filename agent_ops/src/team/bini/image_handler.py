@@ -27,5 +27,5 @@ class CompressAndUploadImage(AzureLLMConfig):
                 sample = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"}}
                 message.append(sample)
 
-        response = self.langchain_llm.invoke([message])
+        response = self.azure_openai_llm.invoke([message])
         return str(response)
