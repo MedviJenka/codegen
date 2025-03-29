@@ -15,13 +15,28 @@ class CompressAndUploadImage(AzureLLMConfig):
     def upload_image(self, prompt: str, image_path: str, sample_images: Optional[list[str]] = None) -> str:
 
         message = HumanMessage(content=[
-            {"type": "text", "text": prompt},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(image_path=image_path)}"}}
+            {
+                "type": "text",
+                "text": prompt
+            },
+            {
+                "type": "image_url",
+                "image_url":
+                    {
+                        "url": f"data:image/jpeg;base64,{self.__compress_image(image_path=image_path)}"
+                    }
+            }
         ])
 
         if sample_images:
             for each_sample_image in sample_images:
-                sample = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"}}
+                sample = {
+                    "type": "image_url",
+                    "image_url":
+                        {
+                            "url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"
+                        }
+                }
                 message.append(sample)
 
         response = self.azure_openai.invoke([message])
