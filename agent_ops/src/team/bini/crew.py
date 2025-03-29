@@ -1,9 +1,9 @@
-from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
-from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task
-from agent_ops.src.utils.azure_llm import AzureLLMConfig
+from event_recorder.core.executor import Executor
 from crewai.project import CrewBase, agent, crew, task
+from agent_ops.src.utils.azure_llm import AzureLLMConfig
+from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
 
 
 FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
@@ -21,14 +21,14 @@ class Bini(Executor, AzureLLMConfig):
     def vision_agent(self) -> Agent:
         return Agent(config=self.agents_config['vision_agent'],
                      verbose=True,
-                     llm=self.langchain_llm)
+                     llm=self.azure_openai)
 
     @task
     def vision_task(self) -> Task:
         return Task(config=self.tasks_config['vision_task'])
 
     @crew
-    def crew(self) -> Crew:
+    def vision_crew(self) -> Crew:
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
@@ -39,7 +39,7 @@ class Bini(Executor, AzureLLMConfig):
     def execute(self, prompt: str, image_path: str) -> CrewOutput:
         compressor = CompressAndUploadImage()
         image = compressor.upload_image(image_path=image_path)
-        return self.crew().kickoff({'prompt': prompt, 'image': image})
+        return self.vision_crew().kickoff({'prompt': prompt, 'image': image})
 
 
 if __name__ == '__main__':

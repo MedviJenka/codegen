@@ -12,20 +12,37 @@ class CompressAndUploadImage(AzureLLMConfig):
             encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
             return encoded_image
 
-    def upload_image(self,
-                     image_path: str,
-                     sample_images: Optional[list[str]] = None,
-                     prompt: str = "Describe this image with as much detail as you can") -> str:
+    def upload_image(self, prompt: str, image_path: str, sample_images: Optional[list[str]] = None) -> str:
 
         message = HumanMessage(content=[
-            {"type": "text", "text": prompt},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(image_path=image_path)}"}}
+            {
+                "type": "text",
+                "text": prompt
+            },
+            {
+                "type": "image_url",
+                "image_url":
+                    {
+                        "url": f"data:image/jpeg;base64,{self.__compress_image(image_path=image_path)}"
+                    }
+            }
         ])
 
         if sample_images:
             for each_sample_image in sample_images:
-                sample = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"}}
+                sample = {
+                    "type": "image_url",
+                    "image_url":
+                        {
+                            "url": f"data:image/jpeg;base64,{self.__compress_image(each_sample_image)}"
+                        }
+                }
                 message.append(sample)
 
-        response = self.langchain_llm.invoke([message])
+        response = self.azure_openai.invoke([message])
         return str(response)
+
+
+if __name__ == '__main__':
+    FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
+    CompressAndUploadImage().upload_image(image_path=FILE, prompt="Describe this image with as much detail as you can")
