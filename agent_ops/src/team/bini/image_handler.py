@@ -4,9 +4,6 @@ from langchain_core.messages import HumanMessage
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 
 
-FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
-
-
 class CompressAndUploadImage(AzureLLMConfig):
 
     @staticmethod
@@ -15,10 +12,7 @@ class CompressAndUploadImage(AzureLLMConfig):
             encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
             return encoded_image
 
-    def upload_image(self,
-                     image_path: str,
-                     sample_images: Optional[list[str]] = None,
-                     prompt: str = "Describe this image with as much detail as you can") -> str:
+    def upload_image(self, prompt: str, image_path: str, sample_images: Optional[list[str]] = None) -> str:
 
         message = HumanMessage(content=[
             {"type": "text", "text": prompt},
@@ -35,4 +29,5 @@ class CompressAndUploadImage(AzureLLMConfig):
 
 
 if __name__ == '__main__':
-    CompressAndUploadImage().upload_image(image_path=FILE)
+    FILE = r'C:\Users\medvi\OneDrive\Desktop\codegen\agent_ops\src\team\bini\img.png'
+    CompressAndUploadImage().upload_image(image_path=FILE, prompt="Describe this image with as much detail as you can")
