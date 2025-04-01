@@ -5,10 +5,13 @@ from dataclasses import dataclass
 from crewai.flow import start, listen, router
 from agent_ops.src.team.bini.crew import Bini
 from agent_ops.src.team.english_professor.crew import EnglishProfessor
+from event_recorder.core.paths import MAIN_IMAGE, SAMPLE_IMAGE_1, SAMPLE_IMAGE_2
 
 
 class InitialState(BaseModel):
-    cache: str = ""
+    cache: str = ''
+    image: str  = ''
+    prompt: str = ''
 
 
 class BiniOps(Flow[InitialState]):
@@ -53,3 +56,10 @@ class BiniOpsUtils:
 
     def execute(self, prompt: str, image: str, sample_image: Optional[str or list] = '') -> str:
         return self.bini.kickoff(inputs={'prompt': prompt, 'image': image, 'sample_image': sample_image})
+
+
+if __name__ == '__main__':
+    ops = BiniOpsUtils()
+    ops.execute(prompt='does the sample images displayed in the main image?',
+                image=MAIN_IMAGE,
+                sample_image=[SAMPLE_IMAGE_1, SAMPLE_IMAGE_2])

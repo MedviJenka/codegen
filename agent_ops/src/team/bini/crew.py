@@ -44,6 +44,5 @@ class Bini(Executor, AzureLLMConfig):
 
     def execute(self, prompt: str, image_path: str, sample_image: Optional[str or list] = '') -> CrewOutput:
         compressor = CompressAndUploadImage()
-        image = compressor.upload_image(image_path=image_path)
+        image = compressor.upload_image(image_path=image_path, prompt='')
         return self.crew().kickoff({'prompt': prompt, 'image': image, 'sample_image': sample_image})
-
