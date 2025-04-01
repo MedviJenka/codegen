@@ -18,3 +18,11 @@ PYTHON_CODE = fr'{GLOBAL_PATH}\output\test_code.py'
 PYTHON_CODE_AI = fr'{GLOBAL_PATH}\output\test_code_ai.py'
 OUTPUT_PATH = fr'{GLOBAL_PATH}\output'
 JS_SCRIPT = fr'{GLOBAL_PATH}\event_recorder\engine\script.js'
+
+MAIN_IMAGE = fr'{GLOBAL_PATH}\images\google_main.png'
+
+SAMPLE_IMAGE_1 = fr'{GLOBAL_PATH}\images\google_sample_1.png'
+SAMPLE_IMAGE_2 = fr'{GLOBAL_PATH}\images\google_sample_2.png'
+SAMPLE_IMAGE_3 = fr'{GLOBAL_PATH}\images\google_sample_3.png'
+SAMPLE_IMAGE_4 = fr'{GLOBAL_PATH}\images\google_sample_4.png'
+SAMPLE_IMAGE_5 = fr'{GLOBAL_PATH}\images\google_sample_5.png'

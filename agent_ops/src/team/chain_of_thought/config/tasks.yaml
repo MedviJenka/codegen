@@ -11,6 +11,11 @@ chain_of_thought_task:
       - Clearly state the reasoning behind the conclusion.
 
     input: {prompt}
+    
+    ** IMPORTANT **
+      1. Always return Passed or Failed
+        - Passed, if the validation meets the established expectations or requirements.
+        - Failed, if the validation does not meet the established expectations or requirements.
 
   expected_output: > 
     Detailed reasoning steps articulated clearly each thought should be marked with * (asterisk)

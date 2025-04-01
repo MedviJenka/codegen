@@ -1,10 +1,26 @@
 vision_task:
   description: |
+    
     you will get an image description: {image}
     based on this prompt: {prompt}
-     ** important **
-    always return passed or failed
-    passed: if you identified the image correctly
-    failed: if you didn't identify the image correctly
+    ---
+    ** Important **
+    always return Passed or Failed
+    Passed: if you identified the image correctly
+    Failed: if you didn't identify the image correctly
+
   expected_output: Extracted relevant information from the provided images.
+
+  agent: vision_agent
+
+compare_task:
+  description: |
+
+    in some cases sample images will be also provided {sample_image}
+
+    ** important **
+    always refer {image} as the main image be compared by the sample_image: {sample_image}
+
+  expected_output: Extracted relevant information from the provided images.
+
   agent: vision_agent
