@@ -12,7 +12,7 @@ load_dotenv()
 
 
 @CrewBase
-class Bini(Executor, AzureLLMConfig):
+class ComputerVisionAgent(Executor, AzureLLMConfig):
 
     agents: list[Agent] = None
     tasks: list[Task] = None

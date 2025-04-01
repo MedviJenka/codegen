@@ -3,11 +3,7 @@ vision_task:
     
     you will get an image description: {image}
     based on this prompt: {prompt}
-    ---
-    ** Important **
-    always return Passed or Failed
-    Passed: if you identified the image correctly
-    Failed: if you didn't identify the image correctly
+    extract all the relevant information from the image.
 
   expected_output: Extracted relevant information from the provided images.
 

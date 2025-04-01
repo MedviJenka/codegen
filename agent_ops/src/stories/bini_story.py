@@ -1,9 +1,9 @@
 from crewai import Flow
 from pydantic import BaseModel
-from typing import Optional, Union
 from dataclasses import dataclass
+from typing import Optional, Union
 from crewai.flow import start, listen, router
-from agent_ops.src.team.bini.crew import Bini
+from agent_ops.src.team.bini.crew import ComputerVisionAgent
 from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
 from agent_ops.src.team.english_professor.crew import EnglishProfessor
 from agent_ops.src.team.validation_agent.crew import ValidationAgent
@@ -26,33 +26,33 @@ class BiniOps(Flow[InitialState]):
 
     @listen(refine_prompt)
     def analyze_image(self) -> None:
-        self.state.data = Bini().execute(prompt=self.state.prompt, image_path=self.state.image).raw
+        self.state.data = ComputerVisionAgent().execute(prompt=self.state.prompt, image_path=self.state.image).raw
 
     @listen(analyze_image)
     def think_through(self) -> None:
-        steps = ChainOfThought().execute(prompt=self.state.data)
-        self.state.data = steps
+        self.state.data = ChainOfThought().execute(prompt=self.state.data).raw
 
     @listen(think_through)
     def validate_result(self) -> None:
-        self.state.data = ValidationAgent().execute(data=self.state.data)
+        self.state.data = ValidationAgent().execute(data=self.state.data).raw
+
+    # START DECISION POINT ---------------------------------------------------------------------------------------------
 
     @router(validate_result)
-    def decision_point_1(self) -> str:
+    def decision_point(self) -> str:
 
         match self.state.data:
             case 'Passed':
-                return self._set_result('Passed')
+                self.state.result = 'Passed'
+                return 'Passed'
             case 'Failed':
-                return self._set_result('Failed')
+                self.state.result = 'Failed'
             case 'Invalid Question':
-                return self._set_result('Invalid Question')
-            case _:
-                return self._set_result('Unhandled')
+                self.state.result = 'Invalid Question'
 
-    def _set_result(self, status: str) -> str:
-        self.state.result = status
-        return status
+        return self.state.result
+
+    # END DECISION POINT -----------------------------------------------------------------------------------------------
 
     @listen('Passed')
     def on_success(self) -> str:
@@ -69,6 +69,7 @@ class BiniOps(Flow[InitialState]):
 
 @dataclass
 class BiniOpsUtils:
+
     flow = BiniOps()
 
     def execute(self, prompt: str, image: str, sample_image: Optional[Union[str, list]] = '') -> str:
@@ -80,9 +81,8 @@ class BiniOpsUtils:
 
 
 def test() -> None:
-    result = BiniOpsUtils().execute(
-        prompt='Do the sample images appear in the main image?',
-        image=MAIN_IMAGE,
-        sample_image=[SAMPLE_IMAGE_1, SAMPLE_IMAGE_2]
-    )
+    bini = BiniOpsUtils()
+    result = bini.execute(prompt='sample image in the main image?',
+                          image=MAIN_IMAGE,
+                          sample_image=[SAMPLE_IMAGE_1, SAMPLE_IMAGE_2])
     assert 'Passed' in result

@@ -31,9 +31,10 @@ class ChainOfThought(IChainOfThought, Executor):
 
     @crew
     def crew(self) -> Crew:
-        return Crew( agents=self.agents, tasks=self.tasks, process=Process.sequential, verbose=True)
+        return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential, verbose=True)
 
-    def execute(self, prompt: str) -> list:
-        result = self.crew().kickoff({'prompt': prompt}).raw
-        thought_list = result.split('*')
-        return thought_list
+    def execute(self, prompt: str) -> str or list:
+        result = self.crew().kickoff({'prompt': prompt})
+        # thought_list = result.split('*')
+        # return thought_list
+        return result
