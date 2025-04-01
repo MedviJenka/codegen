@@ -8,8 +8,6 @@ vision_task:
     always return Passed or Failed
     Passed: if you identified the image correctly
     Failed: if you didn't identify the image correctly
-    Invalid Question: if {prompt} does not contain a valid question
-  
 
   expected_output: Extracted relevant information from the provided images.
 
