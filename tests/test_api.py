@@ -1,7 +1,7 @@
 from crewai import Agent, Crew, Process, Task
 
 from agent_ops.src.stories.bini_story import BiniOpsUtils
-from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
+from agent_ops.src.agents.chain_of_thought.crew import ChainOfThought
 from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
 

@@ -1,6 +1,6 @@
 from typing import Optional
 from dotenv import load_dotenv
-from agent_ops.src.team.bini.image_handler import CompressAndUploadImage
+from agent_ops.src.agents.bini.image_handler import CompressAndUploadImage
 from event_recorder.core.executor import Executor
 from crewai.crews import CrewOutput
 from crewai import Agent, Crew, Process, Task

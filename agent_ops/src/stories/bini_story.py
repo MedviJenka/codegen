@@ -3,10 +3,10 @@ from pydantic import BaseModel
 from dataclasses import dataclass
 from typing import Optional, Union
 from crewai.flow import start, listen, router
-from agent_ops.src.team.bini.crew import ComputerVisionAgent
-from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
-from agent_ops.src.team.english_professor.crew import EnglishProfessor
-from agent_ops.src.team.validation_agent.crew import ValidationAgent
+from agent_ops.src.agents.bini.crew import ComputerVisionAgent
+from agent_ops.src.agents.chain_of_thought.crew import ChainOfThought
+from agent_ops.src.agents.english_agent.crew import EnglishProfessor
+from agent_ops.src.agents.validation_agent.crew import ValidationAgent
 from event_recorder.core.paths import MAIN_IMAGE, SAMPLE_IMAGE_1, SAMPLE_IMAGE_2
 
 

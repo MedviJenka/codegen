@@ -5,7 +5,7 @@ from event_recorder.engine.workflow import BrowserRecorder
 from crewai import Flow
 from crewai.flow.flow import start, router, listen
 from pydantic import BaseModel
-from agent_ops.src.team.page_base_crew.crew import PageBaseCrew
+from agent_ops.src.agents.page_base_agent.crew import PageBaseCrew
 
 
 device = 'mi'

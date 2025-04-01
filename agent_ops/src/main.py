@@ -2,10 +2,10 @@ import random
 from crewai import Flow
 from pydantic import BaseModel
 from crewai.flow.flow import start, listen, and_, router
-from agent_ops.src.chief_executive.ceo import ChiefExecutiveOfficer
+from agent_ops.src.CEO.ceo import ChiefExecutiveOfficer
 from agent_ops.src.management.team import ManagementTeam
 # from ai.src.team.mapping_crew.crew import MappingCrew
-from agent_ops.src.team.page_base_crew.crew import CSVCrew
+from agent_ops.src.agents.page_base_agent.crew import CSVCrew
 # from ai.src.team.py_crew.crew import PyCrew
 # from ai.src.team.test_plan_crew.crew import PlanCrew
 
