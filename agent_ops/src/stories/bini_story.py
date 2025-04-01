@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from dataclasses import dataclass
 from crewai.flow import start, listen, router
 from agent_ops.src.team.bini.crew import Bini
+from agent_ops.src.team.chain_of_thought.crew import ChainOfThought
 from agent_ops.src.team.english_professor.crew import EnglishProfessor
 from event_recorder.core.paths import MAIN_IMAGE, SAMPLE_IMAGE_1, SAMPLE_IMAGE_2
 
@@ -26,7 +27,12 @@ class BiniOps(Flow[InitialState]):
         result = Bini().execute(prompt=self.state.cache, image_path=self.state.image)
         self.state.cache = result.raw
 
-    @router(run_bini)
+    @listen(run_bini)
+    def execute_chain_of_thought(self) -> None:
+        result = ChainOfThought().execute(prompt=self.state.cache)
+        self.state.cache = result
+
+    @router(execute_chain_of_thought)
     def decision_point_1(self) -> str:
 
         if 'Passed' in self.state.cache:
