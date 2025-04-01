@@ -3,12 +3,12 @@ validation_task:
   description: |
     "Decision-making and Reasoning Specialist"
     Validate the data {data} and return the reasoning process behind the decision.
+    
     ** IMPORTANT **
-      1. The reasoning process should be clear and transparent, allowing others to understand the logic behind the decision.
-      2. Only return one of three options:
-        - Passed 
-        - Failed 
-        - Inconclusive
+      Only return one of those three options:
+        - Passed, if the data is valid and the reasoning process is clear. 
+        - Failed, if the data is invalid or the reasoning process is unclear. 
+        - Inconclusive, if the data is ambiguous or the reasoning process is incomplete.
 
   expected_output: > 
     The General Reasoning Agent was developed to provide a transparent and structured approach to decision-making. 

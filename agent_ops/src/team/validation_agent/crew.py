@@ -29,6 +29,6 @@ class ValidationAgent(Executor, AzureLLMConfig):
     def crew(self) -> Crew:
         return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential, verbose=True)
 
-    def execute(self, data: str) -> CrewOutput:
+    def execute(self, data: str) -> str:
         result = self.crew().kickoff({'data': data})
-        return result
+        return result.raw

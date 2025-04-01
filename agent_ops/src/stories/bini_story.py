@@ -22,41 +22,33 @@ class BiniOps(Flow[InitialState]):
 
     @start()
     def refine_prompt(self) -> None:
-        self.state.data = EnglishProfessor().execute(prompt=self.state.prompt).raw
+        self.state.prompt = EnglishProfessor().execute(prompt=self.state.prompt)
 
     @listen(refine_prompt)
     def analyze_image(self) -> None:
-        self.state.data = ComputerVisionAgent().execute(prompt=self.state.prompt, image_path=self.state.image).raw
+        self.state.data = ComputerVisionAgent().execute(prompt=self.state.prompt, image_path=self.state.image)
 
     @listen(analyze_image)
     def think_through(self) -> None:
-        self.state.data = ChainOfThought().execute(prompt=self.state.data).raw
+        self.state.data = ChainOfThought().execute(prompt=self.state.data)
 
     @listen(think_through)
     def validate_result(self) -> None:
-        self.state.data = ValidationAgent().execute(data=self.state.data).raw
+        self.state.data = ValidationAgent().execute(data=self.state.data)
 
-    # START DECISION POINT ---------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
 
     @router(validate_result)
     def decision_point(self) -> str:
-
-        match self.state.data:
-            case 'Passed':
-                self.state.result = 'Passed'
-                return 'Passed'
-            case 'Failed':
-                self.state.result = 'Failed'
-            case 'Invalid Question':
-                self.state.result = 'Invalid Question'
-
+        """meaning: if self.state.data == 'Passed' then return 'Passed' else return 'Failed'"""
+        self.state.result = self.state.data
         return self.state.result
 
-    # END DECISION POINT -----------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
 
     @listen('Passed')
     def on_success(self) -> str:
-        return 'Passed'
+        return 'Passed, image was identified and the question was valid'
 
     @listen('Failed')
     def on_failure(self) -> str:
@@ -73,16 +65,12 @@ class BiniOpsUtils:
     flow = BiniOps()
 
     def execute(self, prompt: str, image: str, sample_image: Optional[Union[str, list]] = '') -> str:
-        return self.flow.kickoff(inputs={
-            'prompt': prompt,
-            'image': image,
-            'sample_image': sample_image
-        })
+        return self.flow.kickoff(inputs={'prompt': prompt, 'image': image, 'sample_image': sample_image})
 
 
 def test() -> None:
     bini = BiniOpsUtils()
-    result = bini.execute(prompt='sample image in the main image?',
+    result = bini.execute(prompt='does cat displayed in this image?',
                           image=MAIN_IMAGE,
                           sample_image=[SAMPLE_IMAGE_1, SAMPLE_IMAGE_2])
     assert 'Passed' in result

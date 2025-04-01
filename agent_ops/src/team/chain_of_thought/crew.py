@@ -37,4 +37,4 @@ class ChainOfThought(IChainOfThought, Executor):
         result = self.crew().kickoff({'prompt': prompt})
         # thought_list = result.split('*')
         # return thought_list
-        return result
+        return result.raw

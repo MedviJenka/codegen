@@ -42,7 +42,7 @@ class ComputerVisionAgent(Executor, AzureLLMConfig):
             verbose=True,
         )
 
-    def execute(self, prompt: str, image_path: str, sample_image: Optional[str or list] = '') -> CrewOutput:
+    def execute(self, prompt: str, image_path: str, sample_image: Optional[str or list] = '') -> str:
         compressor = CompressAndUploadImage()
         image = compressor.upload_image(image_path=image_path, prompt='')
-        return self.crew().kickoff({'prompt': prompt, 'image': image, 'sample_image': sample_image})
+        return self.crew().kickoff({'prompt': prompt, 'image': image, 'sample_image': sample_image}).raw

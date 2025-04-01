@@ -37,5 +37,5 @@ class EnglishProfessor(Executor, AzureLLMConfig):
             verbose=True,
         )
 
-    def execute(self, prompt: str) -> CrewOutput:
-        return self.crew().kickoff(inputs={'prompt': prompt})
+    def execute(self, prompt: str) -> str:
+        return self.crew().kickoff(inputs={'prompt': prompt}).raw
