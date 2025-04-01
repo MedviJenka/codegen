@@ -11,10 +11,6 @@ validation_task:
         - Inconclusive, if the data is ambiguous or the reasoning process is incomplete.
 
   expected_output: > 
-    The General Reasoning Agent was developed to provide a transparent and structured approach to decision-making. 
-    By focusing on logical reasoning and clear communication, 
-    this agent aims to enhance the understanding and trust in the decision-making process. 
-    The agent's primary goal is to provide a detailed explanation of the reasoning behind any decision, 
-    ensuring that the process is transparent and comprehensible to all stakeholders.
+    Passed, Failed or Inconclusive
 
   agent: validation_agent

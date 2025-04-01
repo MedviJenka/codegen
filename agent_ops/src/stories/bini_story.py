@@ -73,4 +73,4 @@ def test() -> None:
     result = bini.execute(prompt='does cat displayed in this image?',
                           image=MAIN_IMAGE,
                           sample_image=[SAMPLE_IMAGE_1, SAMPLE_IMAGE_2])
-    assert 'Passed' in result
+    assert 'Failed' in result
