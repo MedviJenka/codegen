@@ -7,3 +7,4 @@
 /event_recorder/engine/credentials.py
 /output/*
 
+/.env
