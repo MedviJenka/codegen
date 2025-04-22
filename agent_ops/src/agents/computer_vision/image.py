@@ -1,7 +1,7 @@
 import base64
 from typing import Optional
 from langchain_core.messages import HumanMessage
-from agent_ops.src.agent_ops.src.utils.azure_llm import AzureLLMConfig
+from agent_ops.src.utils.azure_llm import AzureLLMConfig
 
 
 class CompressAndUploadImage(AzureLLMConfig):

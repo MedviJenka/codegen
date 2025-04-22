@@ -7,13 +7,11 @@ bini_2 = BiniOpsUtils(debug=False)
 
 
 image = r'google_main.png'
-sample = r'C:\Projects\PyBREnv\testing\smarttap\test_lab\img.png'
 sample_1 = 'google_sample_1.png'
 sample_2 = 'google_sample_2.png'
 sample_3 = 'google_sample_3.png'
 sample_4 = 'google_sample_4.png'
 sample_5 = 'google_sample_5.png'
-version = r'C:\Projects\PyBREnv\testing\smarttap\test_lab\version.png'
 
 
 class TestBini:
@@ -85,12 +83,8 @@ class TestBini2:
         result = bini_2.run(prompt='is a penguin icon in this image?', image_path=image)
         assert 'Failed' in result
 
-    def test_bini_version_match(self) -> None:
-        result = bini_2.run(prompt='does this image match the version image?', image_path=version, sample_image=[version])
-        assert 'Passed' in result
-
     def test_bini_version_does_not_match(self) -> None:
-        result = bini_2.run(prompt='is sample image displayed in the main image?', image_path=image, sample_image=[version])
+        result = bini_2.run(prompt='is sample image displayed in the main image?', image_path=sample_1, sample_image=[sample_3])
         assert 'Failed' in result
 
     def test_bini_check_search_icon(self) -> None:
@@ -130,7 +124,7 @@ class TestIndividualAgentComponent2:
 
     def test_agent_validate_version_match(self) -> None:
         computer_vision_agent = ComputerVisionAgent()
-        result = computer_vision_agent.execute(prompt='do the version details match?', image_path=version, sample_image=[version])
+        result = computer_vision_agent.execute(prompt='do the version details match?', image_path=image, sample_image=[image])
         assert 'Passed' in result.lower()
 
     def test_agent_invalid_icon(self) -> None:
@@ -140,7 +134,7 @@ class TestIndividualAgentComponent2:
 
     def test_agent_text_in_sample(self) -> None:
         computer_vision_agent = ComputerVisionAgent()
-        result = computer_vision_agent.execute(prompt='does the sample contain the word Google?', image_path=sample)
+        result = computer_vision_agent.execute(prompt='does the sample contain the word Google?', image_path=sample_1)
         assert 'Failed' in result
 
     def test_agent_no_mic_in_sample_5(self) -> None:

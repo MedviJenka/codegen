@@ -1,8 +1,8 @@
 from typing import Optional
 from crewai import Agent, Crew, Task
 from crewai.project import CrewBase, agent, crew, task
-from agent_ops.src.agent_ops.src.agents.computer_vision.image import CompressAndUploadImage
-from agent_ops.src.agent_ops.src.utils.infrastructure import AgentInfrastructure
+from agent_ops.src.agents.computer_vision.image import CompressAndUploadImage
+from agent_ops.src.utils.infrastructure import AgentInfrastructure
 
 
 @CrewBase

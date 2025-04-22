@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Optional
-from agent_ops.src.agent_ops.src.stories.bini import BiniOps
+from agent_ops.src.stories.bini import BiniOps
 
 
 class BiniOpsUtils:

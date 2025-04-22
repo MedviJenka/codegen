@@ -5,8 +5,9 @@ from typing import Union, Optional
 from datetime import datetime
 from pydantic import BaseModel, Field
 from crewai.flow import Flow, start, listen, router
-from agent_ops.src.agent_ops.src.agents.computer_vision.crew import ComputerVisionAgent
-from agent_ops.src.agent_ops.src.agents.english_agent.crew import EnglishAgent
+
+from agent_ops.src.agents.computer_vision.crew import ComputerVisionAgent
+from agent_ops.src.agents.english_agent.crew import EnglishAgent
 from src.core.paths import GLOBAL_PATH
 
 

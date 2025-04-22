@@ -1,7 +1,7 @@
 from typing import Optional
 from crewai import Agent, Task
 from abc import ABC, abstractmethod
-from qasharedinfra.infra.common.services.agent_ops.src.utils.azure_llm import AzureLLMConfig
+from agent_ops.src.utils.azure_llm import AzureLLMConfig
 
 
 class AgentInfrastructure(ABC, AzureLLMConfig):
