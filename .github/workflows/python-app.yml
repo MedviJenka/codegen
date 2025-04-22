@@ -38,12 +38,3 @@ jobs:
 
     - name: Run Tests
       run: pytest
-
-    - name: Build & Push Docker Image
-      run: |
-        echo "This step should build and push a Docker image."
-        # Example:
-        # docker build -t my-image .
-        # echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        # docker tag my-image my-docker-repo/my-image:latest
-        # docker push my-docker-repo/my-image:latest
