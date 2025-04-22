@@ -1,6 +1,12 @@
-grammar_task:
+task:
+  agent: agent
   description: |
+    
     you will get a sentence: {prompt}
     based on this prompt: fix grammar to a valid and understandable english
-  expected_output: Extracted relevant information from the provided sentence.
-  agent: grammar_agent
+    
+    ** IMPORTANT **
+        - Return Invalid Question if the prompt is not a valid question
+
+  expected_output: |
+    Extracted relevant information from the provided sentence.

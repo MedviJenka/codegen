@@ -1,4 +1,4 @@
-grammar_agent:
+agent:
   name: "English Grammar Agent"
   role: >
     English Language Specialist.

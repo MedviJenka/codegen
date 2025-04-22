@@ -1,0 +1,36 @@
+vision_task:
+  agent: vision_agent
+  description: |
+    you will get an image description
+    main image: {image}
+    sample images: {sample_image}
+    based on this prompt: {prompt}
+    extract all the relevant information from the image.
+  expected_output: Extracted relevant information from the provided images.
+
+decision_task:
+  agent: vision_agent
+  description: |
+    prompt: {prompt} 
+    image: {image} 
+    sample_image: {sample_image}
+    Your job is to validate if the item or feature described in the prompt exists in the main image.
+    You will receive:
+      - A prompt with a specific request (e.g. "Is there a cat?")
+      - A main image: {image} to analyze
+      - is sample images: {sample_image} for reference to help you understand the subject of the prompt and image
+      - Optional sample images for reference
+    Use your computer vision capabilities to extract **all visible details** from the image and compare them with the subject described in the prompt.
+
+    Important:
+      - The main image is the one to analyze; sample images are only for reference.
+      - You must detect and extract as much information as possible from the main image. Then, compare it to the subject of the prompt.
+      - Store, remember and count the order in your memory ->  {image} is the main one and {sample_image} are optional to compare
+      
+    capabilities: ['analyze', 'image_vision', 'comparison', 'decision_making', 'reporting']
+  verbose: true
+  expected_output: |
+    Provide a detailed report of everything visible in the main image.
+    If the subject in the prompt is found in the image, return "Passed" at the end of the report.
+    If it is not found, return "Failed" at the end of the report.
+    The final line must be either: Passed or Failed (case-sensitive) or Invalid Question

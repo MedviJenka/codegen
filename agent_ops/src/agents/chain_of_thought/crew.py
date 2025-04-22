@@ -1,40 +1,27 @@
-from dotenv import load_dotenv
-from event_recorder.core.executor import Executor
-from crewai import Agent, Crew, Process, Task
-from agent_ops.src.utils.azure_llm import AzureLLMConfig
+from typing import Optional
+from crewai import Agent, Crew, Task
 from crewai.project import CrewBase, agent, crew, task
-from typing import Generic, TypeVar
-
-
-load_dotenv()
-COT = TypeVar('COT', bound='ChainOfThought')
-
-
-class IChainOfThought(Generic[COT], AzureLLMConfig):
-
-    agents: list[Agent] = None
-    tasks: list[Task] = None
-    agents_config: dict = "config/agents.yaml"
-    tasks_config: dict = "config/tasks.yaml"
+from agent_ops.src.agent_ops.src.utils.infrastructure import AgentInfrastructure
 
 
 @CrewBase
-class ChainOfThought(IChainOfThought, Executor):
+class ChainOfThoughtAgent(AgentInfrastructure):
+
+    def __init__(self, debug: Optional[bool] = False) -> None:
+        self.debug = debug
+        super().__init__()
 
     @agent
-    def chain_of_thought_agent(self) -> Agent:
-        return Agent(config=self.agents_config['chain_of_thought_agent'], verbose=True, llm=self.llm)
+    def agent(self) -> Agent:
+        return Agent(config=self.agents_config['agent'], llm=self.llm)
 
     @task
-    def chain_of_thought_task(self) -> Task:
-        return Task(config=self.tasks_config['chain_of_thought_task'])
+    def task(self) -> Task:
+        return Task(config=self.tasks_config['task'])
 
     @crew
     def crew(self) -> Crew:
-        return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential, verbose=True)
+        return Crew(agents=self.agents, tasks=self.tasks)
 
-    def execute(self, prompt: str) -> str or list:
-        result = self.crew().kickoff({'prompt': prompt})
-        # thought_list = result.split('*')
-        # return thought_list
-        return result.raw
+    def execute(self, prompt: str, original_prompt: str) -> str:
+        return self.crew().kickoff({'input': prompt, 'original_prompt': original_prompt}).raw

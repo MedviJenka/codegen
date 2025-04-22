@@ -1,34 +1,28 @@
-from crewai.crews import CrewOutput
-from dotenv import load_dotenv
-from event_recorder.core.executor import Executor
+from typing import Optional
 from crewai import Agent, Crew, Process, Task
-from agent_ops.src.utils.azure_llm import AzureLLMConfig
 from crewai.project import CrewBase, agent, crew, task
-
-
-load_dotenv()
+from agent_ops.src.agent_ops.src.utils.infrastructure import AgentInfrastructure
 
 
 @CrewBase
-class ValidationAgent(Executor, AzureLLMConfig):
+class ValidationAgent(AgentInfrastructure):
 
-    agents: list[Agent] = None
-    tasks: list[Task] = None
-    agents_config: dict = "config/agents.yaml"
-    tasks_config: dict = "config/tasks.yaml"
+    def __init__(self, debug: Optional[bool] = False) -> None:
+        self.debug = debug
+        super().__init__()
 
     @agent
-    def validation_agent(self) -> Agent:
-        return Agent(config=self.agents_config['validation_agent'], verbose=True, llm=self.llm)
+    def agent(self) -> Agent:
+        return Agent(config=self.agents_config['agent'], llm=self.llm, verbose=self.debug)
 
     @task
-    def validation_task(self) -> Task:
-        return Task(config=self.tasks_config['validation_task'])
+    def task(self) -> Task:
+        return Task(config=self.tasks_config['task'])
 
     @crew
     def crew(self) -> Crew:
-        return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential, verbose=True)
+        return Crew(agents=self.agents, tasks=self.tasks, process=Process.sequential)
 
-    def execute(self, data: str) -> str:
-        result = self.crew().kickoff({'data': data})
+    def execute(self, prompt: str, data: str) -> str:
+        result = self.crew().kickoff({'prompt': prompt, 'image_analysis': data})
         return result.raw

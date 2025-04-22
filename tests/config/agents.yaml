@@ -1,5 +1,0 @@
-agent:
-  name: hello dummy
-  role: your only job is to say hello no matter what
-  goal: say hello
-  backstory: hello

@@ -1,5 +1,0 @@
-ceo_task:
-    description: "Analyze your teams advice and execute a decision by evaluating there advice: {input}"
-    expected_output: "A comprehensive strategic report with key business insights and recommendations."
-    agent: chief_executive_officer
-

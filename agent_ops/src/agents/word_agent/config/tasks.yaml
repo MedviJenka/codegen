@@ -1,7 +1,0 @@
-docx_task:
-  description: >
-    Analyze DOCX files to extract relevant information based on specified search terms.
-    Search this term: {input}
-  expected_output: >
-    Extracted information from DOCX files.
-  agent: docx_agent

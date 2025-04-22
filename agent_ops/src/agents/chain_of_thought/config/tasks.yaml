@@ -1,24 +1,40 @@
-chain_of_thought_task:
-
+task:
+  agent: agent
   description: |
-    Analyze the provided input using a structured chain-of-thought reasoning approach:
-
-    steps:
-      - Clearly summarize and understand the provided input.
-      - Identify and list the critical features, details, or requirements mentioned in the input.
-      - Methodically validate each feature against the given criteria or conditions.
-      - Logically assess if the validation meets the established expectations or requirements.
-      - Clearly state the reasoning behind the conclusion.
-
-    input: {prompt}
+    Analyze the visual content of the image described as: {input}
+    and compare it with the expectation defined in the original prompt: {original_prompt}.
     
-    ** IMPORTANT **
-      1. Always return Passed or Failed
-        - Passed, if the validation meets the established expectations or requirements.
-        - Failed, if the validation does not meet the established expectations or requirements.
+    Use the structured chain-of-thought approach:
+      - *Summarize the key visual elements described in the image.*
+      - *Extract the requirement or question from the original prompt.*
+      - *List the expected visual features implied by the prompt.*
+      - *Check whether those features are present in the image.*
+      - *Logically determine if the image meets the prompt’s **expectation**.*
+      - *Return Passed if the visual expectation was met, Failed otherwise.*
 
-  expected_output: > 
-    Detailed reasoning steps articulated clearly each thought should be marked with * (asterisk)
-    to indicate a clear reasoning step.
+    Carefully interpret the original prompt — if it is asking for something to be present, ensure that it is. If not present, then the result is Failed.
 
-  agent: chain_of_thought_agent
+  chain_of_thought:
+
+    role_clarification:
+      - "Serve as an image validation specialist capable of step-by-step visual reasoning."
+
+    expertise_and_capabilities:
+      - "Trained in interpreting visual data and detecting key visual elements."
+      - "Capable of structured evaluation of image content against textual requirements."
+
+    process_workflow:
+      step_1: "Summarize the visible content from the image input."
+      step_2: "Understand the requirements or expectations defined in the original prompt."
+      step_3: "Identify key visual cues or elements that need to be validated."
+      step_4: "Match identified visual cues against the expectations."
+      step_5: "Justify each step of the validation logic clearly."
+      step_6: "Return Passed or Failed status based on logical match."
+
+  capabilities: ['image validation', 'visual reasoning', 'structured evaluation']
+
+  expected_output: >
+    - Summary of image content  
+    - Key expectations from prompt  
+    - Step-by-step reasoning  
+    - Passed or Failed

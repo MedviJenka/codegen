@@ -43,9 +43,7 @@ class AzureLLMConfig(TelemetryPatch):
     @cached_property
     def langchain_llm(self) -> AzureChatOpenAI:
         """Fix LangChain API handling for Azure"""
-        return AzureChatOpenAI(
-            azure_endpoint=self.endpoint,
-            openai_api_key=self.api_key,
-            openai_api_version=self.version,
-            deployment_name=self.model
-        )
+        return AzureChatOpenAI(azure_endpoint=self.endpoint,
+                               openai_api_key=self.api_key,
+                               openai_api_version=self.version,
+                               deployment_name=self.model)

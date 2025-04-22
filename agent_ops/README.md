@@ -1,54 +1,83 @@
-# App Crew
+# BiniOps — Multistage AI Flow for Image and Prompt Analysis
 
-Welcome to the App Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+`BiniOps` is a modular flow-based AI pipeline built on the `CrewAI` framework, designed to process an input prompt and image, refine the prompt, analyze the image, reason through the results, and return a final validation outcome. The flow also maintains a full trace of its decision-making process for transparency and debugging.
 
-## Installation
+---
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+## 🚀 Features
 
-First, if you haven't already, install uv:
+- **Prompt Refinement** – Uses an English Professor agent to clean and refine the input prompt.
+- **Image Analysis** – Leverages a Computer Vision agent to interpret and extract data from the image.
+- **Chain-of-Thought Reasoning** – Applies logical reasoning over the analyzed data.
+- **Validation** – Uses a Validation Agent to confirm whether the image data meets expected criteria.
+- **Flow Control** – Decision routing based on result: Passed, Failed, or Invalid.
+- **Traceability** – Maintains a `cache` of all steps for full auditability.
 
-```bash
-pip install uv
+---
+
+## 🧠 Agents Used
+
+| Agent               | Description                                                  |
+|---------------------|--------------------------------------------------------------|
+| EnglishProfessor    | Improves the clarity and structure of the input prompt.      |
+| ComputerVisionAgent | Analyzes the image using computer vision capabilities.       |
+| ChainOfThought      | Applies logical reasoning to the image analysis.             |
+| ValidationAgent     | Validates whether the final data satisfies defined criteria. |
+
+---
+
+## 📥 Input Format
+
+```json
+{
+  "prompt": "Describe the contents of the image",
+  "image": "/path/to/image.png",
+  "sample_image": "/path/to/sample.png" 
+}
 ```
 
-Next, navigate to your project directory and install the dependencies:
+---
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
+## 🔄 Flow Breakdown
+
+1. **Refine Prompt**
+2. **Analyze Image**
+3. **Reason Through**
+4. **Validate Result**
+5. **Make Decision**
+6. **Return Final Status** (`Passed`, `Failed`, or `Invalid`)
+
+Each stage updates a central state object (`InitialState`) and appends to a cache for traceability.
+
+---
+
+## 📤 Output (flow_to_json)
+
+Returns a JSON-formatted object like:
+
+```json
+{
+  "prompt": "...refined prompt...",
+  "data": "...processed data...",
+  "result": "Passed",
+  "cache": "[...full history...]",
+  "status": "Passed"
+}
 ```
-### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+---
 
-- Modify `src/app/config/agents.yaml` to define your agents
-- Modify `src/app/config/tasks.yaml` to define your tasks
-- Modify `src/app/crew.py` to add your own logic, tools and specific args
-- Modify `src/app/main.py` to add custom inputs for your agents and tasks
+## 🚰 Requirements
 
-## Running the Project
+- Python 3.12+
+- `CrewAI`
+- `Pydantic`
+- Custom agents from `qasharedinfra`
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+---
 
-```bash
-$ crewai run
-```
+## 📌 Notes
 
-This command initializes the app Crew, assembling the agents and assigning them tasks as defined in your configuration.
+- This module is designed to be integrated within a larger AI pipeline or service.
+- All agents are assumed to be preconfigured and available via internal imports.
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The app Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the App Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
