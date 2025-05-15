@@ -1,0 +1,4 @@
+chain_of_thought_task:
+  agent: agent
+  description: search web
+  expected_output: web search
